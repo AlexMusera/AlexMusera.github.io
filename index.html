@@ -13,13 +13,12 @@
         <!-- Minimal Tabs -->
         <div class="tab-container">
             <button class="tab-btn active" data-target="fiat">1. Bank / App / Card</button>
-            <button class="tab-btn" data-target="crypto">2. Crypto (USDT)</button>
+            <button class="tab-btn" data-target="crypto">2. Crypto Portal</button>
         </div>
 
         <!-- TAB 1: FIAT -->
         <div id="fiat" class="tab-content active">
-            <p class="helper-text">Supports Western Union, MoneyGram, Remitly, Wise, Interac & Apple Pay (via their official apps or websites).
-</p>
+            <p class="helper-text">Supports Western Union, MoneyGram, Remitly, Wise, Interac & Apple Pay (via official app or website).</p>
             
             <div class="info-group">
                 <div class="info-row"><span>First Name</span><strong>Alex</strong></div>
@@ -45,12 +44,12 @@
 
         <!-- TAB 2: CRYPTO -->
         <div id="crypto" class="tab-content">
-            <p class="helper-text">Optimized for native US student apps including Coinbase, Kraken & Robinhood.</p>
+            <p class="helper-text">Optimized for native US student apps including Cash App, Coinbase, Kraken & Robinhood.</p>
 
+            <!-- METHOD 1: USDT Section -->
             <div class="info-group">
                 <div class="info-row"><span>Asset</span><strong>USDT (Tether)</strong></div>
                 <div class="info-row"><span>Network</span><strong style="color: #f59e0b;">Ethereum (ERC20)</strong></div>
-                <!-- Added Estimated Time Confirmation Metric Row -->
                 <div class="info-row"><span>Est. Time</span><strong>3 - 10 Minutes</strong></div>
             </div>
 
@@ -61,6 +60,48 @@
 
             <div class="note-box alert">
                 <strong>⚠️ Critical:</strong> Select the <strong>Ethereum (ERC20)</strong> network in Coinbase/Kraken to avoid lost funds.
+            </div>
+
+            <div style="margin: 25px 0; border-top: 1px dashed rgba(255,255,255,0.15);"></div>
+
+            <!-- METHOD 2: Bitcoin via Cash App Section -->
+            <div class="info-group">
+                <div class="info-row"><span>Asset</span><strong>Bitcoin (BTC)</strong></div>
+                <div class="info-row"><span>Network</span><strong style="color: #f59e0b;">Bitcoin Network</strong></div>
+                <div class="info-row"><span>Est. Time</span><strong>10 - 60 Minutes</strong></div>
+            </div>
+
+            <div class="code-container">
+                <!-- Replace with your actual Bitcoin Wallet Address (Starts with bc1) -->
+                <span class="code-box" id="btcAddress">YOUR_BITCOIN_WALLET_ADDRESS_HERE</span>
+                <button class="copy-btn" id="copyBtcBtn">Copy</button>
+            </div>
+
+            <div class="note-box alert">
+                <strong>⚠️ Critical:</strong> Select the native <strong>Bitcoin Network</strong> in Cash App. Sending any other asset will result in permanent loss.
+            </div>
+
+            <div class="note-box verification">
+                <strong>Cash App Instructions:</strong> Go to the Bitcoin tab → Tap Send arrow ↗️ → Enter amount → Paste the address above into the "To:" field → Confirm transaction.
+            </div>
+
+            <div style="margin: 25px 0; border-top: 1px dashed rgba(255,255,255,0.15);"></div>
+
+            <!-- METHOD 3: USDC Section (Cash App & Web) -->
+            <div class="info-group">
+                <div class="info-row"><span>Asset</span><strong>USD Coin (USDC)</strong></div>
+                <div class="info-row"><span>Network</span><strong style="color: #f59e0b;">Ethereum (ERC20)</strong></div>
+                <div class="info-row"><span>Est. Time</span><strong>3 - 10 Minutes</strong></div>
+            </div>
+
+            <div class="code-container">
+                <!-- Trust Wallet uses the same 0x Ethereum address for both USDT and USDC -->
+                <span class="code-box" id="usdcAddress">0xC404B6E05E298d2E2C1f1A27aa3B79559cb5d0dD</span>
+                <button class="copy-btn" id="copyUsdcBtn">Copy</button>
+            </div>
+
+            <div class="note-box alert">
+                <strong>⚠️ Critical:</strong> Ensure your app matches the <strong>Ethereum (ERC20)</strong> network. Cash App users can send USDC natively over Ethereum directly to this address.
             </div>
 
             <div class="note-box verification">
