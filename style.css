@@ -1,0 +1,226 @@
+/* Universal Base Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: #0b0f19;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 16px; /* Reduced breathing room on the outer edges for mobile */
+    color: #e2e8f0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.transfer-card {
+    background: #1e293b;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    border: 1px solid #334155;
+    max-width: 440px;
+    width: 100%;
+    padding: 24px;
+    transition: padding 0.2s ease;
+}
+
+/* Tabs Navigation Layout */
+.tab-container {
+    display: flex;
+    border-bottom: 1px solid #334155;
+    margin-bottom: 20px;
+    gap: 4px; /* Tightened up gap to prevent wrapping on tiny screens */
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    padding: 10px 8px; /* Balanced mobile-friendly tap spacing */
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #94a3b8;
+    cursor: pointer;
+    position: relative;
+    flex: 1; /* Forces tabs to share the space equally on small screens */
+    text-align: center;
+    white-space: nowrap;
+    transition: color 0.15s ease;
+    -webkit-tap-highlight-color: transparent; /* Removes blue flash on mobile taps */
+}
+
+.tab-btn:hover {
+    color: #f8fafc;
+}
+
+.tab-btn.active {
+    color: #60a5fa;
+    font-weight: 600;
+}
+
+.tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #60a5fa;
+}
+
+/* Content Panel Views */
+.tab-content {
+    display: none !important;
+}
+
+.tab-content.active {
+    display: block !important;
+}
+
+.helper-text {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    margin: 0 0 16px 0;
+    line-height: 1.4;
+}
+
+/* Minimal Table Information Grid */
+.info-group {
+    border: 1px solid #334155;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    background-color: #0f172a;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #334155;
+    min-height: 44px; /* Optimized minimum height for mobile tap/readability criteria */
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-row span {
+    color: #94a3b8;
+    padding-right: 8px; /* Prevents text clashing if strings stretch */
+}
+
+.info-row strong {
+    color: #f8fafc;
+    text-align: right;
+    word-break: break-word; /* Safe wrapping for names */
+}
+
+/* Address Box Bar Configuration */
+.code-container {
+    display: flex;
+    background-color: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    padding: 10px 12px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    gap: 12px;
+}
+
+.code-box {
+    font-family: monospace;
+    font-size: 0.82rem;
+    color: #38bdf8;
+    word-break: break-all; /* Forces crypto strings to break clean on narrow viewports */
+    line-height: 1.3;
+}
+
+.copy-btn {
+    background-color: #3b82f6;
+    color: #ffffff;
+    border: none;
+    padding: 8px 14px; /* Enlarged touch targets for phone users */
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.1s ease;
+    white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.copy-btn:active {
+    transform: scale(0.96); /* Tiny haptic feel when tap occurs */
+}
+
+/* Minimalist Notification Design */
+.note-box {
+    font-size: 0.85rem;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+.note-box:last-child {
+    margin-bottom: 0;
+}
+
+.note-box.alert {
+    background-color: rgba(239, 68, 68, 0.12);
+    color: #fca5a5;
+    border-left: 3px solid #ef4444;
+}
+
+.note-box.verification {
+    background-color: #0f172a;
+    color: #cbd5e1;
+    border: 1px solid #334155;
+    border-left: 3px solid #64748b;
+}
+
+/* ==========================================================================
+   📱 DYNAMIC MEDIA QUERIES FOR COMPACT / ULTRA-SMALL SCREENS (<375px wide)
+   ========================================================================== */
+@media (max-width: 375px) {
+    body {
+        padding: 8px; /* Drops empty margins to optimize screen space */
+    }
+    
+    .transfer-card {
+        padding: 16px; /* Shrinks container interior borders */
+        border-radius: 8px;
+    }
+
+    .tab-btn {
+        font-size: 0.82rem; /* Soft scale down of navigation text */
+        padding: 8px 4px;
+    }
+
+    .info-row {
+        padding: 10px 10px;
+        font-size: 0.85rem; /* Downscales content fonts to guarantee zero horizontal breaks */
+    }
+
+    .code-box {
+        font-size: 0.78rem;
+    }
+    
+    .copy-btn {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+    }
+
+    .note-box {
+        font-size: 0.8rem;
+        padding: 10px;
+    }
+}

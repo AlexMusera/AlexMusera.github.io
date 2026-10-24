@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="transfer-card">
+        
+        <!-- Minimal Tabs -->
+        <div class="tab-container">
+            <button class="tab-btn active" data-target="fiat">1. Bank / App / Card</button>
+            <button class="tab-btn" data-target="crypto">2. Crypto (USDT)</button>
+        </div>
+
+        <!-- TAB 1: FIAT -->
+        <div id="fiat" class="tab-content active">
+            <p class="helper-text">Supports Western Union, MoneyGram, Remitly, Wise, Interac & Apple Pay.</p>
+            
+            <div class="info-group">
+                <div class="info-row"><span>First Name</span><strong>Alex</strong></div>
+                <div class="info-row"><span>Last Name</span><strong>Musera</strong></div>
+                <div class="info-row"><span>Country</span><strong>Kenya</strong></div>
+                <div class="info-row"><span>City</span><strong>Vihiga</strong></div>
+                <div class="info-row"><span>Address</span><strong>Majengo</strong></div>
+                <div class="info-row font-phone"><span>Postal Code</span><strong>50300</strong></div>
+                <div class="info-row">
+                    <span>Phone Number</span>
+                    <strong>254 718233558</strong>
+                </div>
+            </div>
+
+            <div class="note-box alert">
+                <strong>⚠️ Critical:</strong> Set payout method strictly to <strong>"Mobile Wallet" → "M-PESA"</strong>.
+            </div>
+            
+            <div class="note-box verification">
+                Send a screenshot of the receipt or MTCN code once completed.
+            </div>
+        </div>
+
+        <!-- TAB 2: CRYPTO -->
+        <div id="crypto" class="tab-content">
+            <p class="helper-text">Optimized for native US student apps including Coinbase, Kraken & Robinhood.</p>
+
+            <div class="info-group">
+                <div class="info-row"><span>Asset</span><strong>USDT (Tether)</strong></div>
+                <div class="info-row"><span>Network</span><strong style="color: #f59e0b;">Ethereum (ERC20)</strong></div>
+                <!-- Added Estimated Time Confirmation Metric Row -->
+                <div class="info-row"><span>Est. Time</span><strong>3 - 10 Minutes</strong></div>
+            </div>
+
+            <div class="code-container">
+                <span class="code-box" id="usdtAddress">0xC404B6E05E298d2E2C1f1A27aa3B79559cb5d0dD</span>
+                <button class="copy-btn" id="copyUsdtBtn">Copy</button>
+            </div>
+
+            <div class="note-box alert">
+                <strong>⚠️ Critical:</strong> Select the <strong>Ethereum (ERC20)</strong> network in Coinbase/Kraken to avoid lost funds.
+            </div>
+
+            <div class="note-box verification">
+                Send the transaction hash (TxID) or screenshot once completed.
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
