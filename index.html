@@ -48,46 +48,51 @@
         <div id="crypto" class="tab-content">
             <p class="helper-text">Optimized for native US student apps including PayPal, Venmo, Coinbase, Kraken & Robinhood.</p>
 
-            <!-- PYUSD / PayPal / Venmo Section -->
-            <div class="info-group">
-                <div class="info-row"><span>Asset</span><strong>PYUSD (PayPal USD) / USDT</strong></div>
-                <div class="info-row"><span>Network</span><strong style="color: #f59e0b;">Ethereum (ERC20)</strong></div>
-                <div class="info-row"><span>Est. Time</span><strong>3 - 10 Minutes</strong></div>
+            <!-- BLOCK 1: PYUSD / PAYPAL / VENMO -->
+            <div class="crypto-section-block" style="margin-bottom: 20px;">
+                <div class="info-group">
+                    <div class="info-row"><span>Asset</span><strong>PYUSD (PayPal USD) / USDT</strong></div>
+                    <div class="info-row"><span>Network</span><strong style="color: #f59e0b;">Ethereum (ERC20)</strong></div>
+                    <div class="info-row"><span>Est. Time</span><strong>3 - 10 Minutes</strong></div>
+                </div>
+
+                <div class="code-container">
+                    <span class="code-box" id="usdtAddress">0xC404B6E05E298d2E2C1f1A27aa3B79559cb5d0dD</span>
+                    <button class="copy-btn" id="copyUsdtBtn">Copy</button>
+                </div>
+
+                <div class="note-box alert">
+                    <strong>⚠️ Critical:</strong> Select the <strong>Ethereum (ERC20)</strong> network to avoid lost funds. 
+                </div>
+
+                <div class="note-box verification">
+                    <strong>Venmo / PayPal Instructions:</strong> Go to the Crypto hub inside your app → Buy PYUSD (PayPal USD) → Tap the Send arrow ↗️ → Select External Wallet → Paste the address above → Complete transfer and send a screenshot of the confirmation page.
+                </div>
             </div>
 
-            <div class="code-container">
-                <span class="code-box" id="usdtAddress">0xC404B6E05E298d2E2C1f1A27aa3B79559cb5d0dD</span>
-                <button class="copy-btn" id="copyUsdtBtn">Copy</button>
-            </div>
-
-            <div class="note-box alert">
-                <strong>⚠️ Critical:</strong> Select the <strong>Ethereum (ERC20)</strong> network to avoid lost funds. 
-            </div>
-
-            <div class="note-box verification">
-                <strong>Venmo / PayPal Instructions:</strong> Go to the Crypto hub inside your app → Buy PYUSD (PayPal USD) → Tap the Send arrow ↗️ → Select External Wallet → Paste the address above → Complete transfer and send a screenshot of the confirmation page.
-            </div>
-
+            <!-- VISUAL SEPARATOR LINE -->
             <div style="margin: 25px 0; border-top: 1px dashed rgba(255,255,255,0.15);"></div>
 
-            <!-- Bitcoin via Cash App Section -->
-            <div class="info-group">
-                <div class="info-row"><span>Asset</span><strong>Bitcoin (BTC)</strong></div>
-                <div class="info-row"><span>Network</span><strong style="color: #f59e0b;">Bitcoin Network</strong></div>
-                <div class="info-row"><span>Est. Time</span><strong>10 - 60 Minutes</strong></div>
-            </div>
+            <!-- BLOCK 2: BITCOIN / CASH APP -->
+            <div class="crypto-section-block">
+                <div class="info-group">
+                    <div class="info-row"><span>Asset</span><strong>Bitcoin (BTC)</strong></div>
+                    <div class="info-row"><span>Network</span><strong style="color: #f59e0b;">Bitcoin Network</strong></div>
+                    <div class="info-row"><span>Est. Time</span><strong>10 - 60 Minutes</strong></div>
+                </div>
 
-            <div class="code-container">
-                <span class="code-box" id="btcAddress">bc1qvhqd7dueazf7ws8y40043cvnzlss29p7q2ly83</span>
-                <button class="copy-btn" id="copyBtcBtn">Copy</button>
-            </div>
+                <div class="code-container">
+                    <span class="code-box" id="btcAddress">bc1qvhqd7dueazf7ws8y40043cvnzlss29p7q2ly83</span>
+                    <button class="copy-btn" id="copyBtcBtn">Copy</button>
+                </div>
 
-            <div class="note-box alert">
-                <strong>⚠️ Critical:</strong> Select the native <strong>Bitcoin Network</strong> in Cash App. Sending any other asset will result in permanent loss.
-            </div>
+                <div class="note-box alert">
+                    <strong>⚠️ Critical:</strong> Select the native <strong>Bitcoin Network</strong> in Cash App. Sending any other asset will result in permanent loss.
+                </div>
 
-            <div class="note-box verification">
-                <strong>Cash App Instructions:</strong> Go to the Bitcoin tab → Tap Send arrow ↗️ → Enter amount → Paste the address above into the "To:" field → Confirm & send screenshot of receipt or transaction hash.
+                <div class="note-box verification">
+                    <strong>Cash App Instructions:</strong> Go to the Bitcoin tab → Tap Send arrow ↗️ → Enter amount → Paste the address above into the "To:" field → Confirm & send screenshot of receipt or transaction hash.
+                </div>
             </div>
         </div>
 
