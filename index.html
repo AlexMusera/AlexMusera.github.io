@@ -36,9 +36,9 @@
         .tab-btn.active { color: #60a5fa; font-weight: 600; }
         .tab-btn.active::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 2px; background-color: #60a5fa; }
         
-        /* Fixed: Ensure tab panels remain hidden unless active */
-        .tab-panel { display: none; }
-        .tab-panel.active { display: block; }
+        /* FIXED: Made sure class selectors precisely line up with markup panels */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
         
         /* Gentle pulse warning animation wrapper */
         .choice-instruction { 
@@ -91,12 +91,12 @@
         <span class="choice-instruction">⚠️ IMPORTANT: Choose ONLY ONE option below to send your payment. You can either use an app/browser OR use crypto (Bitcoin via Cash App, Venmo/PayPal crypto).</span>
 
         <div class="tab-container">
-            <button class="tab-btn active" data-target="fiat-content">1. Remittance Apps (Wise, WU)</button>
-            <button class="tab-btn" data-target="crypto-content">2. Crypto</button>
+            <button class="tab-btn active" data-target="fiat">1. Remittance Apps (Wise, WU)</button>
+            <button class="tab-btn" data-target="crypto">2. Crypto</button>
         </div>
 
-        <!-- Tab Panel 1: Remittance -->
-        <div id="fiat-content" class="tab-panel active">
+        <!-- Tab Content 1: Remittance Info -->
+        <div id="fiat" class="tab-content active">
             <p class="helper-text">To transfer funds successfully using Western Union, MoneyGram, Remitly or Wise, enter the data exactly as shown.<br><br>(US & Canadian clients can use Apple Pay or Interac at checkout inside these apps for instant loading).</p>
             <div class="info-group">
                 <div class="info-row"><span>First Name</span><strong>Alex</strong></div>
@@ -111,8 +111,8 @@
             <div class="note-box verification">Send a screenshot of the confirmation page or MTCN receipt once completed.</div>
         </div>
 
-        <!-- Tab Panel 2: Crypto -->
-        <div id="crypto-content" class="tab-panel">
+        <!-- Tab Content 2: Crypto Wallets -->
+        <div id="crypto" class="tab-content">
             <p class="helper-text">Optimized for native apps including PayPal, Venmo, Coinbase, Kraken & Robinhood.</p>
             <div class="crypto-section-block" style="margin-bottom: 20px;">
                 <div class="info-group">
@@ -141,38 +141,36 @@
     </div>
 
     <script>
-        // Smooth Tab Switching logic
-        const tabs = document.querySelectorAll('.tab-btn');
-        const panels = document.querySelectorAll('.tab-panel');
+        // Execution Block for Tab Manipulation
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const contentPanels = document.querySelectorAll('.tab-content');
 
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                // Clear active states
-                tabs.forEach(t => t.classList.remove('active'));
-                panels.forEach(p => p.classList.remove('active'));
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Clear old active attributes
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                contentPanels.forEach(panel => panel.classList.remove('active'));
 
-                // Set new active states
-                tab.classList.add('active');
-                const targetId = tab.getAttribute('data-target');
-                document.getElementById(targetId).classList.add('active');
+                // Set new interactive states
+                button.classList.add('active');
+                const matchingPanelId = button.getAttribute('data-target');
+                const targetPanel = document.getElementById(matchingPanelId);
+                
+                if (targetPanel) {
+                    targetPanel.classList.add('active');
+                }
             });
         });
 
-        // Clipboard Copy Logic Helper
-        function setupClipboardCopy(btnId, targetTextId) {
-            const copyBtn = document.getElementById(btnId);
-            const textSource = document.getElementById(targetTextId);
+        // Clipboard function engine
+        function initCopyHandler(triggerBtnId, dataTextId) {
+            const clickTarget = document.getElementById(triggerBtnId);
+            const sourceElement = document.getElementById(dataTextId);
             
-            if (copyBtn && textSource) {
-                copyBtn.addEventListener('click', () => {
-                    navigator.clipboard.writeText(textSource.innerText.trim())
+            if (clickTarget && sourceElement) {
+                clickTarget.addEventListener('click', () => {
+                    navigator.clipboard.writeText(sourceElement.innerText.trim())
                         .then(() => {
-                            const initialText = copyBtn.innerText;
-                            copyBtn.innerText = 'Copied!';
-                            copyBtn.style.backgroundColor = '#10b981'; // Green indicator tint
-                            setTimeout(() => {
-                                copyBtn.innerText = initialText;
-                                copyBtn.style.backgroundColor = '';
-                            }, 1800);
-                        })
-                        .catch(error => {
+                            const standardLabel = clickTarget.innerText;
+                            clickTarget.innerText = 'Copied!';
+                            clickTarget.style.backgroundColor = '#10b981';
