@@ -1,227 +1,166 @@
-/* Universal Base Reset */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background-color: #0b0f19;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 16px; /* Reduced breathing room on the outer edges for mobile */
-    color: #e2e8f0;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-.transfer-card {
-    background: #1e293b;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-    border: 1px solid #334155;
-    max-width: 440px;
-    width: 100%;
-    padding: 24px;
-    transition: padding 0.2s ease;
-}
-
-/* Tabs Navigation Layout */
-.tab-container {
-    display: flex;
-    border-bottom: 1px solid #334155;
-    margin-bottom: 20px;
-    gap: 4px; /* Tightened up gap to prevent wrapping on tiny screens */
-}
-
-.tab-btn {
-    background: none;
-    border: none;
-    padding: 10px 8px; /* Balanced mobile-friendly tap spacing */
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #94a3b8;
-    cursor: pointer;
-    position: relative;
-    flex: 1; /* Forces tabs to share the space equally on small screens */
-    text-align: center;
-    white-space: nowrap;
-    transition: color 0.15s ease;
-    -webkit-tap-highlight-color: transparent; /* Removes blue flash on mobile taps */
-}
-
-.tab-btn:hover {
-    color: #f8fafc;
-}
-
-.tab-btn.active {
-    color: #60a5fa;
-    font-weight: 600;
-}
-
-.tab-btn.active::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: #60a5fa;
-}
-
-/* Content Panel Views */
-/* Content Panel Views */
-.tab-content {
-    display: none;
-}
-
-.tab-content.active {
-    display: block;
-}
-
-.helper-text {
-    font-size: 0.85rem;
-    color: #94a3b8;
-    margin: 0 0 16px 0;
-    line-height: 1.4;
-}
-
-/* Minimal Table Information Grid */
-.info-group {
-    border: 1px solid #334155;
-    border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 16px;
-    background-color: #0f172a;
-}
-
-.info-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 14px;
-    font-size: 0.9rem;
-    border-bottom: 1px solid #334155;
-    min-height: 44px; /* Optimized minimum height for mobile tap/readability criteria */
-}
-
-.info-row:last-child {
-    border-bottom: none;
-}
-
-.info-row span {
-    color: #94a3b8;
-    padding-right: 8px; /* Prevents text clashing if strings stretch */
-}
-
-.info-row strong {
-    color: #f8fafc;
-    text-align: right;
-    word-break: break-word; /* Safe wrapping for names */
-}
-
-/* Address Box Bar Configuration */
-.code-container {
-    display: flex;
-    background-color: #0f172a;
-    border: 1px solid #334155;
-    border-radius: 8px;
-    padding: 10px 12px;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 16px;
-    gap: 12px;
-}
-
-.code-box {
-    font-family: monospace;
-    font-size: 0.82rem;
-    color: #38bdf8;
-    word-break: break-all; /* Forces crypto strings to break clean on narrow viewports */
-    line-height: 1.3;
-}
-
-.copy-btn {
-    background-color: #3b82f6;
-    color: #ffffff;
-    border: none;
-    padding: 8px 14px; /* Enlarged touch targets for phone users */
-    font-size: 0.8rem;
-    font-weight: 600;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.15s ease, transform 0.1s ease;
-    white-space: nowrap;
-    -webkit-tap-highlight-color: transparent;
-}
-
-.copy-btn:active {
-    transform: scale(0.96); /* Tiny haptic feel when tap occurs */
-}
-
-/* Minimalist Notification Design */
-.note-box {
-    font-size: 0.85rem;
-    padding: 12px;
-    border-radius: 6px;
-    margin-bottom: 12px;
-    line-height: 1.4;
-}
-
-.note-box:last-child {
-    margin-bottom: 0;
-}
-
-.note-box.alert {
-    background-color: rgba(239, 68, 68, 0.12);
-    color: #fca5a5;
-    border-left: 3px solid #ef4444;
-}
-
-.note-box.verification {
-    background-color: #0f172a;
-    color: #cbd5e1;
-    border: 1px solid #334155;
-    border-left: 3px solid #64748b;
-}
-
-/* ==========================================================================
-   📱 DYNAMIC MEDIA QUERIES FOR COMPACT / ULTRA-SMALL SCREENS (<375px wide)
-   ========================================================================== */
-@media (max-width: 375px) {
-    body {
-        padding: 8px; /* Drops empty margins to optimize screen space */
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer Portal- Alex Musera</title>
     
-    .transfer-card {
-        padding: 16px; /* Shrinks container interior borders */
-        border-radius: 8px;
-    }
+    <!-- FAVICON OPTIONS -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://w3.org viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
 
-    .tab-btn {
-        font-size: 0.82rem; /* Soft scale down of navigation text */
-        padding: 8px 4px;
-    }
+    <!-- Font Awesome Link for Professional Icons -->
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-    .info-row {
-        padding: 10px 10px;
-        font-size: 0.85rem; /* Downscales content fonts to guarantee zero horizontal breaks */
-    }
+    <div class="transfer-card">
+        
+        <!-- Professional Top Icon Header Block -->
+        <div style="text-align: center; margin: 10px 0 20px 0; color: #f59e0b; font-size: 2.8rem;">
+            <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        
+        <!-- Minimal Tabs -->
+        <div class="tab-container">
+            <button class="tab-btn active" data-target="fiat"><i class="fa-solid fa-mobile-screen-button"></i> 1. Remittance Apps</button>
+            <button class="tab-btn" data-target="crypto"><i class="fa-solid fa-coins"></i> 2. Crypto Hub</button>
+        </div>
 
-    .code-box {
-        font-size: 0.78rem;
-    }
-    
-    .copy-btn {
-        padding: 6px 10px;
-        font-size: 0.75rem;
-    }
+        <!-- TAB 1: FIAT / REMITTANCE -->
+        <div id="fiat" class="tab-content active">
+            
+            <!-- Step 1 Block -->
+            <div style="margin-bottom: 20px; border-left: 3px solid #f59e0b; padding-left: 12px;">
+                <span style="font-size: 0.75rem; font-weight: 700; color: #f59e0b; uppercase; tracking-wider; display: block;">STEP 1: CHOOSE AN APP ON YOUR PHONE</span>
+                <p class="helper-text" style="margin-bottom: 8px;">Open any of these trusted international apps to fund your transfer: <strong>Remitly, Western Union, MoneyGram, or Wise</strong>.</p>
+                <span style="font-size: 0.8rem; color: #60a5fa; display: block;"><i class="fa-solid fa-credit-card"></i> US & Canadian users can checkout inside these apps instantly using <strong>Apple Pay</strong> or <strong>Interac</strong>.</span>
+            </div>
 
-    .note-box {
-        font-size: 0.8rem;
-        padding: 10px;
-    }
-}
+            <!-- Step 2 Block -->
+            <div style="margin-bottom: 12px; border-left: 3px solid #38bdf8; padding-left: 12px;">
+                <span style="font-size: 0.75rem; font-weight: 700; color: #38bdf8; uppercase; tracking-wider; display: block;">STEP 2: ENTER THESE EXACT RECIPIENT DETAILS</span>
+            </div>
+            
+            <div class="info-group">
+                <div class="info-row"><span>First Name</span><strong>Alex</strong></div>
+                <div class="info-row"><span>Last Name</span><strong>Musera</strong></div>
+                <div class="info-row"><span>Country</span><strong>Kenya</strong></div>
+                <div class="info-row"><span>City</span><strong>Vihiga</strong></div>
+                <div class="info-row"><span>Address</span><strong>Majengo</strong></div>
+                <div class="info-row font-phone"><span>Postal Code</span><strong>50300</strong></div>
+                <div class="info-row">
+                    <span>Phone Number</span>
+                    <strong>254 718233558</strong>
+                </div>
+            </div>
+
+            <div class="note-box alert">
+                <strong>⚠️ CRITICAL STEP IN YOUR APP:</strong> When asked how the money should be delivered, you must select <strong>"Mobile Wallet" &rarr; "M-PESA"</strong>. This ensures the funds go instantly to my phone number listed above.
+            </div>
+            
+            <!-- Step 3 Block -->
+            <div style="margin-top: 20px; border-left: 3px solid #10b981; padding-left: 12px;">
+                <span style="font-size: 0.75rem; font-weight: 700; color: #10b981; uppercase; tracking-wider; display: block;">STEP 3: SEND PROOF</span>
+            </div>
+            <div class="note-box verification">
+                <i class="fa-solid fa-camera" style="margin-right: 5px;"></i> Take a screenshot of your finished receipt or reply with the <strong>MTCN number</strong> once completed.
+            </div>
+        </div>
+
+        <!-- TAB 2: CRYPTO -->
+        <div id="crypto" class="tab-content">
+            <p class="helper-text">Send directly using your standard personal accounts like <strong>PayPal, Venmo, Cash App, Coinbase, Kraken, or Robinhood</strong>.</p>
+
+            <!-- BLOCK 1: PYUSD / PAYPAL / VENMO -->
+            <div class="crypto-section-block" style="margin-bottom: 25px; border-top: 1px solid rgba(255,255,255,0.05); pt-4;">
+                <div class="info-group" style="margin-bottom: 10px;">
+                    <div class="info-row"><span>Asset to Send</span><strong>PYUSD (PayPal USD) / USDT</strong></div>
+                    <div class="info-row"><span>Required Network</span><strong style="color: #f59e0b;">Ethereum (ERC20)</strong></div>
+                    <div class="info-row"><span>Transfer Speed</span><strong>3 - 10 Minutes</strong></div>
+                </div>
+
+                <div class="code-container">
+                    <span class="code-box" id="usdtAddress">0xC404B6E05E298d2E2C1f1A27aa3B79559cb5d0dD</span>
+                    <button class="copy-btn" id="copyUsdtBtn">Copy</button>
+                </div>
+
+                <div class="note-box alert" style="margin-bottom: 10px;">
+                    <strong>⚠️ Critical Rule:</strong> You must select the <strong>Ethereum (ERC20)</strong> network in your app. Selecting any other network will result in lost funds.
+                </div>
+
+                <div class="note-box verification" style="background-color: rgba(0,0,0,0.2); border-left: 3px solid #3b82f6;">
+                    <strong>💡 Venmo / PayPal Instructions:</strong> Open your app &rarr; Go to Crypto &rarr; Buy PYUSD &rarr; Tap Send arrow ↗️ &rarr; Choose "External Wallet" &rarr; Paste my address above &rarr; Send a screenshot when completed.
+                </div>
+            </div>
+
+            <!-- VISUAL SEPARATOR LINE -->
+            <div style="margin: 25px 0; border-top: 1px dashed rgba(255,255,255,0.15);"></div>
+
+            <!-- BLOCK 2: BITCOIN / CASH APP -->
+            <div class="crypto-section-block">
+                <div class="info-group" style="margin-bottom: 10px;">
+                    <div class="info-row"><span>Asset to Send</span><strong>Bitcoin (BTC)</strong></div>
+                    <div class="info-row"><span>Required Network</span><strong style="color: #f59e0b;">Bitcoin Network</strong></div>
+                    <div class="info-row"><span>Transfer Speed</span><strong>10 - 60 Minutes</strong></div>
+                </div>
+
+                <div class="code-container">
+                    <span class="code-box" id="btcAddress">bc1qvhqd7dueazf7ws8y40043cvnzlss29p7q2ly83</span>
+                    <button class="copy-btn" id="copyBtcBtn">Copy</button>
+                </div>
+
+                <div class="note-box alert" style="margin-bottom: 10px;">
+                    <strong>⚠️ Critical Cash App Rule:</strong> Select the native <strong>Bitcoin Network</strong>. Do not use lightning or other chains or funds will be lost permanently.
+                </div>
+
+                <div class="note-box verification" style="background-color: rgba(0,0,0,0.2); border-left: 3px solid #3b82f6;">
+                    <strong>💡 Cash App Instructions:</strong> Open Cash App &rarr; Tap the Bitcoin tab &rarr; Tap Send arrow ↗️ &rarr; Type amount &rarr; Paste my address above into the "To:" field &rarr; Confirm and send screenshot.
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Interactive Tab Toggling Logic
+        const tabs = document.querySelectorAll('.tab-btn');
+        const contents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
+
+                tab.classList.add('active');
+                const targetPanelId = tab.getAttribute('data-target');
+                document.getElementById(targetPanelId).classList.add('active');
+            });
+        });
+
+        // Clipboard Action Event Listeners
+        document.getElementById('copyUsdtBtn').addEventListener('click', function() {
+            copyToClipboard('0xC404B6E05E298d2E2C1f1A27aa3B79559cb5d0dD', this);
+        });
+
+        document.getElementById('copyBtcBtn').addEventListener('click', function() {
+            copyToClipboard('bc1qvhqd7dueazf7ws8y40043cvnzlss29p7q2ly83', this);
+        });
+
+        function copyToClipboard(text, button) {
+            navigator.clipboard.writeText(text).then(() => {
+                const baseLabel = button.innerText;
+                button.innerText = 'Copied!';
+                button.style.backgroundColor = '#10b981';
+                button.style.color = '#ffffff';
+                
+                setTimeout(() => {
+                    button.innerText = baseLabel;
+                    button.style.backgroundColor = '';
+                    button.style.color = '';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
