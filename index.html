@@ -3,149 +3,281 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transfer Portal | Alex Musera</title>
-    <!-- Tailwind CSS for modern responsive utility layout -->
-    <script src="https://tailwindcss.com"></script>
-    <!-- Lucide Icons for clean UI visual anchors -->
-    <script src="https://unpkg.com"></script>
+    <title>Transfer Portal</title>
+    
+    <!-- SVG shield emoji (Quickest fix if you don't have an image file) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://w3.org viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
+
+    <!-- Fixed Font Awesome Link for Professional Icons -->
+    <link rel="stylesheet" href="https://cloudflare.com">
+    
     <style>
-        @import url('https://googleapis.com');
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #0b0f19;
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #111827;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --accent: #f59e0b;
+            --accent-hover: #d97706;
+            --border: rgba(255, 255, 255, 0.08);
+            --alert-bg: rgba(245, 158, 11, 0.1);
+            --alert-border: rgba(245, 158, 11, 0.3);
+            --verify-bg: rgba(16, 185, 129, 0.1);
+            --verify-border: rgba(16, 185, 129, 0.3);
         }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .transfer-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 600px;
+            padding: 30px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .tab-container {
+            display: flex;
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 4px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border);
+            gap: 4px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 12px 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-main);
+        }
+
+        .tab-btn.active {
+            background-color: rgba(255, 255, 255, 0.08);
+            color: #white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            color: var(--text-main);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .helper-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .info-group {
+            background-color: rgba(0, 0, 0, 0.15);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-row span {
+            color: var(--text-muted);
+        }
+
+        .info-row strong {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .phone-row-action {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .phone-copy-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 4px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: all 0.2s;
+        }
+
+        .phone-copy-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+        }
+
+        .note-box {
+            padding: 14px 16px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin-bottom: 16px;
+        }
+
+        .note-box.alert {
+            background-color: var(--alert-bg);
+            border: 1px solid var(--alert-border);
+            color: #fcd34d;
+        }
+
+        .note-box.verification {
+            background-color: var(--verify-bg);
+            border: 1px solid var(--verify-border);
+            color: #34d399;
+        }
+
+        .code-container {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .code-box {
+            flex: 1;
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 14px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            word-break: break-all;
+            display: flex;
+            align-items: center;
+        }
+
+        .copy-btn {
+            background-color: var(--accent);
+            color: #000;
+            border: none;
+            border-radius: 10px;
+            padding: 0 18px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .copy-btn.copied {
+            background-color: #10b981 !important;
+            color: #fff;
+        }
     </style>
 </head>
-<body class="text-slate-200 min-h-screen flex items-center justify-center p-4 md:p-8">
+<body>
 
-    <div class="max-w-2xl w-full bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl overflow-hidden p-6 md:p-8">
+    <div class="transfer-card">
         
-        <!-- Header Section -->
-        <header class="text-center mb-8 border-b border-slate-800 pb-6">
-            <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-indigo-600/10 text-indigo-400 mb-4">
-                <i data-lucide="wallet" class="w-7 h-7"></i>
-            </div>
-            <h1 class="text-2xl font-bold text-white tracking-tight">Secure Transfer Portal</h1>
-            <p class="text-sm text-slate-400 mt-1">Complete your transaction using preferred US & Canadian payment networks</p>
-        </header>
-
-        <!-- Dynamic Navigation Tabs -->
-        <div class="flex p-1 bg-slate-950 rounded-xl mb-8 border border-slate-800/50">
-            <button onclick="switchTab('remittance')" id="btn-remittance" class="flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium rounded-lg transition-all duration-200 text-white bg-slate-800 shadow">
-                <i data-lucide="banknote" class="w-4 h-4"></i> Bank & Remittance Apps
-            </button>
-            <button onclick="switchTab('crypto')" id="btn-crypto" class="flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium rounded-lg transition-all duration-200 text-slate-400 hover:text-slate-200">
-                <i data-lucide="coins" class="w-4 h-4"></i> Crypto / Mobile Apps
-            </button>
+        <!-- Professional Top Icon Header Block -->
+        <div style="text-align: center; margin: 10px 0 20px 0; color: #f59e0b; font-size: 2.8rem;">
+            <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        
+        <!-- Minimal Tabs -->
+        <div class="tab-container">
+            <button class="tab-btn active" data-target="fiat">1. Bank / App / Card</button>
+            <button class="tab-btn" data-target="crypto">2. Crypto / Cash App / Venmo</button>
         </div>
 
-        <!-- TAB 1: REMITTANCE CONTENT -->
-        <div id="tab-remittance" class="tab-content active space-y-6">
-            <div class="bg-indigo-950/30 border border-indigo-500/20 rounded-2xl p-4 flex items-start gap-3">
-                <i data-lucide="info" class="w-5 h-5 text-indigo-400 shrink-0 mt-0.5"></i>
-                <p class="text-xs text-indigo-200/90 leading-relaxed">
-                    <strong>Note for US & Canadian clients:</strong> Use <span class="underline text-indigo-300">Apple Pay</span> or <span class="underline text-indigo-300">Interac</span> seamlessly at checkout within Western Union, MoneyGram, Remitly, or Wise to fund your transfer instantly.
-                </p>
-            </div>
-
-            <!-- Recipient Detail Cards -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/60">
-                    <span class="text-xs text-slate-500 block uppercase tracking-wider font-semibold">First Name</span>
-                    <span class="text-base font-medium text-white block mt-1">Alex</span>
-                </div>
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/60">
-                    <span class="text-xs text-slate-500 block uppercase tracking-wider font-semibold">Last Name</span>
-                    <span class="text-base font-medium text-white block mt-1">Musera</span>
-                </div>
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/60">
-                    <span class="text-xs text-slate-500 block uppercase tracking-wider font-semibold">Country / City</span>
-                    <span class="text-base font-medium text-white block mt-1">Kenya, Vihiga</span>
-                </div>
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/60">
-                    <span class="text-xs text-slate-500 block uppercase tracking-wider font-semibold">Address / Postal Code</span>
-                    <span class="text-base font-medium text-white block mt-1">Majengo (50300)</span>
-                </div>
-            </div>
-
-            <!-- Click to Copy Phone Row -->
-            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/60 flex items-center justify-between">
-                <div>
-                    <span class="text-xs text-slate-500 block uppercase tracking-wider font-semibold">Phone Number</span>
-                    <span class="text-base font-mono font-medium text-white block mt-1">+254 718 233558</span>
-                </div>
-                <button onclick="copyToClipboard('254718233558', this)" class="flex items-center gap-1.5 px-3 py-1.5 bg-slate-900 border border-slate-700 hover:bg-slate-800 text-xs font-medium text-slate-300 rounded-lg transition">
-                    <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Copy</span>
-                </button>
-            </div>
-
-            <!-- Critical Warning Box -->
-            <div class="bg-amber-950/40 border border-amber-500/30 rounded-2xl p-5 flex items-start gap-4">
-                <div class="p-2 bg-amber-500/10 rounded-xl text-amber-400 shrink-0">
-                    <i data-lucide="alert-triangle" class="w-5 h-5"></i>
-                </div>
-                <div>
-                    <h4 class="text-sm font-semibold text-amber-300 uppercase tracking-wide">Critical Payout Rule</h4>
-                    <p class="text-xs text-amber-200/80 mt-1 leading-relaxed">
-                        Set payout method strictly to <strong class="text-amber-400">"Mobile Wallet" &rarr; "M-PESA"</strong>. This ensures funds deposit instantly to my registered mobile number above.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB 2: CRYPTO / APP CONTENT -->
-        <div id="tab-crypto" class="tab-content space-y-6">
+        <!-- TAB 1: FIAT -->
+        <div id="fiat" class="tab-content active">
+            <p class="helper-text">To transfer funds successfully using Western Union, MoneyGram, Remitly or Wise, you must enter the information exactly as displayed on this portal.
+            <br><br>
+            (Note for US & Canadian clients: Use Apple Pay or Interac seamlessly at checkout within these apps to fund your transfer instantly).</p>
             
-            <!-- Asset Option 1: PYUSD / USDT -->
-            <div class="bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden">
-                <div class="p-5 border-b border-slate-900 flex justify-between items-center bg-slate-900/40">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-blue-600/10 text-blue-400 flex items-center justify-center font-bold text-sm">
-                            $
-                        </div>
-                        <div>
-                            <h3 class="text-sm font-bold text-white">PYUSD / USDT</h3>
-                            <span class="text-xs text-slate-500">Network: Ethereum (ERC20)</span>
-                        </div>
-                    </div>
-                    <span class="text-xs px-2.5 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full font-medium flex items-center gap-1">
-                        <i data-lucide="clock" class="w-3 h-3"></i> 3-10 min
-                    </span>
-                </div>
-                
-                <div class="p-5 space-y-4">
-                    <div class="flex gap-2">
-                        <input type="text" readonly value="0xC404B6E05E298d2E2C1f1A27aa3B79559cb5d0dD" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-xs font-mono text-slate-300 focus:outline-none">
-                        <button onclick="copyToClipboard('0xC404B6E05E298d2E2C1f1A27aa3B79559cb5d0dD', this)" class="px-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-medium flex items-center gap-1.5 transition shrink-0">
-                            <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Copy</span>
-                        </button>
-                    </div>
-                    
-                    <div class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800/40">
-                        <span class="text-[11px] uppercase font-bold text-indigo-400 tracking-wider block mb-1">Venmo / PayPal Instructions:</span>
-                        <p class="text-xs text-slate-400 leading-relaxed">Go to Crypto hub &rarr; Buy PYUSD &rarr; Tap Send arrow ↗ &rarr; Select External Wallet &rarr; Paste address above.</p>
+            <div class="info-group">
+                <div class="info-row"><span>First Name</span><strong>Alex</strong></div>
+                <div class="info-row"><span>Last Name</span><strong>Musera</strong></div>
+                <div class="info-row"><span>Country</span><strong>Kenya</strong></div>
+                <div class="info-row"><span>City</span><strong>Vihiga</strong></div>
+                <div class="info-row"><span>Address</span><strong>Majengo</strong></div>
+                <div class="info-row"><span>Postal Code</span><strong>50300</strong></div>
+                <div class="info-row">
+                    <span>Phone Number</span>
+                    <div class="phone-row-action">
+                        <strong id="phoneNum">254 718233558</strong>
+                        <button class="phone-copy-btn" onclick="copyText('254718233558', this)">Copy</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Asset Option 2: Bitcoin -->
-            <div class="bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden">
-                <div class="p-5 border-b border-slate-900 flex justify-between items-center bg-slate-900/40">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-amber-600/10 text-amber-400 flex items-center justify-center font-bold text-sm">
-                            ₿
-                        </div>
-                        <div>
-                            <h3 class="text-sm font-bold text-white">Bitcoin (BTC)</h3>
-                            <span class="text-xs text-slate-500">Network: Native Bitcoin Network</span>
-                        </div>
-                    </div>
-                    <span class="text-xs px-2.5 py-1 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-full font-medium flex items-center gap-1">
-                        <i data-lucide="clock" class="w-3 h-3"></i> 10-60 min
-                    </span>
+            <div class="note-box alert">
+                <strong>⚠️ Critical:</strong> Set payout method strictly to <strong>"Mobile Wallet" → "M-PESA"</strong> so funds deposit directly to my mobile number listed above.
+            </div>
+            
+            <div class="note-box verification">
+                <i class="fa-solid fa-receipt" style="margin-right: 5px;"></i> Send a screenshot of the receipt or MTCN code once completed.
+            </div>
+        </div>
+
+        <!-- TAB 2: CRYPTO -->
+        <div id="crypto" class="tab-content">
+            <p class="helper-text">Optimized for native US student apps including PayPal, Venmo, Coinbase, Kraken & Robinhood.</p>
+
+            <!-- BLOCK 1: PYUSD / PAYPAL / VENMO -->
+            <div class="crypto-section-block" style="margin-bottom: 20px;">
+                <div class="info-group">
+                    <div class="info-row"><span>Asset</span><strong>PYUSD (PayPal USD) / USDT</strong></div>
+                    <div class="info-row"><span>Network</span><strong style="color: #f59e0b;">Ethereum (ERC20)</strong></div>
+                    <div class="info-row"><span>Est. Time</span><strong>3 - 10 Minutes</strong></div>
                 </div>
-                
-                <div class="p-5 space-y-4">
-                    <div class="flex gap-2">
+
+                <div class="code-container">
+                    <span class="code-box" id="usdtAddress">0xC404B6E05E298d2E2C1f1A27aa3B79559cb5d0dD</span>
+                    <button class="copy-btn" onclick="copyText('0xC404B6E05E298d2E2C1f1A27aa3B79559cb5d0dD', this)">Copy</button>
+                </div>
+
+                <div class="note-box alert">
+                    <strong>⚠️ Critical:</strong> Select the <strong>Ethereum (ERC20)</strong> network to avoid lost funds. 
+                </div>
+
+                <div class="note-box verification">
