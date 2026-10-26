@@ -4,280 +4,146 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transfer Portal</title>
-    
-    <!-- SVG shield emoji (Quickest fix if you don't have an image file) -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://w3.org viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
-
-    <!-- Fixed Font Awesome Link for Professional Icons -->
     <link rel="stylesheet" href="https://cloudflare.com">
-    
     <style>
+        /* Core UI variables for quick layout tuning */
         :root {
-            --bg-color: #0b0f19;
-            --card-bg: #111827;
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
-            --accent: #f59e0b;
-            --accent-hover: #d97706;
-            --border: rgba(255, 255, 255, 0.08);
-            --alert-bg: rgba(245, 158, 11, 0.1);
-            --alert-border: rgba(245, 158, 11, 0.3);
-            --verify-bg: rgba(16, 185, 129, 0.1);
-            --verify-border: rgba(16, 185, 129, 0.3);
+            --bg-dark: #0b0f19;
+            --panel-bg: #111827;
+            --accent-glow: #f59e0b;
+            --text-primary: #f3f4f6;
+            --border-tint: rgba(255, 255, 255, 0.08);
         }
-
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            margin: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            margin: 0;
             padding: 20px;
-            box-sizing: border-box;
         }
-
         .transfer-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border);
+            background-color: var(--panel-bg);
+            border: 1px solid var(--border-tint);
             border-radius: 24px;
             width: 100%;
-            max-width: 600px;
-            padding: 30px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+            max-width: 580px;
+            padding: 28px;
         }
-
         .tab-container {
             display: flex;
-            background-color: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.2);
             padding: 4px;
             border-radius: 12px;
-            margin-bottom: 25px;
-            border: 1px solid var(--border);
-            gap: 4px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border-tint);
         }
-
         .tab-btn {
             flex: 1;
             background: transparent;
             border: none;
-            color: var(--text-muted);
-            padding: 12px 8px;
-            font-size: 0.9rem;
+            color: #9ca3af;
+            padding: 12px;
+            cursor: pointer;
             font-weight: 500;
             border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
         }
-
-        .tab-btn:hover {
-            color: var(--text-main);
-        }
-
         .tab-btn.active {
-            background-color: rgba(255, 255, 255, 0.08);
-            color: #white;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-primary);
         }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .helper-text {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            line-height: 1.5;
-            margin-bottom: 20px;
-        }
-
-        .info-group {
-            background-color: rgba(0, 0, 0, 0.15);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-
-        .info-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px 16px;
-            border-bottom: 1px solid var(--border);
-            font-size: 0.95rem;
-        }
-
-        .info-row:last-child {
-            border-bottom: none;
-        }
-
-        .info-row span {
-            color: var(--text-muted);
-        }
-
-        .info-row strong {
-            color: var(--text-main);
-            font-weight: 600;
-        }
-
-        .phone-row-action {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .phone-copy-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border);
-            color: var(--text-muted);
-            padding: 4px 8px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.75rem;
-            transition: all 0.2s;
-        }
-
-        .phone-copy-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text-main);
-        }
-
-        .note-box {
-            padding: 14px 16px;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            line-height: 1.4;
-            margin-bottom: 16px;
-        }
-
-        .note-box.alert {
-            background-color: var(--alert-bg);
-            border: 1px solid var(--alert-border);
-            color: #fcd34d;
-        }
-
-        .note-box.verification {
-            background-color: var(--verify-bg);
-            border: 1px solid var(--verify-border);
-            color: #34d399;
-        }
-
-        .code-container {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 16px;
-        }
-
-        .code-box {
-            flex: 1;
-            background-color: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 12px 14px;
-            font-family: monospace;
-            font-size: 0.85rem;
-            color: #cbd5e1;
-            word-break: break-all;
-            display: flex;
-            align-items: center;
-        }
-
-        .copy-btn {
-            background-color: var(--accent);
-            color: #000;
-            border: none;
-            border-radius: 10px;
-            padding: 0 18px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            white-space: nowrap;
-        }
-
-        .copy-btn:hover {
-            background-color: var(--accent-hover);
-        }
-
-        .copy-btn.copied {
-            background-color: #10b981 !important;
-            color: #fff;
-        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        /* Placeholder styling for user copy workflow blocks */
+        .info-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border-tint); }
+        .action-box { display: flex; gap: 8px; margin-top: 12px; }
+        .input-box { flex: 1; background: rgba(0,0,0,0.3); border: 1px solid var(--border-tint); padding: 10px; border-radius: 8px; font-family: monospace; }
+        .btn-copy { background: var(--accent-glow); color: #000; border: none; padding: 0 16px; border-radius: 8px; cursor: pointer; font-weight: 600; }
+        .alert-panel { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3); padding: 12px; border-radius: 12px; margin-top: 16px; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
     <div class="transfer-card">
-        
-        <!-- Professional Top Icon Header Block -->
-        <div style="text-align: center; margin: 10px 0 20px 0; color: #f59e0b; font-size: 2.8rem;">
+        <div style="text-align: center; color: var(--accent-glow); font-size: 2.5rem; margin-bottom: 20px;">
             <i class="fa-solid fa-shield-halved"></i>
         </div>
-        
-        <!-- Minimal Tabs -->
+
         <div class="tab-container">
-            <button class="tab-btn active" data-target="fiat">1. Bank / App / Card</button>
-            <button class="tab-btn" data-target="crypto">2. Crypto / Cash App / Venmo</button>
+            <button class="tab-btn active" data-panel="fiat">1. Bank / App / Card</button>
+            <button class="tab-btn" data-panel="crypto">2. Crypto / Cash App</button>
         </div>
 
-        <!-- TAB 1: FIAT -->
+        <!-- PANEL 1: FIAT PROFILE -->
         <div id="fiat" class="tab-content active">
-            <p class="helper-text">To transfer funds successfully using Western Union, MoneyGram, Remitly or Wise, you must enter the information exactly as displayed on this portal.
-            <br><br>
-            (Note for US & Canadian clients: Use Apple Pay or Interac seamlessly at checkout within these apps to fund your transfer instantly).</p>
+            <div class="info-row"><span>First Name</span><strong>Alex</strong></div>
+            <div class="info-row"><span>Last Name</span><strong>Musera</strong></div>
+            <div class="info-row"><span>Destination Country</span><strong>Kenya (Vihiga / Majengo)</strong></div>
+            <div class="info-row"><span>Mobile Contact</span><strong>+254 718 233558</strong></div>
             
-            <div class="info-group">
-                <div class="info-row"><span>First Name</span><strong>Alex</strong></div>
-                <div class="info-row"><span>Last Name</span><strong>Musera</strong></div>
-                <div class="info-row"><span>Country</span><strong>Kenya</strong></div>
-                <div class="info-row"><span>City</span><strong>Vihiga</strong></div>
-                <div class="info-row"><span>Address</span><strong>Majengo</strong></div>
-                <div class="info-row"><span>Postal Code</span><strong>50300</strong></div>
-                <div class="info-row">
-                    <span>Phone Number</span>
-                    <div class="phone-row-action">
-                        <strong id="phoneNum">254 718233558</strong>
-                        <button class="phone-copy-btn" onclick="copyText('254718233558', this)">Copy</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="note-box alert">
-                <strong>⚠️ Critical:</strong> Set payout method strictly to <strong>"Mobile Wallet" → "M-PESA"</strong> so funds deposit directly to my mobile number listed above.
-            </div>
-            
-            <div class="note-box verification">
-                <i class="fa-solid fa-receipt" style="margin-right: 5px;"></i> Send a screenshot of the receipt or MTCN code once completed.
+            <div class="alert-panel">
+                <strong><i class="fa-solid fa-triangle-exclamation"></i> Critical Setup:</strong> Set delivery path strictly to <strong>"Mobile Wallet" &rarr; "M-PESA"</strong> for instant receipt.
             </div>
         </div>
 
-        <!-- TAB 2: CRYPTO -->
+        <!-- PANEL 2: CRYPTOCURRENCY ASSETS -->
         <div id="crypto" class="tab-content">
-            <p class="helper-text">Optimized for native US student apps including PayPal, Venmo, Coinbase, Kraken & Robinhood.</p>
-
-            <!-- BLOCK 1: PYUSD / PAYPAL / VENMO -->
-            <div class="crypto-section-block" style="margin-bottom: 20px;">
-                <div class="info-group">
-                    <div class="info-row"><span>Asset</span><strong>PYUSD (PayPal USD) / USDT</strong></div>
-                    <div class="info-row"><span>Network</span><strong style="color: #f59e0b;">Ethereum (ERC20)</strong></div>
-                    <div class="info-row"><span>Est. Time</span><strong>3 - 10 Minutes</strong></div>
+            <div>
+                <span style="font-size: 0.85rem; color: #9ca3af;">Asset: PYUSD / USDT (Network: ERC20)</span>
+                <div class="action-box">
+                    <input type="text" readonly value="0xC404B6E05E298d2E2C1f1A27aa3B79559cb5d0dD" class="input-box">
+                    <button class="btn-copy" onclick="triggerCopy('0xC404B6E05E298d2E2C1f1A27aa3B79559cb5d0dD', this)">Copy</button>
                 </div>
-
-                <div class="code-container">
-                    <span class="code-box" id="usdtAddress">0xC404B6E05E298d2E2C1f1A27aa3B79559cb5d0dD</span>
-                    <button class="copy-btn" onclick="copyText('0xC404B6E05E298d2E2C1f1A27aa3B79559cb5d0dD', this)">Copy</button>
+            </div>
+            
+            <div style="margin-top: 20px;">
+                <span style="font-size: 0.85rem; color: #9ca3af;">Asset: Bitcoin (Network: Native BTC)</span>
+                <div class="action-box">
+                    <input type="text" readonly value="bc1qvhqd7dueazf7ws8y40043cvnzlss29p7q2ly83" class="input-box">
+                    <button class="btn-copy" onclick="triggerCopy('bc1qvhqd7dueazf7ws8y40043cvnzlss29p7q2ly83', this)">Copy</button>
                 </div>
+            </div>
 
-                <div class="note-box alert">
-                    <strong>⚠️ Critical:</strong> Select the <strong>Ethereum (ERC20)</strong> network to avoid lost funds. 
-                </div>
+            <div class="alert-panel" style="background: rgba(239,68,68,0.1); border-color: rgba(239,68,68,0.3); color: #fca5a5;">
+                <strong><i class="fa-solid fa-circle-exclamation"></i> Warning:</strong> Double check the transfer network parameters to secure funds during transmission.
+            </div>
+        </div>
+    </div>
 
-                <div class="note-box verification">
+    <script>
+        // Smooth functional navigation routing switcher
+        const navButtons = document.querySelectorAll('.tab-btn');
+        const dataPanels = document.querySelectorAll('.tab-content');
+
+        navButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                navButtons.forEach(b => b.classList.remove('active'));
+                dataPanels.forEach(p => p.classList.remove('active'));
+
+                btn.classList.add('active');
+                const selectedTarget = btn.getAttribute('data-panel');
+                document.getElementById(selectedTarget).classList.add('active');
+            });
+        });
+
+        // Instant safe memory storage clipboard copy handler
+        function triggerCopy(addressString, targetedElement) {
+            navigator.clipboard.writeText(addressString).then(() => {
+                const legacyLabel = targetedElement.innerText;
+                targetedElement.innerText = 'Copied!';
+                targetedElement.style.background = '#10b981';
+                targetedElement.style.color = '#fff';
+                
+                setTimeout(() => {
+                    targetedElement.innerText = legacyLabel;
+                    targetedElement.style.background = '';
+                    targetedElement.style.color = '';
+                }, 1800);
+            });
+        }
+    </script>
+</body>
+</html>
