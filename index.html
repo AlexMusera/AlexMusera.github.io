@@ -35,8 +35,10 @@
         .tab-btn:hover { color: #f8fafc; }
         .tab-btn.active { color: #60a5fa; font-weight: 600; }
         .tab-btn.active::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 2px; background-color: #60a5fa; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
+        
+        /* Fixed: Ensure tab panels remain hidden unless active */
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
         
         /* Gentle pulse warning animation wrapper */
         .choice-instruction { 
@@ -89,11 +91,12 @@
         <span class="choice-instruction">⚠️ IMPORTANT: Choose ONLY ONE option below to send your payment. You can either use an app/browser OR use crypto (Bitcoin via Cash App, Venmo/PayPal crypto).</span>
 
         <div class="tab-container">
-            <button class="tab-btn active" data-target="fiat">1. Remittance Apps (Wise, WU)</button>
-            <button class="tab-btn" data-target="crypto">2. Crypto</button>
+            <button class="tab-btn active" data-target="fiat-content">1. Remittance Apps (Wise, WU)</button>
+            <button class="tab-btn" data-target="crypto-content">2. Crypto</button>
         </div>
 
-        <div id="fiat" class="tab-content active">
+        <!-- Tab Panel 1: Remittance -->
+        <div id="fiat-content" class="tab-panel active">
             <p class="helper-text">To transfer funds successfully using Western Union, MoneyGram, Remitly or Wise, enter the data exactly as shown.<br><br>(US & Canadian clients can use Apple Pay or Interac at checkout inside these apps for instant loading).</p>
             <div class="info-group">
                 <div class="info-row"><span>First Name</span><strong>Alex</strong></div>
@@ -108,7 +111,8 @@
             <div class="note-box verification">Send a screenshot of the confirmation page or MTCN receipt once completed.</div>
         </div>
 
-        <div id="crypto" class="tab-content">
+        <!-- Tab Panel 2: Crypto -->
+        <div id="crypto-content" class="tab-panel">
             <p class="helper-text">Optimized for native apps including PayPal, Venmo, Coinbase, Kraken & Robinhood.</p>
             <div class="crypto-section-block" style="margin-bottom: 20px;">
                 <div class="info-group">
@@ -137,45 +141,38 @@
     </div>
 
     <script>
-        // Tab switching logic
+        // Smooth Tab Switching logic
         const tabs = document.querySelectorAll('.tab-btn');
-        const contents = document.querySelectorAll('.tab-content');
+        const panels = document.querySelectorAll('.tab-panel');
 
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
-                // Remove active classes
+                // Clear active states
                 tabs.forEach(t => t.classList.remove('active'));
-                contents.forEach(c => c.classList.remove('active'));
+                panels.forEach(p => p.classList.remove('active'));
 
-                // Add active classes to selected tab and content
+                // Set new active states
                 tab.classList.add('active');
-                const target = tab.getAttribute('data-target');
-                document.getElementById(target).classList.add('active');
+                const targetId = tab.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
             });
         });
 
-        // Helper function to handle clipboard copy
-        function setupCopyButton(buttonId, textId) {
-            const btn = document.getElementById(buttonId);
-            const textEl = document.getElementById(textId);
+        // Clipboard Copy Logic Helper
+        function setupClipboardCopy(btnId, targetTextId) {
+            const copyBtn = document.getElementById(btnId);
+            const textSource = document.getElementById(targetTextId);
             
-            if (btn && textEl) {
-                btn.addEventListener('click', () => {
-                    navigator.clipboard.writeText(textEl.innerText.trim())
+            if (copyBtn && textSource) {
+                copyBtn.addEventListener('click', () => {
+                    navigator.clipboard.writeText(textSource.innerText.trim())
                         .then(() => {
-                            const originalText = btn.innerText;
-                            btn.innerText = 'Copied!';
-                            btn.style.backgroundColor = '#10b981'; // temporary green color
+                            const initialText = copyBtn.innerText;
+                            copyBtn.innerText = 'Copied!';
+                            copyBtn.style.backgroundColor = '#10b981'; // Green indicator tint
                             setTimeout(() => {
-                                btn.innerText = originalText;
-                                btn.style.backgroundColor = '';
-                            }, 2000);
+                                copyBtn.innerText = initialText;
+                                copyBtn.style.backgroundColor = '';
+                            }, 1800);
                         })
-                        .catch(err => {
-                            console.error('Failed to copy text: ', err);
-                        });
-                });
-            }
-        }
-
-        // Initialize copy buttons
+                        .catch(error => {
