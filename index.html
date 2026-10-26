@@ -38,7 +38,29 @@
         .tab-btn.active::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 2px; background-color: #60a5fa; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
-        .choice-instruction { font-size: 0.82rem; font-weight: 700; color: #f59e0b; margin-bottom: 16px; text-align: center; display: block; line-height: 1.4; background-color: rgba(245, 158, 11, 0.08); padding: 8px 10px; border-radius: 6px; border: 1px dashed rgba(245, 158, 11, 0.25); }
+        
+        /* Gentle pulse warning animation wrapper */
+        .choice-instruction { 
+            font-size: 0.82rem; 
+            font-weight: 700; 
+            color: #f59e0b; 
+            margin-bottom: 16px; 
+            text-align: center; 
+            display: block; 
+            line-height: 1.4; 
+            background-color: rgba(245, 158, 11, 0.08); 
+            padding: 10px; 
+            border-radius: 6px; 
+            border: 1px dashed #f59e0b;
+            animation: gentleGlow 2.5s infinite ease-in-out;
+        }
+
+        @keyframes gentleGlow {
+            0% { border-color: rgba(245, 158, 11, 0.3); background-color: rgba(245, 158, 11, 0.05); box-shadow: 0 0 0 rgba(245, 158, 11, 0); }
+            50% { border-color: rgba(245, 158, 11, 1); background-color: rgba(245, 158, 11, 0.15); box-shadow: 0 0 8px rgba(245, 158, 11, 0.2); }
+            100% { border-color: rgba(245, 158, 11, 0.3); background-color: rgba(245, 158, 11, 0.05); box-shadow: 0 0 0 rgba(245, 158, 11, 0); }
+        }
+
         .helper-text { font-size: 0.82rem; color: #94a3b8; margin-bottom: 12px; line-height: 1.45; }
         .info-group { border: 1px solid #334155; border-radius: 8px; overflow: hidden; margin-bottom: 16px; background-color: #0f172a; }
         .info-row {
@@ -65,7 +87,7 @@
     <div class="transfer-card">
         <div style="text-align: center; margin: 5px 0 12px 0; color: #f59e0b; font-size: 2.5rem;"><i class="fa-solid fa-shield-halved"></i></div>
         
-        <!-- High-visibility selection prompt wrapper positioned above the tabs -->
+        <!-- Animated visual anchor block -->
         <span class="choice-instruction">⚠️ IMPORTANT: Choose ONLY ONE option below to send your payment. You can either use an app on your phone OR use Crypto.</span>
 
         <div class="tab-container">
@@ -76,7 +98,7 @@
         <div id="fiat" class="tab-content active">
             <p class="helper-text">To transfer funds successfully using Western Union, MoneyGram, Remitly or Wise, enter the data exactly as shown.<br><br>(US & Canadian clients can use Apple Pay or Interac at checkout inside these apps for instant loading).</p>
             <div class="info-group">
-                <div class="info-row"><span>First Name</span><strong>Alex</strong></div>
+                <div class="info-row"><span>First Name</span>export <strong>Alex</strong></div>
                 <div class="info-row"><span>Last Name</span><strong>Musera</strong></div>
                 <div class="info-row"><span>Country</span><strong>Kenya</strong></div>
                 <div class="info-row"><span>City</span><strong>Vihiga</strong></div>
