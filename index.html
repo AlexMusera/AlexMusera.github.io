@@ -27,7 +27,7 @@
             width: 100%;
             padding: 20px;
         }
-        .tab-container { display: flex; border-bottom: 1px solid #334155; margin-bottom: 12px; gap: 4px; }
+        .tab-container { display: flex; border-bottom: 1px solid #334155; margin-bottom: 16px; gap: 4px; }
         .tab-btn {
             background: none; border: none; padding: 10px 4px; font-size: 0.88rem; font-weight: 500;
             color: #94a3b8; cursor: pointer; position: relative; flex: 1; text-align: center;
@@ -38,7 +38,7 @@
         .tab-btn.active::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 2px; background-color: #60a5fa; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
-        .choice-instruction { font-size: 0.82rem; font-weight: 700; color: #f59e0b; margin-bottom: 14px; text-align: center; display: block; line-height: 1.4; background-color: rgba(245, 158, 11, 0.08); padding: 8px 10px; border-radius: 6px; border: 1px dashed rgba(245, 158, 11, 0.25); }
+        .choice-instruction { font-size: 0.82rem; font-weight: 700; color: #f59e0b; margin-bottom: 16px; text-align: center; display: block; line-height: 1.4; background-color: rgba(245, 158, 11, 0.08); padding: 8px 10px; border-radius: 6px; border: 1px dashed rgba(245, 158, 11, 0.25); }
         .helper-text { font-size: 0.82rem; color: #94a3b8; margin-bottom: 12px; line-height: 1.45; }
         .info-group { border: 1px solid #334155; border-radius: 8px; overflow: hidden; margin-bottom: 16px; background-color: #0f172a; }
         .info-row {
@@ -63,15 +63,15 @@
 </head>
 <body>
     <div class="transfer-card">
-        <div style="text-align: center; margin: 5px 0 15px 0; color: #f59e0b; font-size: 2.5rem;"><i class="fa-solid fa-shield-halved"></i></div>
+        <div style="text-align: center; margin: 5px 0 12px 0; color: #f59e0b; font-size: 2.5rem;"><i class="fa-solid fa-shield-halved"></i></div>
         
+        <!-- High-visibility selection prompt wrapper positioned above the tabs -->
+        <span class="choice-instruction">⚠️ IMPORTANT: Choose ONLY ONE option below to send your payment. You can either use an app on your phone OR use Crypto.</span>
+
         <div class="tab-container">
             <button class="tab-btn active" data-target="fiat">1. Remittance Apps (Wise, WU)</button>
             <button class="tab-btn" data-target="crypto">2. Crypto</button>
         </div>
-
-        <!-- High-visibility selection prompt wrapper -->
-        <span class="choice-instruction">⚠️ IMPORTANT: Choose ONLY ONE option below to send your payment. You can either use an app on your phone OR use Crypto.</span>
 
         <div id="fiat" class="tab-content active">
             <p class="helper-text">To transfer funds successfully using Western Union, MoneyGram, Remitly or Wise, enter the data exactly as shown.<br><br>(US & Canadian clients can use Apple Pay or Interac at checkout inside these apps for instant loading).</p>
