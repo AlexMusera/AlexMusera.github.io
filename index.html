@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transfer Portal - Alex Musera</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://w3.org viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
+    <link rel="stylesheet" href="https://cloudflare.com">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -85,7 +86,6 @@
 <body>
     <div class="transfer-card">
         
-        <!-- Flashing core header notice box -->
         <span class="choice-instruction">⚠️ IMPORTANT: Choose ONLY ONE option below to send your payment. You can either use an app/browser OR use crypto (Bitcoin via Cash App, Venmo/PayPal crypto).</span>
 
         <div class="tab-container">
@@ -93,6 +93,7 @@
             <button class="tab-btn" data-target="crypto">2. Crypto</button>
         </div>
 
+        <!-- TAB 1: FIAT -->
         <div id="fiat" class="tab-content active">
             <p class="helper-text">To transfer funds successfully using Western Union, MoneyGram, Remitly or Wise, enter the data exactly as shown.<br><br>(US & Canadian clients can use Apple Pay or Interac at checkout inside these apps for instant loading).</p>
             <div class="info-group">
@@ -107,8 +108,11 @@
             <div class="note-box alert"><strong>⚠️ Critical:</strong> Set the <strong>"Delivery Method"</strong> strictly to <strong>"Mobile Wallet" → "M-PESA"</strong> so funds go directly to my mobile number.</div>
             <div class="note-box verification">Send a screenshot of the confirmation page or MTCN receipt once completed.</div>
         </div>
+
+        <!-- TAB 2: CRYPTO -->
         <div id="crypto" class="tab-content">
             <p class="helper-text">Optimized for native apps including PayPal, Venmo, Coinbase, Kraken & Robinhood.</p>
+            
             <div class="crypto-section-block" style="margin-bottom: 20px;">
                 <div class="info-group">
                     <div class="info-row"><span>Asset</span><strong>PYUSD / USDT</strong></div>
@@ -120,8 +124,10 @@
                 </div>
                 <div class="note-box alert"><strong>⚠️ Critical:</strong> Select the <strong>Ethereum (ERC20)</strong> network to avoid lost funds.</div>
             </div>
+            
             <div style="margin: 20px 0; border-top: 1px dashed rgba(255,255,255,0.15);"></div>
-            <div class="crypto-section-block">
+            
+            <div class="crypto-section-block" style="margin-bottom: 20px;">
                 <div class="info-group">
                     <div class="info-row"><span>Asset</span><strong>Bitcoin (BTC)</strong></div>
                     <div class="info-row"><span>Network</span><strong style="color: #f59e0b;">Bitcoin Network</strong></div>
@@ -131,6 +137,15 @@
                     <button class="copy-btn" id="copyBtcBtn">Copy</button>
                 </div>
                 <div class="note-box alert"><strong>⚠️ Critical:</strong> Select native <strong>Bitcoin Network</strong> in Cash App to prevent data loss.</div>
+            </div>
+
+            <div style="margin: 20px 0; border-top: 1px dashed rgba(255,255,255,0.15);"></div>
+
+            <!-- CRYPTO SPECIFIC SCREENSHOT VERIFICATION BLOCK -->
+            <div class="crypto-section-block">
+                <div class="note-box verification">
+                    <i class="fa-solid fa-camera" style="margin-right: 5px;"></i> Send a screenshot of the confirmation page or transaction hash (TxID) once completed.
+                </div>
             </div>
         </div>
     </div>
@@ -153,8 +168,3 @@
                 });
             });
         }
-        setupCopy('copyUsdtBtn', '0xC404B6E05E298d2E2C1f1A27aa3B79559cb5d0dD');
-        setupCopy('copyBtcBtn', 'bc1qvhqd7dueazf7ws8y40043cvnzlss29p7q2ly83');
-    </script>
-</body>
-</html>
