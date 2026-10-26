@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transfer Portal - Alex Musera</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://w3.org viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
-    <link rel="stylesheet" href="https://cloudflare.com">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -132,41 +131,51 @@
                     <span class="code-box" id="btcAddress">bc1qvhqd7dueazf7ws8y40043cvnzlss29p7q2ly83</span>
                     <button class="copy-btn" id="copyBtcBtn">Copy</button>
                 </div>
-                <div class="note-box alert"><strong>⚠️ Critical:</strong> Select native <strong>Bitcoin Network</strong> in Cash App to prevent data loss.</div>
-            </div>
-            <div style="margin: 20px 0; border-top: 1px dashed rgba(255,255,255,0.15);"></div>
-            <div class="crypto-section-block">
-                <div class="note-box verification">
-                    <i class="fa-solid fa-camera" style="margin-right: 5px;"></i> Send a screenshot of the confirmation page or transaction hash (TxID) once completed.
-                </div>
             </div>
         </div>
+
     </div>
-    
+
     <script>
+        // Tab switching logic
         const tabs = document.querySelectorAll('.tab-btn');
         const contents = document.querySelectorAll('.tab-content');
-        
+
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
+                // Remove active classes
                 tabs.forEach(t => t.classList.remove('active'));
                 contents.forEach(c => c.classList.remove('active'));
-                
+
+                // Add active classes to selected tab and content
                 tab.classList.add('active');
-                document.getElementById(tab.getAttribute('data-target')).classList.add('active');
+                const target = tab.getAttribute('data-target');
+                document.getElementById(target).classList.add('active');
             });
         });
 
-        function setupCopy(btnId, text) {
-            document.getElementById(btnId).addEventListener('click', function() {
-                navigator.clipboard.writeText(text).then(() => {
-                    this.innerText = 'Copied!'; 
-                    this.style.backgroundColor = '#10b981';
-                    setTimeout(() => { 
-                        this.innerText = 'Copy'; 
-                        this.style.backgroundColor = ''; 
-                    }, 2000);
+        // Helper function to handle clipboard copy
+        function setupCopyButton(buttonId, textId) {
+            const btn = document.getElementById(buttonId);
+            const textEl = document.getElementById(textId);
+            
+            if (btn && textEl) {
+                btn.addEventListener('click', () => {
+                    navigator.clipboard.writeText(textEl.innerText.trim())
+                        .then(() => {
+                            const originalText = btn.innerText;
+                            btn.innerText = 'Copied!';
+                            btn.style.backgroundColor = '#10b981'; // temporary green color
+                            setTimeout(() => {
+                                btn.innerText = originalText;
+                                btn.style.backgroundColor = '';
+                            }, 2000);
+                        })
+                        .catch(err => {
+                            console.error('Failed to copy text: ', err);
+                        });
                 });
-            });
+            }
         }
 
+        // Initialize copy buttons
