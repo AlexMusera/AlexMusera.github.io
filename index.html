@@ -39,7 +39,6 @@
         .tab-content { display: none; }
         .tab-content.active { display: block; }
         
-        /* Gentle pulse warning animation wrapper */
         .choice-instruction { 
             font-size: 0.82rem; 
             font-weight: 700; 
@@ -141,7 +140,6 @@
 
             <div style="margin: 20px 0; border-top: 1px dashed rgba(255,255,255,0.15);"></div>
 
-            <!-- CRYPTO SPECIFIC SCREENSHOT VERIFICATION BLOCK -->
             <div class="crypto-section-block">
                 <div class="note-box verification">
                     <i class="fa-solid fa-camera" style="margin-right: 5px;"></i> Send a screenshot of the confirmation page or transaction hash (TxID) once completed.
@@ -149,22 +147,31 @@
             </div>
         </div>
     </div>
+    
     <script>
         const tabs = document.querySelectorAll('.tab-btn');
         const contents = document.querySelectorAll('.tab-content');
+        
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 tabs.forEach(t => t.classList.remove('active'));
                 contents.forEach(c => c.classList.remove('active'));
+                
                 tab.classList.add('active');
                 document.getElementById(tab.getAttribute('data-target')).classList.add('active');
             });
         });
+
         function setupCopy(btnId, text) {
             document.getElementById(btnId).addEventListener('click', function() {
                 navigator.clipboard.writeText(text).then(() => {
-                    this.innerText = 'Copied!'; this.style.backgroundColor = '#10b981';
-                    setTimeout(() => { this.innerText = 'Copy'; this.style.backgroundColor = ''; }, 2000);
+                    this.innerText = 'Copied!'; 
+                    this.style.backgroundColor = '#10b981';
+                    setTimeout(() => { 
+                        this.innerText = 'Copy'; 
+                        this.style.backgroundColor = ''; 
+                    }, 2000);
                 });
             });
         }
+        
