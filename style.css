@@ -3,28 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transfer Portal - Alex Musera</title>
+    <title>Alex Musera</title>
     
-    <!-- SVG Shield Favicon -->
+    <!-- SVG shield emoji favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://w3.org viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
 
     <!-- Font Awesome Link for Professional Icons -->
     <link rel="stylesheet" href="https://cloudflare.com">
     
-    <!-- Embedded Stylesheet to fix the Chrome layout issue permanently -->
     <style>
-        :root {
-            --bg-dark: #0b0f19;
-            --card-bg: #111827;
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
-            --accent-amber: #f59e0b;
-            --accent-hover: #d97706;
-            --accent-emerald: #10b981;
-            --border-color: rgba(255, 255, 255, 0.08);
-            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
-        }
-
+        /* Your Original Optimized Stylesheet Integrated Directly */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -33,59 +21,72 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
+            background-color: #0b0f19;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             padding: 16px;
+            color: #e2e8f0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         .transfer-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
+            background: #1e293b;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            border: 1px solid #334155;
+            max-width: 440px;
             width: 100%;
-            max-width: 480px;
             padding: 24px;
-            box-shadow: var(--shadow-xl);
+            transition: padding 0.2s ease;
         }
 
+        /* Tabs Navigation Layout */
         .tab-container {
             display: flex;
-            background-color: rgba(0, 0, 0, 0.2);
-            padding: 4px;
-            border-radius: 10px;
+            border-bottom: 1px solid #334155;
             margin-bottom: 20px;
-            border: 1px solid var(--border-color);
             gap: 4px;
         }
 
         .tab-btn {
-            flex: 1;
             background: none;
             border: none;
-            color: var(--text-muted);
-            padding: 10px 6px;
-            font-size: 0.88rem;
-            font-weight: 600;
-            border-radius: 8px;
+            padding: 10px 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #94a3b8;
             cursor: pointer;
-            transition: all 0.15s ease;
+            position: relative;
+            flex: 1;
             text-align: center;
             white-space: nowrap;
+            transition: color 0.15s ease;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .tab-btn:hover {
-            color: var(--text-main);
+            color: #f8fafc;
         }
 
         .tab-btn.active {
-            background-color: rgba(255, 255, 255, 0.08);
-            color: var(--text-main);
+            color: #60a5fa;
+            font-weight: 600;
         }
 
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #60a5fa;
+        }
+
+        /* Fixed Tab Display Logic — Removed !important block conflict */
         .tab-content {
             display: none;
         }
@@ -95,18 +96,19 @@
         }
 
         .helper-text {
-            color: var(--text-muted);
             font-size: 0.85rem;
+            color: #94a3b8;
+            margin: 0 0 16px 0;
             line-height: 1.4;
-            margin-bottom: 16px;
         }
 
+        /* Minimal Table Information Grid */
         .info-group {
-            background-color: #0f172a;
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
+            border: 1px solid #334155;
+            border-radius: 8px;
             overflow: hidden;
             margin-bottom: 16px;
+            background-color: #0f172a;
         }
 
         .info-row {
@@ -114,8 +116,9 @@
             justify-content: space-between;
             align-items: center;
             padding: 12px 14px;
-            border-bottom: 1px solid var(--border-color);
             font-size: 0.9rem;
+            border-bottom: 1px solid #334155;
+            min-height: 44px;
         }
 
         .info-row:last-child {
@@ -123,72 +126,93 @@
         }
 
         .info-row span {
-            color: var(--text-muted);
+            color: #94a3b8;
+            padding-right: 8px;
         }
 
         .info-row strong {
-            color: var(--text-main);
-            font-weight: 600;
+            color: #f8fafc;
+            text-align: right;
+            word-break: break-word;
         }
 
-        .note-box {
-            padding: 12px 14px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            line-height: 1.4;
-            margin-bottom: 12px;
-        }
-
-        .note-box.alert {
-            background-color: rgba(245, 158, 11, 0.08);
-            border: 1px solid rgba(245, 158, 11, 0.2);
-            color: #fcd34d;
-            border-left: 3px solid var(--accent-amber);
-        }
-
-        .note-box.verification {
-            background-color: rgba(16, 185, 129, 0.08);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            color: #34d399;
-            border-left: 3px solid var(--accent-emerald);
-        }
-
+        /* Address Box Bar Configuration */
         .code-container {
             display: flex;
-            gap: 8px;
-            margin-bottom: 12px;
-            margin-top: 6px;
+            background-color: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 10px 12px;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            gap: 12px;
         }
 
         .code-box {
-            flex: 1;
-            background-color: #0f172a;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 10px 12px;
             font-family: monospace;
-            font-size: 0.8rem;
+            font-size: 0.82rem;
             color: #38bdf8;
             word-break: break-all;
-            display: flex;
-            align-items: center;
+            line-height: 1.3;
         }
 
         .copy-btn {
             background-color: #3b82f6;
             color: #ffffff;
             border: none;
-            border-radius: 8px;
-            padding: 0 14px;
+            padding: 8px 14px;
             font-size: 0.8rem;
             font-weight: 600;
+            border-radius: 6px;
             cursor: pointer;
-            transition: all 0.15s ease;
+            transition: background 0.15s ease, transform 0.1s ease;
             white-space: nowrap;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .copy-btn:hover {
             background-color: #2563eb;
+        }
+
+        .copy-btn:active {
+            transform: scale(0.96);
+        }
+
+        /* Minimalist Notification Design */
+        .note-box {
+            font-size: 0.85rem;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .note-box:last-child {
+            margin-bottom: 0;
+        }
+
+        .note-box.alert {
+            background-color: rgba(239, 68, 68, 0.12);
+            color: #fca5a5;
+            border-left: 3px solid #ef4444;
+        }
+
+        .note-box.verification {
+            background-color: #0f172a;
+            color: #cbd5e1;
+            border: 1px solid #334155;
+            border-left: 3px solid #64748b;
+        }
+
+        @media (max-width: 375px) {
+            body { padding: 8px; }
+            .transfer-card { padding: 16px; border-radius: 8px; }
+            .tab-btn { font-size: 0.82rem; padding: 8px 4px; }
+            .info-row { padding: 10px 10px; font-size: 0.85rem; }
+            .code-box { font-size: 0.78rem; }
+            .copy-btn { padding: 6px 10px; font-size: 0.75rem; }
+            .note-box { font-size: 0.8rem; padding: 10px; }
         }
     </style>
 </head>
@@ -196,8 +220,8 @@
 
     <div class="transfer-card">
         
-        <!-- Professional Top Icon Header -->
-        <div style="text-align: center; margin: 10px 0 20px 0; color: #f59e0b; font-size: 2.5rem;">
+        <!-- Professional Top Icon Header Block -->
+        <div style="text-align: center; margin: 10px 0 20px 0; color: #f59e0b; font-size: 2.8rem;">
             <i class="fa-solid fa-shield-halved"></i>
         </div>
         
@@ -219,11 +243,8 @@
                 <div class="info-row"><span>Country</span><strong>Kenya</strong></div>
                 <div class="info-row"><span>City</span><strong>Vihiga</strong></div>
                 <div class="info-row"><span>Address</span><strong>Majengo</strong></div>
-                <div class="info-row font-phone"><span>Postal Code</span><strong>50300</strong></div>
-                <div class="info-row">
-                    <span>Phone Number</span>
-                    <strong>254 718233558</strong>
-                </div>
+                <div class="info-row"><span>Postal Code</span><strong>50300</strong></div>
+                <div class="info-row"><span>Phone Number</span><strong>254 718233558</strong></div>
             </div>
 
             <div class="note-box alert">
@@ -267,13 +288,3 @@
             <!-- BLOCK 2: BITCOIN / CASH APP -->
             <div class="crypto-section-block">
                 <div class="info-group">
-                    <div class="info-row"><span>Asset</span><strong>Bitcoin (BTC)</strong></div>
-                    <div class="info-row"><span>Network</span><strong style="color: #f59e0b;">Bitcoin Network</strong></div>
-                    <div class="info-row"><span>Est. Time</span><strong>10 - 60 Minutes</strong></div>
-                </div>
-
-                <div class="code-container">
-                    <span class="code-box" id="btcAddress">bc1qvhqd7dueazf7ws8y40043cvnzlss29p7q2ly83</span>
-                    <button class="copy-btn" id="copyBtcBtn">Copy</button>
-                </div>
-
