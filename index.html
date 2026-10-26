@@ -27,7 +27,7 @@
             width: 100%;
             padding: 20px;
         }
-        .tab-container { display: flex; border-bottom: 1px solid #334155; margin-bottom: 16px; gap: 4px; }
+        .tab-container { display: flex; border-bottom: 1px solid #334155; margin-bottom: 12px; gap: 4px; }
         .tab-btn {
             background: none; border: none; padding: 10px 4px; font-size: 0.88rem; font-weight: 500;
             color: #94a3b8; cursor: pointer; position: relative; flex: 1; text-align: center;
@@ -38,6 +38,7 @@
         .tab-btn.active::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 2px; background-color: #60a5fa; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
+        .choice-instruction { font-size: 0.85rem; font-weight: 600; color: #f59e0b; margin-bottom: 12px; text-align: center; display: block; }
         .helper-text { font-size: 0.82rem; color: #94a3b8; margin-bottom: 12px; line-height: 1.45; }
         .info-group { border: 1px solid #334155; border-radius: 8px; overflow: hidden; margin-bottom: 16px; background-color: #0f172a; }
         .info-row {
@@ -55,15 +56,23 @@
         .note-box:last-child { margin-bottom: 0; }
         .note-box.alert { background-color: rgba(245, 158, 11, 0.12); color: #fcd34d; border-left: 3px solid #f59e0b; }
         .note-box.verification { background-color: #0f172a; color: #cbd5e1; border: 1px solid #334155; border-left: 3px solid #64748b; }
+        @media (max-width: 375px) {
+            .tab-btn { font-size: 0.8rem; }
+        }
     </style>
 </head>
 <body>
     <div class="transfer-card">
         <div style="text-align: center; margin: 5px 0 15px 0; color: #f59e0b; font-size: 2.5rem;"><i class="fa-solid fa-shield-halved"></i></div>
+        
         <div class="tab-container">
             <button class="tab-btn active" data-target="fiat">1. Remittance Apps (Wise, WU)</button>
             <button class="tab-btn" data-target="crypto">2. Crypto</button>
         </div>
+
+        <!-- Unified Selection Descriptor Row -->
+        <span class="choice-instruction">Choose either one choice to make payment:</span>
+
         <div id="fiat" class="tab-content active">
             <p class="helper-text">To transfer funds successfully using Western Union, MoneyGram, Remitly or Wise, enter the data exactly as shown.<br><br>(US & Canadian clients can use Apple Pay or Interac at checkout inside these apps for instant loading).</p>
             <div class="info-group">
@@ -75,7 +84,7 @@
                 <div class="info-row"><span>Postal Code</span><strong>50300</strong></div>
                 <div class="info-row"><span>Phone Number</span><strong>254 718233558</strong></div>
             </div>
-            <div class="note-box alert"><strong>⚠️ Critical:</strong> Set delivery strictly to <strong>"Mobile Wallet" → "M-PESA"</strong> so funds go directly to my mobile number.</div>
+            <div class="note-box alert"><strong>⚠️ Critical:</strong> Set the <strong>"Delivery Method"</strong> strictly to <strong>"Mobile Wallet" → "M-PESA"</strong> so funds go directly to my mobile number.</div>
             <div class="note-box verification">Send a screenshot of the confirmation page or MTCN receipt once completed.</div>
         </div>
         <div id="crypto" class="tab-content">
