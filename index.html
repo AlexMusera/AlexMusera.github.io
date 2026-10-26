@@ -38,7 +38,7 @@
         .tab-btn.active::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 2px; background-color: #60a5fa; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
-        .choice-instruction { font-size: 0.85rem; font-weight: 600; color: #f59e0b; margin-bottom: 12px; text-align: center; display: block; }
+        .choice-instruction { font-size: 0.82rem; font-weight: 700; color: #f59e0b; margin-bottom: 14px; text-align: center; display: block; line-height: 1.4; background-color: rgba(245, 158, 11, 0.08); padding: 8px 10px; border-radius: 6px; border: 1px dashed rgba(245, 158, 11, 0.25); }
         .helper-text { font-size: 0.82rem; color: #94a3b8; margin-bottom: 12px; line-height: 1.45; }
         .info-group { border: 1px solid #334155; border-radius: 8px; overflow: hidden; margin-bottom: 16px; background-color: #0f172a; }
         .info-row {
@@ -70,8 +70,8 @@
             <button class="tab-btn" data-target="crypto">2. Crypto</button>
         </div>
 
-        <!-- Unified Selection Descriptor Row -->
-        <span class="choice-instruction">Choose either one choice to make payment:</span>
+        <!-- High-visibility selection prompt wrapper -->
+        <span class="choice-instruction">⚠️ IMPORTANT: Choose ONLY ONE option below to send your payment. You can either use an app on your phone OR use Crypto.</span>
 
         <div id="fiat" class="tab-content active">
             <p class="helper-text">To transfer funds successfully using Western Union, MoneyGram, Remitly or Wise, enter the data exactly as shown.<br><br>(US & Canadian clients can use Apple Pay or Interac at checkout inside these apps for instant loading).</p>
