@@ -37,7 +37,6 @@
         .tab-btn.active { color: #60a5fa; font-weight: 600; }
         .tab-btn.active::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 2px; background-color: #60a5fa; }
         
-        /* JavaScript will safely toggle these states */
         .tab-content { display: none; }
         .tab-content.active { display: block; }
         
@@ -87,6 +86,7 @@
 <body>
     <div class="transfer-card">
         
+        <!-- Flashing core header notice box -->
         <span class="choice-instruction">⚠️ IMPORTANT: Choose ONLY ONE option below to send your payment. You can either use an app/browser OR use crypto (Bitcoin via Cash App, Venmo/PayPal crypto).</span>
 
         <div class="tab-container">
@@ -96,10 +96,6 @@
 
         <!-- Tab Content 1: Remittance Info -->
         <div id="fiat" class="tab-content active">
-                      <!-- Minimalist Embedded Dark-Theme SVG Provider Row -->
-                       <!-- Ultra-Clean Dark Theme Minimalist Icon Row -->
-                       <!-- Premium Dark-Theme Fintech Brand Grid -->
-          
             <!-- Premium High-Contrast Fintech Brand Grid -->
             <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 20px;">
                 <!-- Wise Badge -->
@@ -127,9 +123,6 @@
                 </div>
             </div>
 
-
-
-
             <p class="helper-text">To transfer funds successfully using Western Union, MoneyGram, Remitly or Wise, enter the data exactly as shown.<br><br>(US & Canadian clients can use Apple Pay or Interac at checkout inside these apps for instant loading).</p>
             <div class="info-group">
                 <div class="info-row"><span>First Name</span><strong>Alex</strong></div>
@@ -144,41 +137,5 @@
             <div class="note-box verification">Send a screenshot of the confirmation page or MTCN receipt once completed.</div>
         </div>
 
-        <!-- Tab Content 2: Crypto Wallets (Hidden by default, no 'active' class string here) -->
+        <!-- Tab Content 2: Crypto Wallets -->
         <div id="crypto" class="tab-content">
-            <p class="helper-text">Optimized for native apps including PayPal, Venmo, Coinbase, Kraken & Robinhood.</p>
-            
-            <!-- USDT Block -->
-            <div class="crypto-section-block" style="margin-bottom: 20px;">
-                <div class="info-group">
-                    <div class="info-row"><span>Asset</span><strong>PYUSD / USDT</strong></div>
-                    <div class="info-row"><span>Network</span><strong style="color: #f59e0b;">Ethereum (ERC20)</strong></div>
-                </div>
-                <div class="code-container">
-                    <span class="code-box" id="usdtAddress">0xC404B6E05E298d2E2C1f1A27aa3B79559cb5d0dD</span>
-                    <button class="copy-btn" onclick="copyText('usdtAddress', this)">Copy</button>
-                </div>
-                <div class="note-box alert"><strong>⚠️ Critical:</strong> Select the <strong>Ethereum (ERC20)</strong> network to avoid lost funds.</div>
-            </div>
-            
-            <div style="margin: 20px 0; border-top: 1px dashed rgba(255,255,255,0.15);"></div>
-            
-            <!-- Bitcoin Block -->
-            <div class="crypto-section-block" style="margin-bottom: 16px;">
-                <div class="info-group">
-                    <div class="info-row"><span>Asset</span><strong>Bitcoin (BTC)</strong></div>
-                    <div class="info-row"><span>Network</span><strong style="color: #f59e0b;">Bitcoin Network</strong></div>
-                </div>
-                <div class="code-container">
-                    <span class="code-box" id="btcAddress">YOUR_BITCOIN_ADDRESS_HERE</span>
-                    <button class="copy-btn" onclick="copyText('btcAddress', this)">Copy</button>
-                </div>
-                <div class="note-box alert"><strong>⚠️ Critical:</strong> Make sure to send only BTC to this address via the native Bitcoin Network.</div>
-                 <!-- ADDED: Crypto completion instruction note box at the bottom -->
-            <div class="note-box verification">Send a screenshot of the confirmation page or transaction hash (TXID) receipt once completed.</div>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html>
