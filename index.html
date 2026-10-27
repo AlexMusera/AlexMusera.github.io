@@ -37,6 +37,7 @@
         .tab-btn.active { color: #60a5fa; font-weight: 600; }
         .tab-btn.active::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 2px; background-color: #60a5fa; }
         
+        /* JavaScript will safely toggle these states */
         .tab-content { display: none; }
         .tab-content.active { display: block; }
         
@@ -117,7 +118,7 @@
             <div class="note-box verification">Send a screenshot of the confirmation page or MTCN receipt once completed.</div>
         </div>
 
-        <!-- Tab Content 2: Crypto Wallets -->
+        <!-- Tab Content 2: Crypto Wallets (Hidden by default, no 'active' class string here) -->
         <div id="crypto" class="tab-content">
             <p class="helper-text">Optimized for native apps including PayPal, Venmo, Coinbase, Kraken & Robinhood.</p>
             
@@ -147,6 +148,11 @@
                     <button class="copy-btn" onclick="copyText('btcAddress', this)">Copy</button>
                 </div>
                 <div class="note-box alert"><strong>⚠️ Critical:</strong> Make sure to send only BTC to this address via the native Bitcoin Network.</div>
-            </div>
+                 <!-- ADDED: Crypto completion instruction note box at the bottom -->
+            <div class="note-box verification">Send a screenshot of the confirmation page or transaction hash (TXID) receipt once completed.</div>
+        </div>
+    </div>
 
-            <!-- Crypto verification message block -->
+    <script src="script.js"></script>
+</body>
+</html>
