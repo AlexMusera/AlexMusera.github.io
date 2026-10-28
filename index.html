@@ -3,122 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment details - Alex Musera</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://w3.org viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
+    <title>Invoice Payment</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #0b0f19;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center;
             min-height: 100vh;
-            padding: 30px 16px;
-            color: #e2e8f0;
-        }
-        .transfer-card {
-            background: #1e293b;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-            border: 1px solid #334155;
-            max-width: 360px;
-            width: 100%;
+            margin: 0;
             padding: 20px;
+            box-sizing: border-box;
         }
-        .tab-container { display: flex; border-bottom: 1px solid #334155; margin-bottom: 16px; gap: 4px; }
-        .tab-btn {
-            background: none; border: none; padding: 10px 4px; font-size: 0.88rem; font-weight: 500;
-            color: #94a3b8; cursor: pointer; position: relative; flex: 1; text-align: center;
-            white-space: nowrap; transition: color 0.15s ease;
+        .invoice-card {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 24px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
-        .tab-btn:hover { color: #f8fafc; }
-        .tab-btn.active { color: #60a5fa; font-weight: 600; }
-        .tab-btn.active::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 2px; background-color: #60a5fa; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        .choice-instruction { 
-            font-size: 0.82rem; font-weight: 700; color: #f59e0b; margin-bottom: 16px; text-align: center; display: block; line-height: 1.4; 
-            background-color: rgba(245, 158, 11, 0.08); padding: 10px; border-radius: 6px; border: 1px dashed #f59e0b;
+        h2 {
+            color: #ffffff;
+            margin-top: 0;
+            font-size: 20px;
+            border-bottom: 1px solid #30363d;
+            padding-bottom: 12px;
         }
-        .helper-text { font-size: 0.82rem; color: #94a3b8; margin-bottom: 12px; line-height: 1.45; }
-        .info-group { border: 1px solid #334155; border-radius: 8px; overflow: hidden; margin-bottom: 16px; background-color: #0f172a; }
-        .info-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 14px; min-height: 34px; font-size: 0.85rem; border-bottom: 1px solid #334155; }
-        .info-row:last-child { border-bottom: none; }
-        .info-row span { color: #94a3b8; }
-        .info-row strong { color: #f8fafc; text-align: right; word-break: break-word; }
-        .code-container { display: flex; background-color: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 10px 12px; align-items: center; justify-content: space-between; margin-bottom: 16px; gap: 12px; }
-        .code-box { font-family: monospace; font-size: 0.8rem; color: #38bdf8; word-break: break-all; line-height: 1.3; }
-        .copy-btn { background-color: #3b82f6; color: #ffffff; border: none; padding: 8px 14px; font-size: 0.8rem; font-weight: 600; border-radius: 6px; cursor: pointer; white-space: nowrap; }
-        .copy-btn:hover { background-color: #2563eb; }
-        .note-box { font-size: 0.82rem; padding: 12px 14px; border-radius: 6px; margin-bottom: 12px; line-height: 1.45; }
-        .note-box:last-child { margin-bottom: 0; }
-        .note-box.alert { background-color: rgba(245, 158, 11, 0.12); color: #fcd34d; border-left: 3px solid #f59e0b; }
-        .note-box.verification { background-color: #0f172a; color: #cbd5e1; border: 1px solid #334155; border-left: 3px solid #64748b; }
-        .logo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-bottom: 16px; }
-        .logo-badge { display: flex; align-items: center; justify-content: center; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px; height: 34px; font-size: 0.68rem; font-weight: 800; color: #0f172a; text-transform: uppercase; gap: 4px; }
+        .meta-group {
+            margin: 16px 0;
+            font-size: 15px;
+        }
+        .meta-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        .meta-label {
+            color: #8b949e;
+        }
+        .meta-value {
+            font-weight: bold;
+            color: #58a6ff;
+        }
+        .pay-btn {
+            display: block;
+            background-color: #238636;
+            color: #ffffff;
+            text-align: center;
+            padding: 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .pay-btn:hover {
+            background-color: #2ea44f;
+        }
+        .instructions-box {
+            background-color: #0d1117;
+            border-left: 4px solid #f0883e;
+            padding: 12px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .instructions-box ol {
+            margin: 0;
+            padding-left: 20px;
+            color: #e6edf3;
+        }
+        .instructions-box li {
+            margin-bottom: 8px;
+        }
+        .instructions-box li:last-child {
+            margin-bottom: 0;
+        }
     </style>
 </head>
 <body>
-    <div class="transfer-card">
-        <span class="choice-instruction">⚠️ IMPORTANT: Choose ONLY ONE option below to send your payment. You can either use an app/browser OR use crypto (Bitcoin via Cash App, Venmo/PayPal crypto).</span>
 
-        <div class="tab-container">
-            <button class="tab-btn active" data-target="fiat">1. Remittance Apps (Wise, WU)</button>
-            <button class="tab-btn" data-target="crypto">2. Crypto</button>
+<div class="invoice-card">
+    <h2>Textbook Invoice</h2>
+    
+    <div class="meta-group">
+        <div class="meta-row">
+            <span class="meta-label">Total Amount Due:</span>
+            <span class="meta-value" style="color: #2ea44f;">$10.00 USD</span>
         </div>
-
-        <!-- Tab Content 1: Remittance Info -->
-        <div id="fiat" class="tab-content active">
-            <div class="logo-grid">
-                <div class="logo-badge"><svg viewBox="0 0 24 24" style="height:12px;fill:#00bfff;"><path d="M14.2 4.41L11.5 9h5.13l-5.6 9.42L13.73 11h-4.9l2.7-4.59h-4.6L4.3 11.23l2.83 4.82h3.4l-1.9 3.2L10.32 20l7.25-12.21h-3.95L16.29 4.4z"/></svg>Wise</div>
-                <div class="logo-badge"><span style="background:#ffcc00;color:#000;padding:1px 3px;border-radius:2px;font-size:0.6rem;">WU</span>W. Union</div>
-                <div class="logo-badge"><svg viewBox="0 0 24 24" style="height:12px;fill:#ff0000;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-12S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/></svg>MoneyGram</div>
-                <div class="logo-badge"><svg viewBox="0 0 24 24" style="height:12px;fill:#1a2b4c;"><path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-3zm0 6c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z"/></svg>Remitly</div>
-            </div>
-            <p class="helper-text">To transfer funds successfully using Western Union, MoneyGram, Remitly or Wise, enter the data exactly as shown.<br><br>(US & Canadian clients can use Apple Pay or Interac at checkout inside these apps for instant loading).</p>
-            <div class="info-group">
-                <div class="info-row"><span>First Name</span><strong>Alex</strong></div>
-                <div class="info-row"><span>Last Name</span><strong>Musera</strong></div>
-                <div class="info-row"><span>Country</span><strong>Kenya</strong></div>
-                <div class="info-row"><span>City</span><strong>Vihiga</strong></div>
-                <div class="info-row"><span>Address</span><strong>Majengo</strong></div>
-                <div class="info-row"><span>Postal Code</span><strong>50300</strong></div>
-                <div class="info-row"><span>Phone Number</span><strong>254 718233558</strong></div>
-            </div>
-            <div class="note-box alert"><strong>⚠️ Critical:</strong> Set the <strong>"Delivery Method"</strong> strictly to <strong>"Mobile Wallet" → "M-PESA"</strong> so funds go directly to my mobile number.</div>
-            <div class="note-box verification">Send a screenshot of the confirmation page or MTCN receipt once completed.</div>
-        </div>
-
-        <!-- Tab Content 2: Crypto Wallets -->
-        <div id="crypto" class="tab-content">
-            <p class="helper-text">Optimized for native apps including PayPal, Venmo, Coinbase, Kraken & Robinhood.</p>
-            <div class="crypto-section-block" style="margin-bottom: 20px;">
-                <div class="info-group">
-                    <div class="info-row"><span>Asset</span><strong>PYUSD / USDT</strong></div>
-                    <div class="info-row"><span>Network</span><strong style="color: #f59e0b;">Ethereum (ERC20)</strong></div>
-                </div>
-                <div class="code-container">
-                    <span class="code-box" id="usdtAddress">0xC404B6E05E298d2E2C1f1A27aa3B79559cb5d0dD</span>
-                    <button class="copy-btn" onclick="copyText('usdtAddress', this)">Copy</button>
-                </div>
-                <div class="note-box alert"><strong>⚠️ Critical:</strong> Select the <strong>Ethereum (ERC20)</strong> network to avoid lost funds.</div>
-            </div>
-            <div style="margin: 20px 0; border-top: 1px dashed rgba(255,255,255,0.15);"></div>
-            <div class="crypto-section-block" style="margin-bottom: 16px;">
-                <div class="info-group">
-                    <div class="info-row"><span>Asset</span><strong>Bitcoin (BTC)</strong></div>
-                    <div class="info-row"><span>Network</span><strong style="color: #f59e0b;">Bitcoin Network</strong></div>
-                </div>
-                <div class="code-container">
-                    <span class="code-box" id="btcAddress">bc1qvhqd7dueazf7ws8y40043cvnzlss29p7q2ly83z</span>
-                    <button class="copy-btn" id="copyBtcBtn" onclick="copyText('btcAddress', this)">Copy</button>
-                </div>
-                <div class="note-box alert"><strong>⚠️ Critical:</strong> Select the native <strong>Bitcoin Network</strong> in Cash App. Sending any other asset will result in permanent loss.</div>
-            </div>
-            <div class="note-box verification">Send a screenshot of the confirmation page or transaction hash (TXID) receipt once completed.</div>
+        <div class="meta-row">
+            <span class="meta-label">Payment Network:</span>
+            <span class="meta-value">Cash App (Bitcoin Native)</span>
         </div>
     </div>
-    <script src="script.js"></script>
+
+    <div class="instructions-box">
+        <ol>
+            <li><strong>Tap the green button</strong> below.</li>
+            <li>Cash App will launch with the address and <strong>$10.00</strong> pre-filled automatically.</li>
+            <li>Select <strong>Standard</strong> or <strong>Minimum</strong> speed to keep the network transfer free.</li>
+            <li>Confirm payment, then text me a quick <strong>screenshot of the 'Payment Sent' page</strong> to instantly get your book!</li>
+        </ol>
+    </div>
+
+    <a href="https://tinyurl.com/23xa3v74" class="pay-btn" target="_blank">
+        🔗 Open Cash App &amp; Pay $10
+    </a>
+</div>
+
 </body>
 </html>
