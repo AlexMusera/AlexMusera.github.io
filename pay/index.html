@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice Payment</title>
+    <title>Secure Textbook Payment</title>
     <style>
         body {
             background-color: #0d1117;
@@ -32,26 +32,80 @@
             font-size: 20px;
             border-bottom: 1px solid #30363d;
             padding-bottom: 12px;
-        }
-        .meta-group {
-            margin: 16px 0;
-            font-size: 15px;
+            margin-bottom: 16px;
         }
         .meta-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 8px;
+            margin-bottom: 16px;
+            font-size: 15px;
         }
         .meta-label {
             color: #8b949e;
         }
         .meta-value {
             font-weight: bold;
-            color: #58a6ff;
+            color: #2ea44f;
         }
+        /* Tab Navigation Layout */
+        .tab-container {
+            display: flex;
+            border-bottom: 1px solid #30363d;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            flex: 1;
+            background: none;
+            border: none;
+            color: #8b949e;
+            padding: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+        .tab-btn:hover {
+            color: #ffffff;
+        }
+        .tab-btn.active {
+            color: #58a6ff;
+            border-bottom-color: #58a6ff;
+        }
+        /* Tab Content Control */
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        /* Instructions Formatting */
+        .instructions-box {
+            background-color: #0d1117;
+            padding: 12px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .cashapp-box { border-left: 4px solid #2ea44f; }
+        .paypal-box { border-left: 4px solid #0070ba; }
+        
+        ol {
+            margin: 0;
+            padding-left: 20px;
+            color: #e6edf3;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        li:last-child {
+            margin-bottom: 0;
+        }
+        /* Action Buttons */
         .pay-btn {
             display: block;
-            background-color: #238636;
             color: #ffffff;
             text-align: center;
             padding: 14px;
@@ -59,31 +113,12 @@
             text-decoration: none;
             font-weight: bold;
             font-size: 16px;
-            margin: 20px 0;
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
-        .pay-btn:hover {
-            background-color: #2ea44f;
-        }
-        .instructions-box {
-            background-color: #0d1117;
-            border-left: 4px solid #f0883e;
-            padding: 12px 16px;
-            border-radius: 4px;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-        .instructions-box ol {
-            margin: 0;
-            padding-left: 20px;
-            color: #e6edf3;
-        }
-        .instructions-box li {
-            margin-bottom: 8px;
-        }
-        .instructions-box li:last-child {
-            margin-bottom: 0;
-        }
+        .btn-cashapp { background-color: #238636; }
+        .btn-cashapp:hover { background-color: #2ea44f; }
+        .btn-paypal { background-color: #0070ba; }
+        .btn-paypal:hover { background-color: #005ea6; }
     </style>
 </head>
 <body>
@@ -91,30 +126,63 @@
 <div class="invoice-card">
     <h2>Textbook Invoice</h2>
     
-    <div class="meta-group">
-        <div class="meta-row">
-            <span class="meta-label">Total Amount Due:</span>
-            <span class="meta-value" style="color: #2ea44f;">$10.00 USD</span>
-        </div>
-        <div class="meta-row">
-            <span class="meta-label">Payment Network:</span>
-            <span class="meta-value">Cash App (Bitcoin Native)</span>
-        </div>
+    <div class="meta-row">
+        <span class="meta-label">Total Amount Due:</span>
+        <span class="meta-value">$10.00 USD</span>
     </div>
 
-    <div class="instructions-box">
-        <ol>
-            <li><strong>Tap the green button</strong> below.</li>
-            <li>Cash App will launch with the address and <strong>$10.00</strong> pre-filled automatically.</li>
-            <li>Select <strong>Standard</strong> or <strong>Minimum</strong> speed to keep the network transfer free.</li>
-            <li>Confirm payment, then text me a quick <strong>screenshot of the 'Payment Sent' page</strong> to instantly get your book!</li>
-        </ol>
+    <!-- Toggle Controls -->
+    <div class="tab-container">
+        <button class="tab-btn active" onclick="switchTab('cashapp')">Cash App</button>
+        <button class="tab-btn" onclick="switchTab('paypal')">PayPal / Venmo</button>
     </div>
 
-    <a href="https://tinyurl.com/23xa3v74" class="pay-btn" target="_blank">
-        🔗 Open Cash App &amp; Pay $10
-    </a>
+    <!-- PANEL 1: CASH APP -->
+    <div id="cashapp" class="tab-content active">
+        <div class="instructions-box cashapp-box">
+            <ol>
+                <li><strong>Tap the green button</strong> below.</li>
+                <li>Cash App will launch with the address and <strong>$10.00</strong> pre-filled automatically.</li>
+                <li>Select <strong>Standard</strong> or <strong>Minimum</strong> speed to keep the network transfer free.</li>
+                <li>Confirm payment, then text me a quick <strong>screenshot of the 'Payment Sent' page</strong> to instantly get your book!</li>
+            </ol>
+        </div>
+         <a href="https://tinyurl.com/23xa3v74" class="pay-btn" target="_blank">
+            🔗 Open Cash App &amp; Pay $10
+        </a>
+    </div>
+
+    <!-- PANEL 2: PAYPAL / VENMO -->
+    <div id="paypal" class="tab-content">
+        <div class="instructions-box paypal-box">
+            <ol>
+                <li><strong>Tap the blue button</strong> below.</li>
+                <li>PayPal or Venmo will launch with the payment address pre-filled automatically.</li>
+                <li>Type <strong>10 PYUSD</strong> (or $10.00) as the amount manually.</li>
+                <li>Confirm payment, then text me a quick <strong>screenshot of the 'Payment Sent' page</strong> to instantly get your book!</li>
+            </ol>
+        </div>
+        <a href="solana:GxtsenZKbCzeJrq2w19BSzyqEc48EjQABVWXQrfe7Ybm?amount=10&label=Textbook" class="pay-btn btn-paypal" target="_blank">
+            🔗 Open PayPal / Venmo &amp; Pay $10
+        </a>
+    </div>
 </div>
+
+<script>
+    function switchTab(tabId) {
+        // Hide all tabs
+        document.querySelectorAll('.tab-content').forEach(content => {
+            content.classList.remove('active');
+        });
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+
+        // Show selected tab
+        document.getElementById(tabId).classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
+</script>
 
 </body>
 </html>
