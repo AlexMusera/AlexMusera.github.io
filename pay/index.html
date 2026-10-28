@@ -2,76 +2,86 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
     <title>Payment details - Alex Musera</title>
     <style>
         body {
             background-color: #0d1117;
             color: #c9d1d9;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Helvetica, Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            min-height: -webkit-fill-available; /* Fixes mobile Safari viewport heights */
             margin: 0;
-            padding: 20px;
+            padding: 16px;
             box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        html {
+            height: -webkit-fill-available;
         }
         .invoice-card {
             background-color: #161b22;
             border: 1px solid #30363d;
-            border-radius: 8px;
-            padding: 24px;
+            border-radius: 12px; /* Smoother premium curves for iOS style */
+            padding: 20px;
             max-width: 400px;
             width: 100%;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            box-sizing: border-box;
         }
         h2 {
             color: #ffffff;
             margin-top: 0;
-            font-size: 20px;
+            font-size: 19px;
             border-bottom: 1px solid #30363d;
             padding-bottom: 12px;
             margin-bottom: 16px;
+            font-weight: 600;
         }
         .meta-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 16px;
+            margin-bottom: 18px;
             font-size: 15px;
         }
         .meta-label {
             color: #8b949e;
         }
         .meta-value {
-            font-weight: bold;
-            color: #2ea44f;
+            font-weight: 600;
+            color: #34d399; /* Bright vibrant green optimization */
         }
-        /* Tab Navigation Layout */
+        /* Tab Navigation Layout Optimization for Touch Targets */
         .tab-container {
             display: flex;
             border-bottom: 1px solid #30363d;
             margin-bottom: 20px;
+            background-color: #0d1117;
+            border-radius: 8px;
+            padding: 2px;
         }
         .tab-btn {
             flex: 1;
             background: none;
             border: none;
             color: #8b949e;
-            padding: 10px;
-            font-size: 14px;
-            font-weight: bold;
+            padding: 10px 4px;
+            font-size: 13px;
+            font-weight: 600;
             cursor: pointer;
             text-align: center;
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s ease;
-        }
-        .tab-btn:hover {
-            color: #ffffff;
+            border-radius: 6px;
+            transition: all 0.15s ease;
+            -webkit-tap-highlight-color: transparent; /* Removes blue gray box overlay tap artifact on iOS */
         }
         .tab-btn.active {
-            color: #58a6ff;
-            border-bottom-color: #58a6ff;
+            color: #ffffff;
+            background-color: #21262d;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
         }
         /* Tab Content Control */
         .tab-content {
@@ -83,14 +93,14 @@
         /* Instructions Formatting */
         .instructions-box {
             background-color: #0d1117;
-            padding: 12px 16px;
-            border-radius: 4px;
-            font-size: 14px;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 13.5px;
             line-height: 1.5;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
-        .cashapp-box { border-left: 4px solid #2ea44f; }
-        .venmo-box { border-left: 4px solid #008CFF; }
+        .cashapp-box { border-left: 4px solid #238636; }
+        .paypal-box { border-left: 4px solid #00457c; }
         
         ol {
             margin: 0;
@@ -98,27 +108,52 @@
             color: #e6edf3;
         }
         li {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
         li:last-child {
             margin-bottom: 0;
         }
-        /* Action Buttons */
-        .pay-btn {
-            display: block;
-            color: #ffffff;
-            text-align: center;
-            padding: 14px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 16px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        /* Universal Copy Component Layout Responsiveness */
+        .copy-container {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 5px;
+            box-sizing: border-box;
         }
-        .btn-cashapp { background-color: #238636; }
-        .btn-cashapp:hover { background-color: #2ea44f; }
-        .btn-venmo { background-color: #008CFF; }
-        .btn-venmo:hover { background-color: #0070cc; }
+        .tag-text {
+            font-family: -apple-system-ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 11px;
+            color: #e6edf3;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            user-select: all; /* Allows double tap fallback text highlight choice */
+            -webkit-user-select: all;
+        }
+        .copy-action-btn {
+            color: white;
+            border: none;
+            padding: 10px 14px; /* Enhanced native mobile touch area height target */
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 12.5px;
+            min-width: 95px;
+            flex-shrink: 0;
+            transition: background-color 0.2s, transform 0.1s;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .copy-action-btn:active {
+            transform: scale(0.97); /* Subtle native mechanical click button response on press down */
+        }
+        .btn-green-copy { background-color: #238636; }
+        .btn-blue-copy { background-color: #003087; }
     </style>
 </head>
 <body>
@@ -133,54 +168,68 @@
 
     <!-- Toggle Controls -->
     <div class="tab-container">
-        <button class="tab-btn active" onclick="switchTab('cashapp')">Cash App</button>
-        <button class="tab-btn" onclick="switchTab('venmo')">Venmo</button>
+        <button class="tab-btn active" onclick="switchTab(this, 'cashapp')">Cash App</button>
+        <button class="tab-btn" onclick="switchTab(this, 'paypal')">PayPal / Venmo</button>
     </div>
 
     <!-- PANEL 1: CASH APP -->
     <div id="cashapp" class="tab-content active">
         <div class="instructions-box cashapp-box">
             <ol>
-                <li><strong>Tap the green button</strong> below.</li>
-                <li>Cash App will launch with the payment details and <strong>$10.00</strong> pre-filled automatically.</li>
-                <li>Select <strong>Standard</strong> or <strong>Minimum</strong> speed to keep the transaction free.</li>
-                <li>Confirm payment, then text me a quick <strong>screenshot of your payment receipt</strong>.</li>
+                <li>Open <strong>Cash App</strong> and go to the Bitcoin section.</li>
+                <li>Choose the option to send Bitcoin. If a Lightning payment option is available, select it.</li>
+                <li>Tap <strong>"Copy Invoice"</strong> below, then paste the invoice into the recipient or payment-request field.</li>
+                <li>Check the amount and confirm that Cash App recognizes the invoice as a Lightning payment.</li>
+                <li>If the invoice is accepted and the details are correct, review the final screen, confirm the payment, and text me a <strong>screenshot of the confirmation page</strong>.</li>
             </ol>
         </div>
-         <a href="https://tinyurl.com/23xa3v74" class="pay-btn btn-cashapp" target="_blank">
-            🔗 Open Cash App &amp; Pay $10
-        </a>
+        <div class="copy-container">
+            <span id="cashAddress" class="tag-text">lnbc1p4wywz7pp59vse5mx9utuhwlvyfsyt4ygqfu5l5t33m7se0dak964hjd7rm29ssp5dk23cl8utmpecr3yulccelk0gdgms0ljzy6l48trrf5dzx6eha3qdqqcqzynxq8zals8sq9qlzqqqqqqqqqqqqqqqqqqqqqqqqqqysgqrsmww9zclwf588xzh6pegtelh8p8hmgkkakp27pmge4rp3m52jcz04zd2ah0y9vxtk7emmku26p3vw8t7f697yxv8ss6ze96uk5hsucqe2ecqa</span>
+            <button onclick="copyField('cashAddress', 'cashCopyBtn', '#238636', '#2ea44f')" id="cashCopyBtn" class="copy-action-btn btn-green-copy">Copy Invoice</button>
+        </div>
     </div>
 
-    <!-- PANEL 2: VENMO -->
-    <div id="venmo" class="tab-content">
-        <div class="instructions-box venmo-box">
+    <!-- PANEL 2: PAYPAL / VENMO -->
+    <div id="paypal" class="tab-content">
+        <div class="instructions-box paypal-box">
             <ol>
-                <li><strong>Tap the blue button</strong> below.</li>
-                <li>Venmo will launch with the secure checkout network address pre-filled automatically.</li>
-                <li>Type <strong>10.00</strong> as the transfer amount manually.</li>
-                <li>Confirm payment, then text me a quick <strong>screenshot of your payment receipt</strong>.</li>
+                <li>Open <strong>PayPal or Venmo</strong>.</li>
+                <li>Open the <strong>Crypto</strong> section and select <strong>PYUSD (PayPal USD)</strong>.</li>
+                <li>Choose <strong>Send</strong> and select the option to send to an external wallet.</li>
+                <li>Tap <strong>Copy Tag</strong> below and paste the address into the recipient field.</li>
+                <li>Select the <strong>Solana network</strong> if asked. Enter an amount equivalent to <strong>$10 USD</strong>.</li>
+                <li>Before confirming, verify the recipient address, PYUSD token, Solana network, and amount. Then send a <strong>screenshot of the confirmation page</strong>.</li>
             </ol>
         </div>
-        <a href="venmo://paycharge?txn=pay&recipients=GxtsenZKbCzeJrq2w19BSzyqEc48EjQABVWXQrfe7Ybm&amount=10" class="pay-btn btn-venmo" target="_blank">
-            🔗 Open Venmo &amp; Pay $10
-        </a>
+        <div class="copy-container">
+            <span id="paypalAddress" class="tag-text">GxtsenZKbCzeJrq2w19BSzyqEc48EjQABVWXQrfe7Ybm</span>
+            <button onclick="copyField('paypalAddress', 'paypalCopyBtn', '#003087', '#00457c')" id="paypalCopyBtn" class="copy-action-btn btn-blue-copy">Copy Tag</button>
+        </div>
     </div>
 </div>
 
 <script>
-    function switchTab(tabId) {
-        // Hide all tabs
-        document.querySelectorAll('.tab-content').forEach(content => {
-            content.classList.remove('active');
-        });
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.classList.remove('active');
-        });
-
-        // Show selected tab
+    function switchTab(buttonEl, tabId) {
+        document.querySelectorAll('.tab-content').forEach(content => { content.classList.remove('active'); });
+        document.querySelectorAll('.tab-btn').forEach(btn => { btn.classList.remove('active'); });
+        
         document.getElementById(tabId).classList.add('active');
-        event.currentTarget.classList.add('active');
+        buttonEl.classList.add('active');
+    }
+
+    function copyField(elementId, btnId, normalColor, activeColor) {
+        const addressText = document.getElementById(elementId).innerText.trim();
+        navigator.clipboard.writeText(addressText).then(() => {
+            const btn = document.getElementById(btnId);
+            btn.innerText = "Copied!";
+            btn.style.backgroundColor = activeColor;
+            setTimeout(() => {
+                btn.innerText = btnId === 'cashCopyBtn' ? "Copy Invoice" : "Copy Tag";
+                btn.style.backgroundColor = normalColor;
+            }, 2000);
+        }).catch(err => {
+            alert("Please highlight and copy the network tag text manually.");
+        });
     }
 </script>
 
