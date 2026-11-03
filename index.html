@@ -14,7 +14,7 @@
             justify-content: center;
             align-items: flex-start;
             min-height: 100vh;
-            padding: 30px 16px;
+            padding: 24px 16px;
             color: #e2e8f0;
         }
         .transfer-card {
@@ -22,103 +22,251 @@
             border-radius: 12px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.4);
             border: 1px solid #334155;
-            max-width: 360px;
+            max-width: 340px;
             width: 100%;
-            padding: 20px;
+            padding: 16px;
         }
-        .tab-container { display: flex; border-bottom: 1px solid #334155; margin-bottom: 16px; gap: 4px; }
+        .invoice-header {
+            text-align: center;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #334155;
+        }
+        .invoice-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #f8fafc;
+            margin-bottom: 4px;
+        }
+        .invoice-amount {
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+        .invoice-amount strong {
+            color: #4ade80;
+            font-size: 1rem;
+        }
+        .drive-btn-container {
+            margin-bottom: 16px;
+        }
+        .drive-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            background-color: #2563eb;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            text-align: center;
+            transition: background 0.15s ease;
+            border: 1px solid #3b82f6;
+        }
+        .drive-btn:hover {
+            background-color: #1d4ed8;
+        }
+        .choice-instruction { 
+            font-size: 0.8rem; font-weight: 700; color: #f59e0b; margin-bottom: 12px; text-align: center; display: block; line-height: 1.3; 
+            background: rgba(245, 158, 11, 0.08); padding: 8px; border-radius: 6px; border: 1px dashed #f59e0b;
+        }
+        .tab-container { display: flex; border-bottom: 1px solid #334155; margin-bottom: 12px; gap: 4px; }
         .tab-btn {
-            background: none; border: none; padding: 10px 4px; font-size: 0.88rem; font-weight: 500;
+            background: none; border: none; padding: 8px 0; font-size: 0.85rem; font-weight: 500;
             color: #94a3b8; cursor: pointer; position: relative; flex: 1; text-align: center;
-            white-space: nowrap; transition: color 0.15s ease;
         }
-        .tab-btn:hover { color: #f8fafc; }
         .tab-btn.active { color: #60a5fa; font-weight: 600; }
         .tab-btn.active::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 2px; background-color: #60a5fa; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
-        .choice-instruction { 
-            font-size: 0.82rem; font-weight: 700; color: #f59e0b; margin-bottom: 16px; text-align: center; display: block; line-height: 1.4; 
-            background-color: rgba(245, 158, 11, 0.08); padding: 10px; border-radius: 6px; border: 1px dashed #f59e0b;
-        }
-        .helper-text { font-size: 0.82rem; color: #94a3b8; margin-bottom: 12px; line-height: 1.45; }
-        .info-group { border: 1px solid #334155; border-radius: 8px; overflow: hidden; margin-bottom: 16px; background-color: #0f172a; }
-        .info-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 14px; min-height: 34px; font-size: 0.85rem; border-bottom: 1px solid #334155; }
+        .logo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin-bottom: 12px; }
+        .logo-badge { display: flex; align-items: center; justify-content: center; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 4px; height: 26px; font-size: 0.6rem; font-weight: 800; color: #0f172a; text-transform: uppercase; }
+        .helper-text { font-size: 0.8rem; color: #94a3b8; margin-bottom: 10px; line-height: 1.35; text-align: center; }
+        .info-group { border: 1px solid #334155; border-radius: 6px; overflow: hidden; margin-bottom: 12px; background-color: #0f172a; }
+        .info-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 12px; min-height: 34px; font-size: 0.8rem; border-bottom: 1px solid #334155; gap: 8px; }
         .info-row:last-child { border-bottom: none; }
-        .info-row span { color: #94a3b8; }
-        .info-row strong { color: #f8fafc; text-align: right; word-break: break-word; }
-        .code-container { display: flex; background-color: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 10px 12px; align-items: center; justify-content: space-between; margin-bottom: 16px; gap: 12px; }
-        .code-box { font-family: monospace; font-size: 0.8rem; color: #38bdf8; word-break: break-all; line-height: 1.3; }
-        .copy-btn { background-color: #3b82f6; color: #ffffff; border: none; padding: 8px 14px; font-size: 0.8rem; font-weight: 600; border-radius: 6px; cursor: pointer; white-space: nowrap; }
-        .copy-btn:hover { background-color: #2563eb; }
-        .note-box { font-size: 0.82rem; padding: 12px 14px; border-radius: 6px; margin-bottom: 12px; line-height: 1.45; }
+        .info-row span { color: #94a3b8; white-space: nowrap; }
+        .info-values { display: flex; align-items: center; gap: 8px; margin-left: auto; max-width: 70%; }
+        .info-values strong { color: #f8fafc; word-break: break-all; text-align: right; }
+        .row-copy-btn { background: #334155; color: #94a3b8; border: none; padding: 2px 6px; font-size: 0.68rem; font-weight: 600; border-radius: 4px; cursor: pointer; transition: all 0.15s ease; }
+        .row-copy-btn:hover { background: #475569; color: #f8fafc; }
+        .code-container { display: flex; background-color: #0f172a; border: 1px solid #334155; border-radius: 6px; padding: 8px 10px; align-items: center; justify-content: space-between; margin-bottom: 10px; gap: 8px; }
+        .code-box { font-family: monospace; font-size: 0.72rem; color: #38bdf8; word-break: break-all; line-height: 1.2; }
+        .copy-btn { background-color: #3b82f6; color: #ffffff; border: none; padding: 6px 10px; font-size: 0.75rem; font-weight: 600; border-radius: 4px; cursor: pointer; }
+        .note-box { font-size: 0.78rem; padding: 8px 10px; border-radius: 4px; margin-bottom: 10px; line-height: 1.35; }
         .note-box:last-child { margin-bottom: 0; }
         .note-box.alert { background-color: rgba(245, 158, 11, 0.12); color: #fcd34d; border-left: 3px solid #f59e0b; }
-        .note-box.verification { background-color: #0f172a; color: #cbd5e1; border: 1px solid #334155; border-left: 3px solid #64748b; }
-        .logo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-bottom: 16px; }
-        .logo-badge { display: flex; align-items: center; justify-content: center; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px; height: 34px; font-size: 0.68rem; font-weight: 800; color: #0f172a; text-transform: uppercase; gap: 4px; }
+        .note-box.mpesa-alert { background-color: rgba(34, 197, 94, 0.12); color: #4ade80; border-left: 3px solid #22c55e; }
+        .note-box.verification { background-color: #0f172a; color: #cbd5e1; border: 1px solid #334155; text-align: center; font-weight: 600; }
     </style>
 </head>
 <body>
     <div class="transfer-card">
-        <span class="choice-instruction">⚠️ IMPORTANT: Choose ONLY ONE option below to send your payment. You can either use a remittance app/browser OR use crypto (Bitcoin via Cash App, Venmo/PayPal crypto).</span>
+        <div class="invoice-header">
+            <div class="invoice-title">Textbook Invoice</div>
+            <div class="invoice-amount">Total Amount Due: <strong>$10.00 USD</strong></div>
+        </div>
+
+        <div class="drive-btn-container">
+            <a href="YOUR_GOOGLE_DRIVE_LINK_HERE" target="_blank" class="drive-btn">
+                <span>📁 Access Digital Textbook (Google Drive)</span>
+            </a>
+        </div>
+
+        <span class="choice-instruction">Select ONE settlement option below:</span>
 
         <div class="tab-container">
-            <button class="tab-btn active" data-target="fiat">1. Remittance Apps (Wise, WU)</button>
-            <button class="tab-btn" data-target="crypto">2. Crypto</button>
+            <button class="tab-btn active" data-target="fiat">1. Remittance Apps</button>
+            <button class="tab-btn" data-target="crypto">2. Crypto / Cash App</button>
         </div>
 
         <!-- Tab Content 1: Remittance Info -->
         <div id="fiat" class="tab-content active">
             <div class="logo-grid">
-                <div class="logo-badge"><svg viewBox="0 0 24 24" style="height:12px;fill:#00bfff;"><path d="M14.2 4.41L11.5 9h5.13l-5.6 9.42L13.73 11h-4.9l2.7-4.59h-4.6L4.3 11.23l2.83 4.82h3.4l-1.9 3.2L10.32 20l7.25-12.21h-3.95L16.29 4.4z"/></svg>Wise</div>
-                <div class="logo-badge"><span style="background:#ffcc00;color:#000;padding:1px 3px;border-radius:2px;font-size:0.6rem;">WU</span>W. Union</div>
-                <div class="logo-badge"><svg viewBox="0 0 24 24" style="height:12px;fill:#ff0000;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-12S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/></svg>MoneyGram</div>
-                <div class="logo-badge"><svg viewBox="0 0 24 24" style="height:12px;fill:#1a2b4c;"><path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-3zm0 6c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z"/></svg>Remitly</div>
+                <div class="logo-badge">Wise</div>
+                <div class="logo-badge">W.Union</div>
+                <div class="logo-badge">M.Gram</div>
+                <div class="logo-badge">Remitly</div>
             </div>
-            <p class="helper-text">To transfer funds successfully using Western Union, MoneyGram, Remitly or Wise, enter the data exactly as shown.<br><br>(US & Canadian clients can use Apple Pay or Interac at checkout inside these apps for instant loading).</p>
+            <p class="helper-text">Pay instantly inside any app using debit/credit card, Apple Pay, or Interac.</p>
+            
             <div class="info-group">
-                <div class="info-row"><span>First Name</span><strong>Alex</strong></div>
-                <div class="info-row"><span>Last Name</span><strong>Musera</strong></div>
-                <div class="info-row"><span>Country</span><strong>Kenya</strong></div>
-                <div class="info-row"><span>City</span><strong>Vihiga</strong></div>
-                <div class="info-row"><span>Address</span><strong>Majengo</strong></div>
-                <div class="info-row"><span>Postal Code</span><strong>50300</strong></div>
-                <div class="info-row"><span>Phone Number</span><strong>254 718233558</strong></div>
+                <div class="info-row">
+                    <span>First Name</span>
+                    <div class="info-values">
+                        <strong id="val-fn">Alex</strong>
+                        <button class="row-copy-btn" onclick="copyRow('val-fn', this)">Copy</button>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <span>Last Name</span>
+                    <div class="info-values">
+                        <strong id="val-ln">Musera</strong>
+                        <button class="row-copy-btn" onclick="copyRow('val-ln', this)">Copy</button>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <span>Country</span>
+                    <div class="info-values">
+                        <strong id="val-country">Kenya</strong>
+                        <button class="row-copy-btn" onclick="copyRow('val-country', this)">Copy</button>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <span>City</span>
+                    <div class="info-values">
+                        <strong id="val-city">Vihiga</strong>
+                        <button class="row-copy-btn" onclick="copyRow('val-city', this)">Copy</button>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <span>Address</span>
+                    <div class="info-values">
+                        <strong id="val-address">Majengo</strong>
+                        <button class="row-copy-btn" onclick="copyRow('val-address', this)">Copy</button>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <span>Postal Code</span>
+                    <div class="info-values">
+                        <strong id="val-pc">50300</strong>
+                        <button class="row-copy-btn" onclick="copyRow('val-pc', this)">Copy</button>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <span>Phone Number</span>
+                    <div class="info-values">
+                        <strong id="val-phone">254 718233558</strong>
+                        <button class="row-copy-btn" onclick="copyRow('val-phone', this)">Copy</button>
+                    </div>
+                </div>
             </div>
-            <div class="note-box alert"><strong>⚠️ Critical:</strong> Set the <strong>"Delivery Method"</strong> strictly to <strong>"Mobile Wallet" → "M-PESA"</strong> so funds go directly to my mobile number.</div>
-            <div class="note-box verification">Send a screenshot of the confirmation page or MTCN receipt once completed.</div>
+            
+            <div class="note-box mpesa-alert"><strong>⚠️ Delivery Step:</strong> Choose <strong>"Mobile Wallet"</strong> or <strong>"Mobile Money"</strong> channel, then select <strong>"M-PESA"</strong>.</div>
+            <div class="note-box verification">Text me a screenshot of the receipt when done.</div>
         </div>
 
         <!-- Tab Content 2: Crypto Wallets -->
         <div id="crypto" class="tab-content">
-            <p class="helper-text">Optimized for native apps including PayPal, Venmo, Coinbase, Kraken & Robinhood.</p>
-            <div class="crypto-section-block" style="margin-bottom: 20px;">
+            <p class="helper-text">Pay via Cash App (Bitcoin) or Venmo/PayPal (PYUSD).</p>
+            
+            <div class="crypto-section-block" style="margin-bottom: 12px;">
                 <div class="info-group">
-                    <div class="info-row"><span>Asset</span><strong>PYUSD / USDT</strong></div>
+                    <div class="info-row"><span>Asset</span><strong>PYUSD / USDT (Venmo/PayPal)</strong></div>
                     <div class="info-row"><span>Network</span><strong style="color: #f59e0b;">Ethereum (ERC20)</strong></div>
                 </div>
                 <div class="code-container">
                     <span class="code-box" id="usdtAddress">0xC404B6E05E298d2E2C1f1A27aa3B79559cb5d0dD</span>
                     <button class="copy-btn" onclick="copyText('usdtAddress', this)">Copy</button>
                 </div>
-                <div class="note-box alert"><strong>⚠️ Critical:</strong> Select the <strong>Ethereum (ERC20)</strong> network to avoid lost funds.</div>
+                <div class="note-box alert">Must use <strong>Ethereum (ERC20)</strong> network.</div>
             </div>
-            <div style="margin: 20px 0; border-top: 1px dashed rgba(255,255,255,0.15);"></div>
-            <div class="crypto-section-block" style="margin-bottom: 16px;">
+
+            <div class="crypto-section-block">
                 <div class="info-group">
-                    <div class="info-row"><span>Asset</span><strong>Bitcoin (BTC)</strong></div>
-                    <div class="info-row"><span>Network</span><strong style="color: #f59e0b;">Bitcoin Network</strong></div>
+                    <div class="info-row"><span>Asset</span><strong>Bitcoin BTC (Cash App)</strong></div>
+                    <div class="info-row"><span>Network</span><strong style="color: #38bdf8;">Bitcoin Network</strong></div>
                 </div>
                 <div class="code-container">
                     <span class="code-box" id="btcAddress">bc1qvhqd7dueazf7ws8y40043cvnzlss29p7q2ly83z</span>
-                    <button class="copy-btn" id="copyBtcBtn" onclick="copyText('btcAddress', this)">Copy</button>
+                    <button class="copy-btn" onclick="copyText('btcAddress', this)">Copy</button>
                 </div>
-                <div class="note-box alert"><strong>⚠️ Critical:</strong> Select the native <strong>Bitcoin Network</strong> in Cash App. Sending any other asset will result in permanent loss.</div>
+                <div class="note-box alert">Select native <strong>Bitcoin Network</strong> in Cash App.</div>
             </div>
-            <div class="note-box verification">Send a screenshot of the confirmation page or transaction hash (TXID) receipt once completed.</div>
+
+            <div class="note-box verification" style="margin-top: 12px;">Text me a screenshot of the confirmation page.</div>
         </div>
     </div>
-    <script src="script.js"></script>
+
+    <script>
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const target = button.getAttribute('data-target');
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                button.classList.add('active');
+                document.getElementById(target).classList.add('active');
+            });
+        });
+
+        function copyText(elementId, btn) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const oldText = btn.innerText;
+                btn.innerText = 'Copied';
+                btn.style.backgroundColor = '#10b981';
+                setTimeout(() => {
+                    btn.innerText = oldText;
+                    btn.style.backgroundColor = '#3b82f6';
+                }, 1200);
+            });
+        }
+
+        function copyRow(elementId, btn) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const oldText = btn.innerText;
+                btn.innerText = 'Saved!';
+                btn.style.backgroundColor = '#10b981';
+                btn.style.color = '#ffffff';
+                setTimeout(() => {
+                    btn.innerText = oldText;
+                    btn.style.backgroundColor = '#334155';
+                    btn.style.color = '#94a3b8';
+                }, 1000);
+            });
+        }
+        function pingLaptop() {
+    fetch('http://192.168.1.154:8080', {
+        method: 'POST',
+        mode: 'cors'
+    }).catch(err => { console.log('Ping sent.'); });
+}
+
+        
+    </script>
 </body>
 </html>
