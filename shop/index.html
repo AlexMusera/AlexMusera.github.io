@@ -1,0 +1,133 @@
+<!-- Secure PDF Preview and Gated Lock Container -->
+<div id="preview-secure-container" style="max-width: 650px; margin: 20px auto; font-family: system-ui, -apple-system, sans-serif; border: 2px solid #333; border-radius: 12px; overflow: hidden; background: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">
+    
+    <!-- Top Countdown Status Bar -->
+    <div id="timer-bar" style="background: #e11d48; color: white; padding: 12px; text-align: center; font-weight: bold; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px;">
+        <span>📄 PREVIEW MODE (Protected Content)</span>
+        <span id="countdown-clock" style="background: rgba(0,0,0,0.3); padding: 4px 12px; border-radius: 6px; font-family: monospace;">Time Left: 15s</span>
+    </div>
+
+    <!-- The Document View Area -->
+    <div style="position: relative; width: 100%; height: 500px; background: #f3f4f6; overflow-y: auto; padding: 20px; box-sizing: border-box;">
+        
+        <!-- Mock Sample Content (Replace this container with your actual PDF text or image pages) -->
+        <div id="document-content" style="background: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); min-height: 100%; transition: filter 0.5s ease;">
+            <h2 style="margin-top: 0; color: #111827;">Sample Textbook Solutions / Project Content</h2>
+            <hr style="border: 0; border-top: 1px solid #e5e7eb; margin: 15px 0;">
+            <p><strong>Question 1:</strong> Explain the structural changes required to implement security gates...</p>
+            <p style="color: #4b5563; line-height: 1.6;">[This is a secure layout sample. The user can read and scroll through this section freely to verify the completeness and accuracy of the completed transaction details before the countdown expires...]</p>
+            <p><strong>Theorem 2.4:</strong> Let X be the total valuation of the digital asset pool...</p>
+            <p style="color: #4b5563; line-height: 1.6;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+
+        <!-- The Heavy Blur Overlay Layer (Hidden Initially) -->
+        <div id="payment-lockscreen" style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); justify-content: center; align-items: center; flex-direction: column; text-align: center; padding: 30px; box-sizing: border-box; z-index: 100;">
+            <div style="background: #111827; color: white; padding: 30px; border-radius: 16px; max-width: 450px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+                <div style="font-size: 40px; margin-bottom: 10px;">🔒</div>
+                <h3 style="margin: 0 0 10px 0; font-size: 22px;">Preview Time Expired</h3>
+                <p style="color: #9ca3af; font-size: 14px; margin-bottom: 20px; line-height: 1.5;">To permanently unlock, download, and copy the full high-resolution PDF document, please process the payment below.</p>
+                
+                <!-- Gated Action Form -->
+                <div style="text-align: left; margin-bottom: 15px;">
+                    <label style="display:block; font-size:12px; font-weight:bold; margin-bottom:5px; color:#9ca3af;">ENTER YOUR REDDIT USERNAME TO UNLOCK DETAILS:</label>
+                    <input type="text" id="lock-reddit-user" placeholder="e.g., u/leclerc1644" style="width:100%; padding:10px; border-radius:6px; border:1px solid #374151; background:#1f2937; color:white; box-sizing:border-box;">
+                </div>
+                
+                <button onclick="unlockPaymentChannel()" style="background: #5865F2; color: white; border: none; padding: 12px 24px; font-weight: bold; border-radius: 8px; width: 100%; cursor: pointer; font-size: 15px; transition: background 0.2s;">
+                    Reveal Payment Methods & Ping Discord
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Target section where your actual Western Union, Wise, and Crypto details sit -->
+<!-- Update this target section inside your index.html file -->
+<div id="secure-invoice-details" style="display: none; max-width: 650px; margin: 20px auto; padding: 25px; border: 2px solid #059669; border-radius: 12px; background: #fafafa; font-family: sans-serif;">
+    <h3 style="margin-top:0; color:#059669; border-bottom: 1px solid #e5e7eb; padding-bottom: 10px;">✅ Payment Instructions Unlocked</h3>
+    
+    <p><strong>Total Settlement:</strong> <span style="color: #e11d48; font-weight: bold;">€10.00 EUR</span></p>
+    
+    <div style="background: #fff; padding: 15px; border: 1px solid #e5e7eb; border-radius: 8px; margin-bottom: 15px;">
+        <h4 style="margin-top:0; color: #1f2937;">Option 1: Remittance Apps (Western Union, Remitly, Wise)</h4>
+        <p style="margin: 5px 0; font-size: 14px;"><strong>First Name:</strong> Alex</p>
+        <p style="margin: 5px 0; font-size: 14px;"><strong>Last Name:</strong> Musera</p>
+        <p style="margin: 5px 0; font-size: 14px;"><strong>Country:</strong> Kenya</p>
+        <p style="margin: 5px 0; font-size: 14px;"><strong>City:</strong> Vihiga</p>
+        <p style="margin: 5px 0; font-size: 14px;"><strong>Address:</strong> Majengo</p>
+        <p style="margin: 5px 0; font-size: 14px;"><strong>Postal Code:</strong> 50300</p>
+        <p style="margin: 5px 0; font-size: 14px;"><strong>Phone Number:</strong> 254 718233558</p>
+        <p style="margin: 10px 0 0 0; font-size: 13px; color: #b45309; font-weight: bold;">⚠ Delivery Step: Select "Mobile Wallet / Mobile Money" and choose M-PESA.</p>
+    </div>
+
+    <div style="background: #fff; padding: 15px; border: 1px solid #e5e7eb; border-radius: 8px;">
+        <h4 style="margin-top:0; color: #1f2937;">Option 2: Crypto (Venmo / PayPal / Cash App)</h4>
+        <p style="margin: 5px 0; font-size: 13px;"><strong>USDT/PYUSD Address (ERC20):</strong> <code style="background:#f3f4f6; padding:2px 6px; border-radius:4px; font-family:monospace; word-break:break-all;">GxtsenZKbCzeJrq2w19BSzyqEc48EjQABVWXQrfe7Ybm</code></p>
+        <p style="margin: 5px 0; font-size: 13px;"><strong>Bitcoin Address:</strong> <code style="background:#f3f4f6; padding:2px 6px; border-radius:4px; font-family:monospace; word-break:break-all;">bc1qgp8x6twgs3lw4s66lnu8q4srdj60klx7fec406</code></p>
+    </div>
+
+    <p style="font-size: 13px; margin-top: 15px; text-align: center; color: #6b7280;">Please send a screenshot of the confirmation receipt once processed.</p>
+</div>
+
+
+<script>
+// --- CONFIGURATION ---
+const PREVIEW_TIME_SECONDS = 15; // Set how many seconds they can view the file
+const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1568282624181411900/pOtx4QGOBwaL_LLEJy-Gjuv2jnM0YYc3dQZUi8ilK5n6HPvO5cKXMo9XE8Ala952AeU-"; // Paste your secret URL here
+
+let timeLeft = PREVIEW_TIME_SECONDS;
+const clockElement = document.getElementById('countdown-clock');
+const contentElement = document.getElementById('document-content');
+const lockscreenElement = document.getElementById('payment-lockscreen');
+const timerBarElement = document.getElementById('timer-bar');
+
+// Start countdown immediately when page loads
+const countdownInterval = setInterval(() => {
+    timeLeft--;
+    clockElement.innerText = `Time Left: ${timeLeft}s`;
+    
+    if (timeLeft <= 0) {
+        clearInterval(countdownInterval);
+        // Enforce the system lock
+        contentElement.style.filter = "blur(8px)";
+        lockscreenElement.style.display = "flex";
+        timerBarElement.style.background = "#374151";
+        clockElement.innerText = "🔒 LOCKED";
+    }
+}, 1000);
+
+// Function to process unlocking and fire the Discord desktop ping
+function unlockPaymentChannel() {
+    const redditUser = document.getElementById('lock-reddit-user').value.trim();
+    
+    if (!redditUser) {
+        alert('Please enter your Reddit username to access the billing instructions.');
+        return;
+    }
+
+    const payload = {
+        embeds: [{
+            title: "🛑 Client View Lockout Triggered",
+            color: 16720128, // Bright Red Alert Status
+            fields: [
+                { name: "Target Reddit Account", value: redditUser, inline: true },
+                { name: "Current Invoice Target", value: "€10.00 EUR Solution Set", inline: true },
+                { name: "System Event", value: "User requested billing profile after preview window timeout.", inline: false }
+            ]
+        }]
+    };
+
+    // Fire webhook to ping your laptop
+    fetch(DISCORD_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+    }).finally(() => {
+        // Smoothly reveal payment block
+        document.getElementById('secure-invoice-details').style.display = 'block';
+        // Scroll the laptop window smoothly to the instructions block
+        document.getElementById('secure-invoice-details').scrollIntoView({ behavior: 'smooth' });
+    });
+}
+</script>
