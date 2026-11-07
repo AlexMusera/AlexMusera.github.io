@@ -249,7 +249,7 @@ function unlockPaymentChannel() {
 
     const priceDisplay = document.getElementById('dynamic-price-display');
     if (priceDisplay) {
-        priceDisplay.innerText = "€" + invoicePrice + " EUR";
+        priceDisplay.innerText = "$" + invoicePrice + " USD";
     }
 
     fetch(DISCORD_WEBHOOK_URL, {
