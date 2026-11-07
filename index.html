@@ -284,14 +284,33 @@ function submitReceiptToDiscord() {
             }]
         })
     })
-    .then(() => {
+        .then(() => {
+        // 1. Hide the payment instructions completely
+        document.getElementById('secure-invoice-details').style.display = 'none';
+        
+        // 2. Hide the upload form completely
         document.getElementById('receipt-upload-gate').style.display = 'none';
+        
+        // 3. Target the success box and replace it with the download button
         const notice = document.getElementById('submission-completed-notice');
         if (notice) {
             notice.style.display = 'block';
-            notice.innerHTML = "<h3>🚀 Verification Submitted Successfully</h3><p>Your delivery request has been pushed directly to my workspace monitor.</p>";
+            notice.innerHTML = `
+                <div style="font-size: 40px; margin-bottom: 10px;">🚀</div>
+                <h3 style="margin: 0 0 10px 0; color: #156534; font-size: 22px;">Verification Submitted Successfully</h3>
+                <p style="color: #166534; font-size: 14px; margin-bottom: 20px; line-height: 1.5;">
+                    Your request has been logged. Your permanent download link is now completely unlocked.
+                </p>
+                <a href="${targetDownloadUrl}" target="_blank" style="display: inline-block; background: #059669; color: white; text-decoration: none; padding: 14px 30px; font-weight: bold; border-radius: 8px; font-size: 16px; box-shadow: 0 4px 10px rgba(5,150,105,0.3); transition: background 0.2s;">
+                    📥 Download Full PDF Document
+                </a>
+            `;
+            
+            // 4. Smoothly center the screen onto the download button
+            notice.scrollIntoView({ behavior: 'smooth' });
         }
     })
+
     .catch((err) => {
         console.error(err);
         alert("Error sending verification request.");
