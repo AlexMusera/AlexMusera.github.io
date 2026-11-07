@@ -284,14 +284,17 @@ function submitReceiptToDiscord() {
             }]
         })
     })
-        .then(() => {
-        // 1. Hide the payment instructions completely
+           .then(() => {
+        // 1. NEW: Hide the entire Step 1 preview/lockout container entirely
+        document.getElementById('preview-secure-container').style.display = 'none';
+        
+        // 2. Hide the Step 2 payment instructions layout completely
         document.getElementById('secure-invoice-details').style.display = 'none';
         
-        // 2. Hide the upload form completely
+        // 3. Hide the Step 3 upload portal form completely
         document.getElementById('receipt-upload-gate').style.display = 'none';
         
-        // 3. Target the success box and replace it with the download button
+        // 4. Reveal the success alert block with the download link
         const notice = document.getElementById('submission-completed-notice');
         if (notice) {
             notice.style.display = 'block';
@@ -306,10 +309,11 @@ function submitReceiptToDiscord() {
                 </a>
             `;
             
-            // 4. Smoothly center the screen onto the download button
+            // 5. Scroll smoothly to the final download card
             notice.scrollIntoView({ behavior: 'smooth' });
         }
     })
+
 
     .catch((err) => {
         console.error(err);
