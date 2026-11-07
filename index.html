@@ -270,7 +270,7 @@ function submitReceiptToDiscord() {
         body: JSON.stringify({
             embeds: [{
                 title: "💰 AUTOMATED DELIVERY TRIGGERED",
-                color: 3066993,
+                color: 5763719, // FIXED: Vibrant Green Decimal Integer
                 description: confirmationDetails
             }]
         })
@@ -292,6 +292,7 @@ function submitReceiptToDiscord() {
         submitBtn.innerText = "🚀 Submit Reference & Request Access";
     });
 }
+
 </script>
 
 </html>
