@@ -47,46 +47,63 @@
         </div>
 
         <!-- ==========================================
-             STEP 2: PAYMENT INSTRUCTIONS
-             ========================================== -->
-        <div id="secure-invoice-details" style="display: none; padding: 25px; border: 2px solid #059669; border-radius: 12px; background: #fafafa; margin-bottom: 25px;">
-            <h3 style="margin-top:0; color:#059669; border-bottom: 1px solid #e5e7eb; padding-bottom: 10px;">💸 STEP 2: Process Settlement</h3>
-           
-            <p><strong>Total Due:</strong> <span id="dynamic-price-display" style="color: #e11d48; font-weight: bold;">€10.00 EUR</span></p>
+        <!-- ==========================================
+     STEP 2: PAYMENT INSTRUCTIONS (PROFESSIONAL RENDER)
+     ========================================== -->
+<div id="secure-invoice-details" style="display: none; padding: 25px; border: 2px solid #059669; border-radius: 12px; background: #fafafa; margin-bottom: 25px;">
+    
+    <!-- Professional Header Upgrade -->
+    <h3 style="margin-top: 0; color: #111827; border-bottom: 2px solid #e5e7eb; padding-bottom: 12px; font-weight: 700; letter-spacing: -0.025em;">
+        💳 Secure Checkout & Order Settlement
+    </h3>
+   
+    <p style="font-size: 15px; color: #374151;">
+        <strong>Total Amount Due:</strong> 
+        <span id="dynamic-price-display" style="color: #059669; font-weight: 700; font-size: 18px;">€10.00 EUR</span>
+    </p>
 
-            
-            <div style="background: #fff; padding: 15px; border: 1px solid #e5e7eb; border-radius: 8px; margin-bottom: 15px;">
-                <h4 style="margin-top:0; color: #1f2937;">Option A: Remittance Apps (Western Union, Remitly, Wise)</h4>
-                <div style="display:flex; justify-content:space-between; align-items:center; margin: 8px 0;"><span style="font-size:14px;"><strong>First Name:</strong> Alex</span><button onclick="copyText('Alex', this)" style="padding:4px 8px; font-size:12px; cursor:pointer;">Copy</button></div>
-                <div style="display:flex; justify-content:space-between; align-items:center; margin: 8px 0;"><span style="font-size:14px;"><strong>Last Name:</strong> Musera</span><button onclick="copyText('Musera', this)" style="padding:4px 8px; font-size:12px; cursor:pointer;">Copy</button></div>
-                <div style="display:flex; justify-content:space-between; align-items:center; margin: 8px 0;"><span style="font-size:14px;"><strong>Country:</strong> Kenya</span><button onclick="copyText('Kenya', this)" style="padding:4px 8px; font-size:12px; cursor:pointer;">Copy</button></div>
-                <div style="display:flex; justify-content:space-between; align-items:center; margin: 8px 0;"><span style="font-size:14px;"><strong>City:</strong> Vihiga</span><button onclick="copyText('Vihiga', this)" style="padding:4px 8px; font-size:12px; cursor:pointer;">Copy</button></div>
-                <div style="display:flex; justify-content:space-between; align-items:center; margin: 8px 0;"><span style="font-size:14px;"><strong>Address:</strong> Majengo</span><button onclick="copyText('Majengo', this)" style="padding:4px 8px; font-size:12px; cursor:pointer;">Copy</button></div>
-                <div style="display:flex; justify-content:space-between; align-items:center; margin: 8px 0;"><span style="font-size:14px;"><strong>Postal Code:</strong> 50300</span><button onclick="copyText('50300', this)" style="padding:4px 8px; font-size:12px; cursor:pointer;">Copy</button></div>
-                <div style="display:flex; justify-content:space-between; align-items:center; margin: 8px 0;"><span style="font-size:14px;"><strong>Phone Number:</strong> 254 718233558</span><button onclick="copyText('254 718233558', this)" style="padding:4px 8px; font-size:12px; cursor:pointer;">Copy</button></div>
-                <p style="margin: 12px 0 0 0; font-size: 13px; color: #b45309; font-weight: bold;">⚠ Delivery Step: Select "Mobile Wallet / Mobile Money" and route to M-PESA.</p>
-            </div>
-
-            <div style="background: #fff; padding: 15px; border: 1px solid #e5e7eb; border-radius: 8px;">
-                <h4 style="margin-top:0; color: #1f2937;">Option B: Crypto Addresses</h4>
-                <div style="margin: 8px 0;">
-                    <p style="margin:0 0 4px 0; font-size:12px;"><strong>USDT/PYUSD (ERC20):</strong></p>
-                    <div style="display:flex; gap:10px;">
-                        <code style="background:#f3f4f6; padding:4px; font-size:11px; word-break:break-all; flex-grow:1;">GxtsenZKbCzeJrq2w19BSzyqEc48EjQABVWXQrfe7Ybm</code>
-                        <button onclick="copyText('GxtsenZKbCzeJrq2w19BSzyqEc48EjQABVWXQrfe7Ybm', this)" style="padding:4px 8px; font-size:12px; cursor:pointer;">Copy</button>
-                    </div>
-                </div>
-                <div style="margin: 8px 0;">
-                    <p style="margin:0 0 4px 0; font-size:12px;"><strong>Bitcoin (BTC):</strong></p>
-                    <div style="display:flex; gap:10px;">
-                        <code style="background:#f3f4f6; padding:4px; font-size:11px; word-break:break-all; flex-grow:1;">bc1qgp8x6twgs3lw4s66lnu8q4srdj60klx7fec406</code>
-                        <button onclick="copyText('bc1qgp8x6twgs3lw4s66lnu8q4srdj60klx7fec406', this)" style="padding:4px 8px; font-size:12px; cursor:pointer;">Copy</button>
-                    </div>
-                </div>
-            </div>
-            
-            <p style="text-align: center; color: #6b7280; font-size: 14px; margin-top: 15px;">⬇️ Once paid, proceed to Step 3 down below to upload verification.</p>
+    <!-- Option A Box Layout -->
+    <div style="background: #fff; padding: 20px; border: 1px solid #e5e7eb; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+        <h4 style="margin-top: 0; color: #1f2937; font-size: 16px; border-bottom: 1px solid #f3f4f6; padding-bottom: 8px;">Option A: Global Remittance Apps (Western Union, Remitly, Wise)</h4>
+        
+        <div style="display:flex; justify-content:space-between; align-items:center; margin: 10px 0;"><span style="font-size:14px; color:#4b5563;"><strong>First Name:</strong> Alex</span><button onclick="copyText('Alex', this)" style="padding:4px 10px; font-size:12px; cursor:pointer; border:1px solid #cbd5e1; background:#fff; border-radius:4px;">Copy</button></div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin: 10px 0;"><span style="font-size:14px; color:#4b5563;"><strong>Last Name:</strong> Musera</span><button onclick="copyText('Musera', this)" style="padding:4px 10px; font-size:12px; cursor:pointer; border:1px solid #cbd5e1; background:#fff; border-radius:4px;">Copy</button></div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin: 10px 0;"><span style="font-size:14px; color:#4b5563;"><strong>Country:</strong> Kenya</span><button onclick="copyText('Kenya', this)" style="padding:4px 10px; font-size:12px; cursor:pointer; border:1px solid #cbd5e1; background:#fff; border-radius:4px;">Copy</button></div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin: 10px 0;"><span style="font-size:14px; color:#4b5563;"><strong>City:</strong> Vihiga</span><button onclick="copyText('Vihiga', this)" style="padding:4px 10px; font-size:12px; cursor:pointer; border:1px solid #cbd5e1; background:#fff; border-radius:4px;">Copy</button></div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin: 10px 0;"><span style="font-size:14px; color:#4b5563;"><strong>Address:</strong> Majengo</span><button onclick="copyText('Majengo', this)" style="padding:4px 10px; font-size:12px; cursor:pointer; border:1px solid #cbd5e1; background:#fff; border-radius:4px;">Copy</button></div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin: 10px 0;"><span style="font-size:14px; color:#4b5563;"><strong>Postal Code:</strong> 50300</span><button onclick="copyText('50300', this)" style="padding:4px 10px; font-size:12px; cursor:pointer; border:1px solid #cbd5e1; background:#fff; border-radius:4px;">Copy</button></div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin: 10px 0;"><span style="font-size:14px; color:#4b5563;"><strong>Phone Number:</strong> 254 718233558</span><button onclick="copyText('254 718233558', this)" style="padding:4px 10px; font-size:12px; cursor:pointer; border:1px solid #cbd5e1; background:#fff; border-radius:4px;">Copy</button></div>
+        
+        <!-- FIXED: Notice box optimized to a professional corporate green banner style -->
+        <div style="margin-top: 15px; padding: 12px 16px; background-color: #f0fdf4; border-left: 4px solid #16a34a; border-radius: 4px;">
+            <p style="margin: 0; font-size: 13px; color: #166534; font-weight: 600; line-height: 1.5;">
+                💡 <strong>Routing Instruction:</strong> Please specify "Mobile Wallet / Mobile Money" as the delivery method and direct the transfer channel to M-PESA.
+            </p>
         </div>
+    </div>
+
+    <!-- Option B Box Layout -->
+    <div style="background: #fff; padding: 20px; border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+        <h4 style="margin-top: 0; color: #1f2937; font-size: 16px; border-bottom: 1px solid #f3f4f6; padding-bottom: 8px;">Option B: Digital Asset Transfer</h4>
+        <div style="margin: 12px 0;">
+            <p style="margin: 0 0 6px 0; font-size: 13px; color: #4b5563;"><strong>USDT / PYUSD (Network: ERC20):</strong></p>
+            <div style="display:flex; gap:10px; align-items: center;">
+                <code style="background:#f3f4f6; padding:6px 10px; font-size:12px; font-family:monospace; word-break:break-all; flex-grow:1; border-radius:4px; border:1px solid #e5e7eb; color:#111827;">GxtsenZKbCzeJrq2w19BSzyqEc48EjQABVWXQrfe7Ybm</code>
+                <button onclick="copyText('GxtsenZKbCzeJrq2w19BSzyqEc48EjQABVWXQrfe7Ybm', this)" style="padding:6px 12px; font-size:12px; cursor:pointer; border:1px solid #cbd5e1; background:#fff; border-radius:4px;">Copy</button>
+            </div>
+        </div>
+        <div style="margin: 12px 0;">
+            <p style="margin: 0 0 6px 0; font-size: 13px; color: #4b5563;"><strong>Bitcoin (Network: Native BTC):</strong></p>
+            <div style="display:flex; gap:10px; align-items: center;">
+                <code style="background:#f3f4f6; padding:6px 10px; font-size:12px; font-family:monospace; word-break:break-all; flex-grow:1; border-radius:4px; border:1px solid #e5e7eb; color:#111827;">bc1qgp8x6twgs3lw4s66lnu8q4srdj60klx7fec406</code>
+                <button onclick="copyText('bc1qgp8x6twgs3lw4s66lnu8q4srdj60klx7fec406', this)" style="padding:6px 12px; font-size:12px; cursor:pointer; border:1px solid #cbd5e1; background:#fff; border-radius:4px;">Copy</button>
+            </div>
+        </div>
+    </div>
+    
+    <p style="text-align: center; color: #6b7280; font-size: 13px; margin-top: 20px;">⬇️ Once initialization is finalized, please complete Step 3 below to attach transfer verification.</p>
+</div>
+
 
         <!-- ==========================================
              STEP 3: VERIFICATION SUBMISSION FORM
