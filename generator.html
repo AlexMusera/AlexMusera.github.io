@@ -2,110 +2,81 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Link Generator</title>
+    <title>Short Link Generator</title>
 </head>
-<body style="font-family: system-ui, -apple-system, sans-serif; max-width: 520px; margin: 40px auto; padding: 20px; background: #f3f4f6;">
+<body style="font-family: system-ui, -apple-system, sans-serif; max-width: 480px; margin: 60px auto; padding: 20px; background: #f3f4f6;">
 
     <div style="background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border: 1px solid #e5e7eb;">
         <h3 style="margin-top: 0; color: #111827; font-size: 18px; border-bottom: 2px solid #f3f4f6; padding-bottom: 10px; margin-bottom: 20px;">
-            🚀 Portal Link Generator (Clean Link Mode)
+            🚀 Ultra-Short Link Generator
         </h3>
         
-        <!-- Book Title Input -->
         <div style="margin-bottom: 15px;">
-            <label style="display: block; font-size: 11px; font-weight: 700; color: #4b5563; text-transform: uppercase; margin-bottom: 6px;">Book Title & Edition:</label>
-            <input type="text" id="book-title-field" placeholder="e.g., Psychology 3rd Edition" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; box-sizing: border-box; font-size: 14px;">
+            <label style="display: block; font-size: 11px; font-weight: 700; color: #4b5563; text-transform: uppercase; margin-bottom: 6px;">Book Title:</label>
+            <input type="text" id="book-title-field" placeholder="e.g., wazua makosa" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; box-sizing: border-box; font-size: 14px;">
         </div>
         
-        <!-- Negotiated Price Input -->
         <div style="margin-bottom: 15px;">
-            <label style="display: block; font-size: 11px; font-weight: 700; color: #4b5563; text-transform: uppercase; margin-bottom: 6px;">Negotiated Price ($):</label>
-            <input type="text" id="book-price-field" placeholder="e.g., 19.00" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; box-sizing: border-box; font-size: 14px;">
+            <label style="display: block; font-size: 11px; font-weight: 700; color: #4b5563; text-transform: uppercase; margin-bottom: 6px;">Price ($):</label>
+            <input type="text" id="book-price-field" placeholder="20" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; box-sizing: border-box; font-size: 14px;">
         </div>
         
-        <!-- Google Drive Preview Link/ID -->
-        <div style="margin-bottom: 15px;">
-            <label style="display: block; font-size: 11px; font-weight: 700; color: #4b5563; text-transform: uppercase; margin-bottom: 6px;">Google Drive Preview Link or ID:</label>
-            <input type="text" id="book-id-field" placeholder="Paste full link or just the ID string here" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; box-sizing: border-box; font-size: 14px; font-family: monospace;">
-        </div>
-
-        <!-- Google Drive Full Download URL -->
         <div style="margin-bottom: 20px;">
-            <label style="display: block; font-size: 11px; font-weight: 700; color: #4b5563; text-transform: uppercase; margin-bottom: 6px;">Actual File Download Link:</label>
-            <input type="text" id="book-download-field" placeholder="Paste full download link here" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; box-sizing: border-box; font-size: 14px;">
+            <label style="display: block; font-size: 11px; font-weight: 700; color: #4b5563; text-transform: uppercase; margin-bottom: 6px;">Google Drive Link or ID:</label>
+            <input type="text" id="book-id-field" placeholder="Paste link here" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; box-sizing: border-box; font-size: 14px; font-family: monospace;">
         </div>
         
-        <button onclick="generateSecureUrl()" style="width: 100%; padding: 12px; background: #059669; color: white; border: none; font-weight: bold; border-radius: 6px; font-size: 15px; cursor: pointer; transition: background 0.15s;">
-            Build Client Link
+        <button onclick="generateShortUrl()" style="width: 100%; padding: 12px; background: #059669; color: white; border: none; font-weight: bold; border-radius: 6px; font-size: 15px; cursor: pointer;">
+            Build Compact Link
         </button>
         
-        <!-- Output Terminal Window -->
         <div id="output-box" style="display: none; margin-top: 25px; padding-top: 20px; border-top: 2px solid #f3f4f6;">
-            <label style="display: block; font-size: 11px; font-weight: 700; color: #059669; text-transform: uppercase; margin-bottom: 6px;">Generated URL:</label>
-            <textarea id="output-url-string" readonly style="width: 100%; height: 75px; padding: 10px; background: #f9fafb; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-family: monospace; font-size: 12px; color: #1e293b; resize: none; margin-bottom: 10px;"></textarea>
-            
-            <button id="copy-btn" onclick="copyLinkToClipboard()" style="width: 100%; padding: 10px; background: #2563eb; color: white; border: none; font-weight: bold; border-radius: 6px; font-size: 14px; cursor: pointer; transition: background 0.2s;">
-                📋 Copy Link to Clipboard
-            </button>
+            <label style="display: block; font-size: 11px; font-weight: 700; color: #059669; text-transform: uppercase; margin-bottom: 6px;">Short URL:</label>
+            <textarea id="output-url-string" readonly style="width: 100%; height: 65px; padding: 10px; background: #f9fafb; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-family: monospace; font-size: 12px; margin-bottom: 10px; resize: none;"></textarea>
+            <button id="copy-btn" onclick="copyToClipboard()" style="width: 100%; padding: 10px; background: #2563eb; color: white; border: none; font-weight: bold; border-radius: 6px; font-size: 14px; cursor: pointer;">📋 Copy Link</button>
         </div>
     </div>
 
     <script>
-        // Clean extraction helper logic
-        function extractDriveId(inputString) {
-            var trimmed = inputString.trim();
-            // Looks for the standard /d/ or /file/d/ pattern used by Google Drive
-            var match = trimmed.match(/\/d\/([a-zA-Z0-9-_]+)/);
-            if (match && match[1]) {
-                return match[1];
-            }
-            return trimmed; // Falls back to raw text input if it's already just the bare ID
+        function extractDriveId(str) {
+            var match = str.trim().match(/\/d\/([a-zA-Z0-9-_]+)/);
+            return match ? match[1] : str.trim();
         }
 
-        function generateSecureUrl() {
-            var titleInput = document.getElementById('book-title-field').value.trim();
-            var priceInput = document.getElementById('book-price-field').value.trim();
-            var idRawInput = document.getElementById('book-id-field').value;
-            var downloadInput = document.getElementById('book-download-field').value.trim();
+        function generateShortUrl() {
+            var title = document.getElementById('book-title-field').value.trim();
+            var price = document.getElementById('book-price-field').value.trim();
+            var rawId = document.getElementById('book-id-field').value;
             
-            if (!priceInput || !idRawInput || !downloadInput) {
-                alert("Please provide Price, Drive File Link/ID, and the Download Link.");
+            if (!price || !rawId) {
+                alert("Please fill in price and document ID.");
                 return;
             }
             
-            // AUTOMATIC CLEANING STEP: Strips out domain details to keep links short
-            var finalCleanId = extractDriveId(idRawInput);
+            var cleanId = extractDriveId(rawId);
+            var cleanTitle = encodeURIComponent(title || "Preview");
             
-            var cleanTitle = encodeURIComponent(titleInput || "Document Preview");
-            var cleanPrice = encodeURIComponent(priceInput);
-            var cleanId = encodeURIComponent(finalCleanId);
-            var cleanDownload = encodeURIComponent(downloadInput);
+            // FIXED: Your exact live production URL path
+            var baseDomain = "https://alexmusera.github.io/";
             
-            // Restores your accurate target system path structure
-            var baseDomain = "https://github.io";
-            
-            var finalUrl = baseDomain + "?price=" + cleanPrice + "&title=" + cleanTitle + "&preview=" + cleanId + "&download=" + cleanDownload;
+            // Outputs the clean, real live production URL
+            var finalUrl = baseDomain + "?price=" + encodeURIComponent(price) + "&title=" + cleanTitle + "&preview=" + encodeURIComponent(cleanId);
             
             document.getElementById('output-url-string').value = finalUrl;
             document.getElementById('output-box').style.display = 'block';
             
-            var copyBtn = document.getElementById('copy-btn');
-            copyBtn.style.background = "#2563eb";
-            copyBtn.innerText = "📋 Copy Link to Clipboard";
+            var btn = document.getElementById('copy-btn');
+            btn.style.background = "#2563eb";
+            btn.innerText = "📋 Copy Link";
         }
 
-        function copyLinkToClipboard() {
-            var textArea = document.getElementById('output-url-string');
-            textArea.select();
-            textArea.setSelectionRange(0, 99999);
-            
-            navigator.clipboard.writeText(textArea.value).then(function() {
-                var copyBtn = document.getElementById('copy-btn');
-                copyBtn.style.background = "#059669";
-                copyBtn.innerText = "✓ Link Copied Perfectly!";
-            }).catch(function(err) {
-                alert("Failed to copy link automatically.");
+        function copyToClipboard() {
+            var txt = document.getElementById('output-url-string');
+            txt.select();
+            navigator.clipboard.writeText(txt.value).then(function() {
+                var btn = document.getElementById('copy-btn');
+                btn.style.background = "#059669";
+                btn.innerText = "✓ Copied Short Link!";
             });
         }
     </script>
