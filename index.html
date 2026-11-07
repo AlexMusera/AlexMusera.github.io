@@ -51,7 +51,9 @@
              ========================================== -->
         <div id="secure-invoice-details" style="display: none; padding: 25px; border: 2px solid #059669; border-radius: 12px; background: #fafafa; margin-bottom: 25px;">
             <h3 style="margin-top:0; color:#059669; border-bottom: 1px solid #e5e7eb; padding-bottom: 10px;">💸 STEP 2: Process Settlement</h3>
-            <p><strong>Total Due:</strong> <span style="color: #e11d48; font-weight: bold;">€10.00 EUR</span></p>
+           
+            <p><strong>Total Due:</strong> <span id="dynamic-price-display" style="color: #e11d48; font-weight: bold;">€10.00 EUR</span></p>
+
             
             <div style="background: #fff; padding: 15px; border: 1px solid #e5e7eb; border-radius: 8px; margin-bottom: 15px;">
                 <h4 style="margin-top:0; color: #1f2937;">Option A: Remittance Apps (Western Union, Remitly, Wise)</h4>
@@ -124,6 +126,8 @@ const urlParams = new URLSearchParams(window.location.search);
 let globalRedditUser = urlParams.get('client') || "Valued Client";
 const previewId = urlParams.get('preview') || "1HHcCMSb-64vQ_XqvmJ2xnXYdF7iBR7mS"; 
 const rawDownloadUrl = urlParams.get('download') || "https://drive.google.com/file/d/1HHcCMSb-64vQ_XqvmJ2xnXYdF7iBR7mS/view?usp=sharing";
+// Pulls the price balance directly from your custom link parameters, or defaults to 10.00 EUR
+const invoicePrice = urlParams.get('price') || "10.00";
 
 // Formats paths natively using the unblocked Drive layout string parameters
 const targetPreviewUrl = "https://drive.google.com/file/d/" + previewId + "/preview";
@@ -163,6 +167,33 @@ function unlockPaymentChannel() {
     if (textInput && textInput.value.trim()) {
         globalRedditUser = textInput.value.trim();
     }
+
+    // Dynamic Price Fix: Instantly updates the text field to match your link parameter threshold
+    const priceDisplay = document.getElementById('dynamic-price-display');
+    if (priceDisplay) {
+        priceDisplay.innerText = "€" + invoicePrice + " EUR";
+    }
+
+    fetch(DISCORD_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            embeds: [{
+                title: "🛑 Client View Lockout Triggered",
+                color: 16720128,
+                fields: [
+                    { name: "Reddit User", value: globalRedditUser, inline: true },
+                    { name: "Status", value: "Viewing Payment Methods", inline: true }
+                ]
+            }]
+        })
+    }).finally(() => {
+        document.getElementById('secure-invoice-details').style.display = 'block';
+        document.getElementById('receipt-upload-gate').style.display = 'block';
+        document.getElementById('secure-invoice-details').scrollIntoView({ behavior: 'smooth' });
+    });
+}
+
 
     fetch(DISCORD_WEBHOOK_URL, {
         method: "POST",
