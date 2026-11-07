@@ -9,7 +9,7 @@
 
     <div style="background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border: 1px solid #e5e7eb;">
         <h3 style="margin-top: 0; color: #111827; font-size: 18px; border-bottom: 2px solid #f3f4f6; padding-bottom: 10px; margin-bottom: 20px;">
-            🚀 Portal Link Generator
+            🚀 Portal Link Generator (Clean Link Mode)
         </h3>
         
         <!-- Book Title Input -->
@@ -24,16 +24,16 @@
             <input type="text" id="book-price-field" placeholder="e.g., 19.00" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; box-sizing: border-box; font-size: 14px;">
         </div>
         
-        <!-- Google Drive Preview ID -->
+        <!-- Google Drive Preview Link/ID -->
         <div style="margin-bottom: 15px;">
-            <label style="display: block; font-size: 11px; font-weight: 700; color: #4b5563; text-transform: uppercase; margin-bottom: 6px;">Google Drive Preview ID:</label>
-            <input type="text" id="book-id-field" placeholder="e.g., 1HHcCMSb-64vQ_XqvmJ2xnXYdF7iBR7mS" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; box-sizing: border-box; font-size: 14px; font-family: monospace;">
+            <label style="display: block; font-size: 11px; font-weight: 700; color: #4b5563; text-transform: uppercase; margin-bottom: 6px;">Google Drive Preview Link or ID:</label>
+            <input type="text" id="book-id-field" placeholder="Paste full link or just the ID string here" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; box-sizing: border-box; font-size: 14px; font-family: monospace;">
         </div>
 
         <!-- Google Drive Full Download URL -->
         <div style="margin-bottom: 20px;">
             <label style="display: block; font-size: 11px; font-weight: 700; color: #4b5563; text-transform: uppercase; margin-bottom: 6px;">Actual File Download Link:</label>
-            <input type="text" id="book-download-field" placeholder="https://google.com" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; box-sizing: border-box; font-size: 14px;">
+            <input type="text" id="book-download-field" placeholder="Paste full download link here" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; box-sizing: border-box; font-size: 14px;">
         </div>
         
         <button onclick="generateSecureUrl()" style="width: 100%; padding: 12px; background: #059669; color: white; border: none; font-weight: bold; border-radius: 6px; font-size: 15px; cursor: pointer; transition: background 0.15s;">
@@ -52,31 +52,44 @@
     </div>
 
     <script>
+        // Clean extraction helper logic
+        function extractDriveId(inputString) {
+            var trimmed = inputString.trim();
+            // Looks for the standard /d/ or /file/d/ pattern used by Google Drive
+            var match = trimmed.match(/\/d\/([a-zA-Z0-9-_]+)/);
+            if (match && match[1]) {
+                return match[1];
+            }
+            return trimmed; // Falls back to raw text input if it's already just the bare ID
+        }
+
         function generateSecureUrl() {
             var titleInput = document.getElementById('book-title-field').value.trim();
             var priceInput = document.getElementById('book-price-field').value.trim();
-            var idInput = document.getElementById('book-id-field').value.trim();
+            var idRawInput = document.getElementById('book-id-field').value;
             var downloadInput = document.getElementById('book-download-field').value.trim();
             
-            if (!priceInput || !idInput || !downloadInput) {
-                alert("Please provide Price, Drive File ID, and the Download Link.");
+            if (!priceInput || !idRawInput || !downloadInput) {
+                alert("Please provide Price, Drive File Link/ID, and the Download Link.");
                 return;
             }
             
-            var cleanTitle = encodeURIComponent(titleInput || "Your Requested Document");
+            // AUTOMATIC CLEANING STEP: Strips out domain details to keep links short
+            var finalCleanId = extractDriveId(idRawInput);
+            
+            var cleanTitle = encodeURIComponent(titleInput || "Document Preview");
             var cleanPrice = encodeURIComponent(priceInput);
-            var cleanId = encodeURIComponent(idInput);
+            var cleanId = encodeURIComponent(finalCleanId);
             var cleanDownload = encodeURIComponent(downloadInput);
             
+            // Restores your accurate target system path structure
             var baseDomain = "https://github.io";
             
-            // Constructs url using all properties checked by your production file script
             var finalUrl = baseDomain + "?price=" + cleanPrice + "&title=" + cleanTitle + "&preview=" + cleanId + "&download=" + cleanDownload;
             
             document.getElementById('output-url-string').value = finalUrl;
             document.getElementById('output-box').style.display = 'block';
             
-            // Reset copy button styling when a brand new link is built
             var copyBtn = document.getElementById('copy-btn');
             copyBtn.style.background = "#2563eb";
             copyBtn.innerText = "📋 Copy Link to Clipboard";
@@ -85,14 +98,14 @@
         function copyLinkToClipboard() {
             var textArea = document.getElementById('output-url-string');
             textArea.select();
-            textArea.setSelectionRange(0, 99999); // Safe selector range limit for mobile web layers
+            textArea.setSelectionRange(0, 99999);
             
             navigator.clipboard.writeText(textArea.value).then(function() {
                 var copyBtn = document.getElementById('copy-btn');
-                copyBtn.style.background = "#059669"; // Turns emerald green when verified copied
+                copyBtn.style.background = "#059669";
                 copyBtn.innerText = "✓ Link Copied Perfectly!";
             }).catch(function(err) {
-                alert("Failed to copy link automatically. Please select the string manually.");
+                alert("Failed to copy link automatically.");
             });
         }
     </script>
