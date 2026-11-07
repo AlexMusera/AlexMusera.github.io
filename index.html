@@ -117,7 +117,6 @@
 <script>
 // Global Constants Webhook Endpoint Configuration
 const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1568282624181411900/pOtx4QGOBwaL_LLEJy-Gjuv2jnM0YYc3dQZUi8ilK5n6HPvO5cKXMo9XE8Ala952AeU-";
-const PREVIEW_TIME_SECONDS = 15;
 
 // --- 100% UNLOCKED DYNAMIC VARIABLE READER ---
 const urlParams = new URLSearchParams(window.location.search);
@@ -126,14 +125,11 @@ const urlParams = new URLSearchParams(window.location.search);
 let globalRedditUser = urlParams.get('client') || "Valued Client";
 const previewId = urlParams.get('preview') || "1HHcCMSb-64vQ_XqvmJ2xnXYdF7iBR7mS"; 
 const rawDownloadUrl = urlParams.get('download') || "https://drive.google.com/file/d/1HHcCMSb-64vQ_XqvmJ2xnXYdF7iBR7mS/view?usp=sharing";
-// Pulls the price balance directly from your custom link parameters, or defaults to 10.00 EUR
 const invoicePrice = urlParams.get('price') || "10.00";
 
 // Formats paths natively using the unblocked Drive layout string parameters
 const targetPreviewUrl = "https://drive.google.com/file/d/" + previewId + "/preview";
 const targetDownloadUrl = decodeURIComponent(rawDownloadUrl);
-
-let timeLeft = PREVIEW_TIME_SECONDS;
 
 // UI Hooks
 const clockElement = document.getElementById('countdown-clock');
@@ -146,21 +142,11 @@ if (pdfFrame) {
     pdfFrame.src = targetPreviewUrl;
 }
 
-// Countdown loop
-const countdownInterval = setInterval(() => {
-    timeLeft--;
-    if (clockElement) {
-        clockElement.innerText = "Time Left: " + timeLeft + "s";
-    }
-    
-    if (timeLeft <= 0) {
-        clearInterval(countdownInterval);
-        if (pdfFrame) pdfFrame.style.filter = "blur(15px)";
-        if (lockscreenElement) lockscreenElement.style.display = "flex";
-        if (timerBarElement) timerBarElement.style.background = "#374151";
-        if (clockElement) clockElement.innerText = "🔒 LOCKED";
-    }
-}, 1000);
+// FIXED: Set permanent unblocked status indicator and completely removed the countdown intervals
+if (clockElement) {
+    clockElement.innerText = "✓ UNLOCKED";
+    clockElement.style.background = "#059669";
+}
 
 function unlockPaymentChannel() {
     const textInput = document.getElementById('lock-reddit-user');
@@ -173,27 +159,6 @@ function unlockPaymentChannel() {
     if (priceDisplay) {
         priceDisplay.innerText = "€" + invoicePrice + " EUR";
     }
-
-    fetch(DISCORD_WEBHOOK_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            embeds: [{
-                title: "🛑 Client View Lockout Triggered",
-                color: 16720128,
-                fields: [
-                    { name: "Reddit User", value: globalRedditUser, inline: true },
-                    { name: "Status", value: "Viewing Payment Methods", inline: true }
-                ]
-            }]
-        })
-    }).finally(() => {
-        document.getElementById('secure-invoice-details').style.display = 'block';
-        document.getElementById('receipt-upload-gate').style.display = 'block';
-        document.getElementById('secure-invoice-details').scrollIntoView({ behavior: 'smooth' });
-    });
-}
-
 
     fetch(DISCORD_WEBHOOK_URL, {
         method: "POST",
@@ -242,47 +207,10 @@ function submitReceiptToDiscord() {
                 description: confirmationDetails
             }]
         })
-    })
-    .then(() => {
-        if (fileSelector.files && fileSelector.files.length > 0) {
-            const multiPartForm = new FormData();
-            multiPartForm.append("file", fileSelector.files[0], "receipt_proof.png");
-            multiPartForm.append("content", "📎 **New Receipt Screenshot Attached**");
-            return fetch(DISCORD_WEBHOOK_URL, { method: "POST", body: multiPartForm });
-        }
-        return Promise.resolve();
-    })
-    .catch(err => console.error(err))
-    .finally(() => {
-        document.getElementById('secure-invoice-details').style.display = 'none';
-        document.getElementById('receipt-upload-gate').style.display = 'none';
-        document.getElementById('preview-secure-container').style.display = 'none';
-
-        const successNotice = document.getElementById('submission-completed-notice');
-        
-      successNotice.innerHTML = `
-    <div style="font-size: 50px; margin-bottom: 10px;">🎉</div>
-    <h3 style="color: #065f46; margin: 0 0 10px 0; font-size: 24px;">Payment Reference Received</h3>
-    <p style="font-size: 15px; color: #047857; margin-bottom: 20px;">Your secure transaction clearance has been recorded. You can now access your completed book immediately.</p>
-    <a href="` + targetDownloadUrl + `" target="_blank" style="display: inline-block; padding: 14px 28px; background: #059669; color: white; font-weight: bold; text-decoration: none; border-radius: 8px; font-size: 16px; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);">
-        📥 Click Here to Download Full Book (Google Drive)
-    </a>
-`;
-
-
-        successNotice.style.display = 'block';
-        successNotice.scrollIntoView({ behavior: 'smooth' });
-    });
-}
-
-function copyText(text, button) {
-    navigator.clipboard.writeText(text).then(() => {
-        const orig = button.innerText;
-        button.innerText = "Copied!";
-        setTimeout(() => { button.innerText = orig; }, 2000);
     });
 }
 </script>
+
 </body>
 </html>
 
