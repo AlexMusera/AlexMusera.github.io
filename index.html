@@ -221,7 +221,6 @@ function unlockPaymentChannel() {
         globalRedditUser = textInput.value.trim();
     }
 
-    // Dynamic Price Fix: Instantly updates the text field to match your link parameter threshold
     const priceDisplay = document.getElementById('dynamic-price-display');
     if (priceDisplay) {
         priceDisplay.innerText = "€" + invoicePrice + " EUR";
@@ -233,7 +232,7 @@ function unlockPaymentChannel() {
         body: JSON.stringify({
             embeds: [{
                 title: "🛑 Client View Lockout Triggered",
-                color: 16720128,
+                color: 15548997, // FIXED: High-visibility Red Decimal Integer
                 fields: [
                     { name: "Reddit User", value: globalRedditUser, inline: true },
                     { name: "Status", value: "Viewing Payment Methods", inline: true }
@@ -246,6 +245,7 @@ function unlockPaymentChannel() {
         document.getElementById('secure-invoice-details').scrollIntoView({ behavior: 'smooth' });
     });
 }
+
 
 function submitReceiptToDiscord() {
     const refNum = document.getElementById('verify-tx-number').value.trim();
