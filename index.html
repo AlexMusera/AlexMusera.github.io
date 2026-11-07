@@ -186,20 +186,20 @@ const urlParams = new URLSearchParams(window.location.search);
 
 // Automatically captures whatever variables are provided in the URL bar parameters
 let globalRedditUser = urlParams.get('client') || "Valued Client";
-const previewId = urlParams.get('preview') || "1HHcCMSb-64vQ_XqvmJ2xnXYdF7iBR7mS"; 
-const rawDownloadUrl = urlParams.get('download') || "https://drive.google.com/file/d/1HHcCMSb-64vQ_XqvmJ2xnXYdF7iBR7mS/view?usp=sharing";
+const previewId = urlParams.get('preview') || "1HHcCMSb-64vQ_XqvmJ2xnXYdF7iBR7mS";
 // Pulls the price balance directly from your custom link parameters, or defaults to 10.00 EUR
 const invoicePrice = urlParams.get('price') || "10.00";
 
 // Formats paths natively using the unblocked Drive layout string parameters
 const targetPreviewUrl = "https://drive.google.com/file/d/" + previewId + "/preview";
-const targetDownloadUrl = decodeURIComponent(rawDownloadUrl);
+const targetDownloadUrl = "https://drive.google.com/" + previewId;
 
 // UI Hooks
 const clockElement = document.getElementById('countdown-clock');
 const pdfFrame = document.getElementById('pdf-frame');
 const lockscreenElement = document.getElementById('payment-lockscreen');
 const timerBarElement = document.getElementById('timer-bar');
+
 
 // 1. Set the initial clock display text to show a waiting status
 if (clockElement) {
