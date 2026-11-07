@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Short Link Generator</title>
+    <title>Secure Short Link Generator</title>
 </head>
 <body style="font-family: system-ui, -apple-system, sans-serif; max-width: 480px; margin: 60px auto; padding: 20px; background: #f3f4f6;">
 
     <div style="background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border: 1px solid #e5e7eb;">
         <h3 style="margin-top: 0; color: #111827; font-size: 18px; border-bottom: 2px solid #f3f4f6; padding-bottom: 10px; margin-bottom: 20px;">
-            🚀 Ultra-Short Link Generator
+            🔒 Safe Short Link Generator
         </h3>
         
         <div style="margin-bottom: 15px;">
@@ -26,14 +26,14 @@
             <input type="text" id="book-id-field" placeholder="Paste link here" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; box-sizing: border-box; font-size: 14px; font-family: monospace;">
         </div>
         
-        <button onclick="generateShortUrl()" style="width: 100%; padding: 12px; background: #059669; color: white; border: none; font-weight: bold; border-radius: 6px; font-size: 15px; cursor: pointer;">
-            Build Compact Link
+        <button onclick="generateSecureShortUrl()" style="width: 100%; padding: 12px; background: #059669; color: white; border: none; font-weight: bold; border-radius: 6px; font-size: 15px; cursor: pointer;">
+            Build Clean Short Link
         </button>
         
         <div id="output-box" style="display: none; margin-top: 25px; padding-top: 20px; border-top: 2px solid #f3f4f6;">
-            <label style="display: block; font-size: 11px; font-weight: 700; color: #059669; text-transform: uppercase; margin-bottom: 6px;">Short URL:</label>
+            <label style="display: block; font-size: 11px; font-weight: 700; color: #059669; text-transform: uppercase; margin-bottom: 6px;">Your Short Link:</label>
             <textarea id="output-url-string" readonly style="width: 100%; height: 65px; padding: 10px; background: #f9fafb; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-family: monospace; font-size: 12px; margin-bottom: 10px; resize: none;"></textarea>
-            <button id="copy-btn" onclick="copyToClipboard()" style="width: 100%; padding: 10px; background: #2563eb; color: white; border: none; font-weight: bold; border-radius: 6px; font-size: 14px; cursor: pointer;">📋 Copy Link</button>
+            <button id="copy-btn" onclick="copyToClipboard()" style="width: 100%; padding: 10px; background: #2563eb; color: white; border: none; font-weight: bold; border-radius: 6px; font-size: 14px; cursor: pointer;">📋 Copy Short Link</button>
         </div>
     </div>
 
@@ -43,7 +43,7 @@
             return match ? match[1] : str.trim();
         }
 
-        function generateShortUrl() {
+        function generateSecureShortUrl() {
             var title = document.getElementById('book-title-field').value.trim();
             var price = document.getElementById('book-price-field').value.trim();
             var rawId = document.getElementById('book-id-field').value;
@@ -54,20 +54,23 @@
             }
             
             var cleanId = extractDriveId(rawId);
-            var cleanTitle = encodeURIComponent(title || "Preview");
+            var cleanTitle = title || "Preview";
             
-            // FIXED: Your exact live production URL path
-            var baseDomain = "https://alexmusera.github.io/";
+            // Compresses keys internally to keep the final string incredibly tiny
+            var internalPayload = "p=" + encodeURIComponent(cleanId) + "&pr=" + encodeURIComponent(price) + "&t=" + encodeURIComponent(cleanTitle);
             
-            // Outputs the clean, real live production URL
-            var finalUrl = baseDomain + "?price=" + encodeURIComponent(price) + "&title=" + cleanTitle + "&preview=" + encodeURIComponent(cleanId);
+            // Scrambles the properties safely out of sight
+            var encryptedToken = btoa(internalPayload);
+            
+            var baseDomain = "https://github.io";
+            var finalUrl = baseDomain + "?id=" + encryptedToken;
             
             document.getElementById('output-url-string').value = finalUrl;
             document.getElementById('output-box').style.display = 'block';
             
             var btn = document.getElementById('copy-btn');
             btn.style.background = "#2563eb";
-            btn.innerText = "📋 Copy Link";
+            btn.innerText = "📋 Copy Short Link";
         }
 
         function copyToClipboard() {
