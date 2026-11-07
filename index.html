@@ -195,34 +195,51 @@ const invoicePrice = urlParams.get('price') || "10.00";
 const targetPreviewUrl = "https://drive.google.com/file/d/" + previewId + "/preview";
 const targetDownloadUrl = decodeURIComponent(rawDownloadUrl);
 
-let timeLeft = PREVIEW_TIME_SECONDS;
-
 // UI Hooks
 const clockElement = document.getElementById('countdown-clock');
 const pdfFrame = document.getElementById('pdf-frame');
 const lockscreenElement = document.getElementById('payment-lockscreen');
 const timerBarElement = document.getElementById('timer-bar');
 
-// Dynamically point iframe to the variable preview target immediately on window init
-if (pdfFrame) {
-    pdfFrame.src = targetPreviewUrl;
+// 1. Set the initial clock display text to show a waiting status
+if (clockElement) {
+    clockElement.innerText = "⏳ Loading document...";
 }
 
-// Countdown loop
-const countdownInterval = setInterval(() => {
-    timeLeft--;
+// 2. Wrap your timer loop inside a distinct function
+function startCountdown() {
+    let timeLeft = PREVIEW_TIME_SECONDS;
+    
     if (clockElement) {
         clockElement.innerText = "Time Left: " + timeLeft + "s";
     }
+
+    const countdownInterval = setInterval(() => {
+        timeLeft--;
+        if (clockElement) {
+            clockElement.innerText = "Time Left: " + timeLeft + "s";
+        }
+        
+        if (timeLeft <= 0) {
+            clearInterval(countdownInterval);
+            if (pdfFrame) pdfFrame.style.filter = "blur(15px)";
+            if (lockscreenElement) lockscreenElement.style.display = "flex";
+            if (timerBarElement) timerBarElement.style.background = "#374151";
+            if (clockElement) clockElement.innerText = "🔒 LOCKED";
+        }
+    }, 1000);
+}
+
+// 3. Point iframe to target and wait for the 'load' trigger event
+if (pdfFrame) {
+    pdfFrame.src = targetPreviewUrl;
     
-    if (timeLeft <= 0) {
-        clearInterval(countdownInterval);
-        if (pdfFrame) pdfFrame.style.filter = "blur(15px)";
-        if (lockscreenElement) lockscreenElement.style.display = "flex";
-        if (timerBarElement) timerBarElement.style.background = "#374151";
-        if (clockElement) clockElement.innerText = "🔒 LOCKED";
-    }
-}, 1000);
+    // FIXED: This waits until the iframe finishes pulling data from Google Drive before starting your 60s
+    pdfFrame.onload = function() {
+        startCountdown();
+    };
+}
+
 
 function unlockPaymentChannel() {
     const textInput = document.getElementById('lock-reddit-user');
