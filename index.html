@@ -114,9 +114,12 @@
 
     </div>
 
-<script>
+
+
+</body><script>
 // Global Constants Webhook Endpoint Configuration
 const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1568282624181411900/pOtx4QGOBwaL_LLEJy-Gjuv2jnM0YYc3dQZUi8ilK5n6HPvO5cKXMo9XE8Ala952AeU-";
+const PREVIEW_TIME_SECONDS = 15;
 
 // --- 100% UNLOCKED DYNAMIC VARIABLE READER ---
 const urlParams = new URLSearchParams(window.location.search);
@@ -125,11 +128,14 @@ const urlParams = new URLSearchParams(window.location.search);
 let globalRedditUser = urlParams.get('client') || "Valued Client";
 const previewId = urlParams.get('preview') || "1HHcCMSb-64vQ_XqvmJ2xnXYdF7iBR7mS"; 
 const rawDownloadUrl = urlParams.get('download') || "https://drive.google.com/file/d/1HHcCMSb-64vQ_XqvmJ2xnXYdF7iBR7mS/view?usp=sharing";
+// Pulls the price balance directly from your custom link parameters, or defaults to 10.00 EUR
 const invoicePrice = urlParams.get('price') || "10.00";
 
 // Formats paths natively using the unblocked Drive layout string parameters
 const targetPreviewUrl = "https://drive.google.com/file/d/" + previewId + "/preview";
 const targetDownloadUrl = decodeURIComponent(rawDownloadUrl);
+
+let timeLeft = PREVIEW_TIME_SECONDS;
 
 // UI Hooks
 const clockElement = document.getElementById('countdown-clock');
@@ -142,11 +148,21 @@ if (pdfFrame) {
     pdfFrame.src = targetPreviewUrl;
 }
 
-// FIXED: Set permanent unblocked status indicator and completely removed the countdown intervals
-if (clockElement) {
-    clockElement.innerText = "✓ UNLOCKED";
-    clockElement.style.background = "#059669";
-}
+// Countdown loop
+const countdownInterval = setInterval(() => {
+    timeLeft--;
+    if (clockElement) {
+        clockElement.innerText = "Time Left: " + timeLeft + "s";
+    }
+    
+    if (timeLeft <= 0) {
+        clearInterval(countdownInterval);
+        if (pdfFrame) pdfFrame.style.filter = "blur(15px)";
+        if (lockscreenElement) lockscreenElement.style.display = "flex";
+        if (timerBarElement) timerBarElement.style.background = "#374151";
+        if (clockElement) clockElement.innerText = "🔒 LOCKED";
+    }
+}, 1000);
 
 function unlockPaymentChannel() {
     const textInput = document.getElementById('lock-reddit-user');
@@ -207,11 +223,26 @@ function submitReceiptToDiscord() {
                 description: confirmationDetails
             }]
         })
+    })
+    .then(() => {
+        document.getElementById('receipt-upload-gate').style.display = 'none';
+        const notice = document.getElementById('submission-completed-notice');
+        if (notice) {
+            notice.style.display = 'block';
+            notice.innerHTML = "<h3>🚀 Verification Submitted Successfully</h3><p>Your delivery request has been pushed directly to my workspace monitor.</p>";
+        }
+    })
+    .catch((err) => {
+        console.error(err);
+        alert("Error sending verification request.");
+    })
+    .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerText = "🚀 Submit Reference & Request Access";
     });
 }
 </script>
 
-</body>
 </html>
 
 
