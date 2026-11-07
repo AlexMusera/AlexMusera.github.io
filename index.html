@@ -120,10 +120,10 @@ const urlParams = new URLSearchParams(window.location.search);
 // Automatically captures whatever variables are provided in the URL bar parameters
 let globalRedditUser = urlParams.get('client') || "Valued Client";
 const previewId = urlParams.get('preview') || "1HHcCMSb-64vQ_XqvmJ2xnXYdF7iBR7mS"; 
-const rawDownloadUrl = urlParams.get('download') || "https://google.com";
+const rawDownloadUrl = urlParams.get('download') || "https://drive.google.com/file/d/1HHcCMSb-64vQ_XqvmJ2xnXYdF7iBR7mS/view?usp=sharing";
 
 // Formats paths natively using the unblocked Drive layout string parameters
-const targetPreviewUrl = "https://google.com" + previewId + "/preview";
+const rawDownloadUrl = urlParams.get('download') || "https://drive.google.com/file/d/1HHcCMSb-64vQ_XqvmJ2xnXYdF7iBR7mS/view?usp=sharing";
 const targetDownloadUrl = decodeURIComponent(rawDownloadUrl);
 
 let timeLeft = PREVIEW_TIME_SECONDS;
