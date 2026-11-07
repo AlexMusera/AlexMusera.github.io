@@ -192,7 +192,8 @@ const invoicePrice = urlParams.get('price') || "10.00";
 
 // Formats paths natively using the unblocked Drive layout string parameters
 const targetPreviewUrl = "https://drive.google.com/file/d/" + previewId + "/preview";
-const targetDownloadUrl = "https://drive.google.com//uc?export=download&id=" + previewId;
+const targetDownloadUrl = "https://drive.google.com/file/d/" + previewId + "/view?usp=sharing";
+
 
 // UI Hooks
 const clockElement = document.getElementById('countdown-clock');
