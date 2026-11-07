@@ -3,280 +3,241 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment details - Alex Musera</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://w3.org viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #0b0f19;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            padding: 24px 16px;
-            color: #e2e8f0;
-        }
-        .transfer-card {
-            background: #1e293b;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-            border: 1px solid #334155;
-            max-width: 340px;
-            width: 100%;
-            padding: 16px;
-        }
-        .invoice-header {
-            text-align: center;
-            margin-bottom: 12px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid #334155;
-        }
-        .invoice-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #f8fafc;
-            margin-bottom: 4px;
-        }
-        .invoice-amount {
-            font-size: 0.9rem;
-            color: #94a3b8;
-        }
-        .invoice-amount strong {
-            color: #4ade80;
-            font-size: 1rem;
-        }
-        .drive-btn-container {
-            margin-bottom: 16px;
-        }
-        .drive-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            width: 100%;
-            background-color: #2563eb;
-            color: #ffffff;
-            text-decoration: none;
-            padding: 10px;
-            border-radius: 6px;
-            font-size: 0.88rem;
-            font-weight: 700;
-            text-align: center;
-            transition: background 0.15s ease;
-            border: 1px solid #3b82f6;
-        }
-        .drive-btn:hover {
-            background-color: #1d4ed8;
-        }
-        .choice-instruction { 
-            font-size: 0.8rem; font-weight: 700; color: #f59e0b; margin-bottom: 12px; text-align: center; display: block; line-height: 1.3; 
-            background: rgba(245, 158, 11, 0.08); padding: 8px; border-radius: 6px; border: 1px dashed #f59e0b;
-        }
-        .tab-container { display: flex; border-bottom: 1px solid #334155; margin-bottom: 12px; gap: 4px; }
-        .tab-btn {
-            background: none; border: none; padding: 8px 0; font-size: 0.85rem; font-weight: 500;
-            color: #94a3b8; cursor: pointer; position: relative; flex: 1; text-align: center;
-        }
-        .tab-btn.active { color: #60a5fa; font-weight: 600; }
-        .tab-btn.active::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 2px; background-color: #60a5fa; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        .logo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin-bottom: 12px; }
-        .logo-badge { display: flex; align-items: center; justify-content: center; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 4px; height: 26px; font-size: 0.6rem; font-weight: 800; color: #0f172a; text-transform: uppercase; }
-        .helper-text { font-size: 0.8rem; color: #94a3b8; margin-bottom: 10px; line-height: 1.35; text-align: center; }
-        .info-group { border: 1px solid #334155; border-radius: 6px; overflow: hidden; margin-bottom: 12px; background-color: #0f172a; }
-        .info-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 12px; min-height: 34px; font-size: 0.8rem; border-bottom: 1px solid #334155; gap: 8px; }
-        .info-row:last-child { border-bottom: none; }
-        .info-row span { color: #94a3b8; white-space: nowrap; }
-        .info-values { display: flex; align-items: center; gap: 8px; margin-left: auto; max-width: 70%; }
-        .info-values strong { color: #f8fafc; word-break: break-all; text-align: right; }
-        .row-copy-btn { background: #334155; color: #94a3b8; border: none; padding: 2px 6px; font-size: 0.68rem; font-weight: 600; border-radius: 4px; cursor: pointer; transition: all 0.15s ease; }
-        .row-copy-btn:hover { background: #475569; color: #f8fafc; }
-        .code-container { display: flex; background-color: #0f172a; border: 1px solid #334155; border-radius: 6px; padding: 8px 10px; align-items: center; justify-content: space-between; margin-bottom: 10px; gap: 8px; }
-        .code-box { font-family: monospace; font-size: 0.72rem; color: #38bdf8; word-break: break-all; line-height: 1.2; }
-        .copy-btn { background-color: #3b82f6; color: #ffffff; border: none; padding: 6px 10px; font-size: 0.75rem; font-weight: 600; border-radius: 4px; cursor: pointer; }
-        .note-box { font-size: 0.78rem; padding: 8px 10px; border-radius: 4px; margin-bottom: 10px; line-height: 1.35; }
-        .note-box:last-child { margin-bottom: 0; }
-        .note-box.alert { background-color: rgba(245, 158, 11, 0.12); color: #fcd34d; border-left: 3px solid #f59e0b; }
-        .note-box.mpesa-alert { background-color: rgba(34, 197, 94, 0.12); color: #4ade80; border-left: 3px solid #22c55e; }
-        .note-box.verification { background-color: #0f172a; color: #cbd5e1; border: 1px solid #334155; text-align: center; font-weight: 600; }
-    </style>
+    <title>Shop</title>
 </head>
-<body>
-    <div class="transfer-card">
-        <div class="invoice-header">
-    <div class="invoice-title">Textbook Invoice</div>
-    <div class="invoice-amount">Total Settlement: <strong>€10.00 USD</strong></div>
-</div>
+<body style="background-color: #f3f4f6; margin: 0; padding: 20px;">
 
-        <span class="choice-instruction">Select ONE settlement option below:</span>
+    <!-- Unified Client Payment & Verification Portal Container -->
+    <div style="max-width: 650px; margin: 20px auto; font-family: system-ui, -apple-system, sans-serif;">
 
-        <div class="tab-container">
-            <button class="tab-btn active" data-target="fiat">1. Remittance Apps</button>
-            <button class="tab-btn" data-target="crypto">2. Crypto / Cash App</button>
+        <!-- ==========================================
+             STEP 1: SECURE PDF PREVIEW AND TIMER
+             ========================================== -->
+        <div id="preview-secure-container" style="border: 2px solid #333; border-radius: 12px; overflow: hidden; background: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.15); margin-bottom: 25px;">
+            <div id="timer-bar" style="background: #e11d48; color: white; padding: 12px; text-align: center; font-weight: bold; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px;">
+                <span>📋 STEP 1: Verify Completed Work (Preview)</span>
+                <span id="countdown-clock" style="background: rgba(0,0,0,0.3); padding: 4px 12px; border-radius: 6px; font-family: monospace;">Time Left: 15s</span>
+            </div>
+
+            <div style="position: relative; width: 100%; height: 500px; background: #f3f4f6; box-sizing: border-box;">
+                <!-- Live Google Drive PDF Preview Formatted Embed Layout -->
+                <iframe id="pdf-frame" src="https://drive.google.com/file/d/1HHcCMSb-64vQ_XqvmJ2xnXYdF7iBR7mS/view?usp=drive_link" style="width:100%; height:100%; border:none; transition: filter 0.5s ease;"></iframe>
+
+                <!-- Blur Overlay Screen -->
+                <div id="payment-lockscreen" style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); justify-content: center; align-items: center; flex-direction: column; text-align: center; padding: 30px; box-sizing: border-box; z-index: 100;">
+                    <div style="background: #111827; color: white; padding: 30px; border-radius: 16px; max-width: 450px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+                        <div style="font-size: 40px; margin-bottom: 10px;">🔒</div>
+                        <h3 style="margin: 0 0 10px 0; font-size: 22px;">Preview Window Expired</h3>
+                        <p style="color: #9ca3af; font-size: 14px; margin-bottom: 20px; line-height: 1.5;">To permanently unlock, download, and copy the PDF document, please process the payment below.</p>
+                        
+                        <div style="text-align: left; margin-bottom: 15px;">
+                            <label style="display:block; font-size:12px; font-weight:bold; margin-bottom:5px; color:#9ca3af;">ENTER YOUR REDDIT USERNAME TO UNLOCK PAYMENT DETAILS:</label>
+                            <input type="text" id="lock-reddit-user" placeholder="e.g., u/strongambasaodr" style="width:100%; padding:10px; border-radius:6px; border:1px solid #374151; background:#1f2937; color:white; box-sizing:border-box;">
+                        </div>
+                        
+                        <button onclick="unlockPaymentChannel()" style="background: #5865F2; color: white; border: none; padding: 12px 24px; font-weight: bold; border-radius: 8px; width: 100%; cursor: pointer; font-size: 15px; transition: background 0.2s;">
+                            Reveal Step 2: Payment Methods
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <!-- Tab Content 1: Remittance Info -->
-        <div id="fiat" class="tab-content active">
-           <div class="logo-grid">
-    <div class="logo-badge" style="gap: 4px;">
-        <svg viewBox="0 0 24 24" style="height: 12px; fill: #00bfff; display: inline-block; vertical-align: middle;"><path d="M14.2 4.41L11.5 9h5.13l-5.6 9.42L13.73 11h-4.9l2.7-4.59h-4.6L4.3 11.23l2.83 4.82h3.4l-1.9 3.2L10.32 20l7.25-12.21h-3.95L16.29 4.4z"/></svg>
-        <span>Wise</span>
-    </div>
-    <div class="logo-badge" style="gap: 4px;">
-        <span style="background: #ffcc00; color: #000; padding: 1px 3px; border-radius: 2px; font-size: 0.55rem; font-weight: 900; line-height: 1;">WU</span>
-        <span>W.Union</span>
-    </div>
-    <div class="logo-badge" style="gap: 4px;">
-        <svg viewBox="0 0 24 24" style="height: 12px; fill: #ff0000; display: inline-block; vertical-align: middle;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-12S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/></svg>
-        <span>M.Gram</span>
-    </div>
-    <div class="logo-badge" style="gap: 4px;">
-        <svg viewBox="0 0 24 24" style="height: 12px; fill: #1a2b4c; display: inline-block; vertical-align: middle;"><path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-3zm0 6c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z"/></svg>
-        <span>Remitly</span>
-    </div>
-</div>
+        <!-- ==========================================
+             STEP 2: PAYMENT INSTRUCTIONS (HIDDEN INITIALLY)
+             ========================================== -->
+        <div id="secure-invoice-details" style="display: none; padding: 25px; border: 2px solid #059669; border-radius: 12px; background: #fafafa; margin-bottom: 25px;">
+            <h3 style="margin-top:0; color:#059669; border-bottom: 1px solid #e5e7eb; padding-bottom: 10px;">💸 STEP 2: Process Settlement</h3>
+            <p><strong>Total Due:</strong> <span style="color: #e11d48; font-weight: bold;">€10.00 EUR</span></p>
+            
+            <div style="background: #fff; padding: 15px; border: 1px solid #e5e7eb; border-radius: 8px; margin-bottom: 15px;">
+                <h4 style="margin-top:0; color: #1f2937;">Option A: Remittance Apps (Western Union, Remitly, Wise)</h4>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin: 8px 0;"><span style="font-size:14px;"><strong>First Name:</strong> Alex</span><button onclick="copyText('Alex', this)" style="padding:4px 8px; font-size:12px; cursor:pointer;">Copy</button></div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin: 8px 0;"><span style="font-size:14px;"><strong>Last Name:</strong> Musera</span><button onclick="copyText('Musera', this)" style="padding:4px 8px; font-size:12px; cursor:pointer;">Copy</button></div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin: 8px 0;"><span style="font-size:14px;"><strong>Country:</strong> Kenya</span><button onclick="copyText('Kenya', this)" style="padding:4px 8px; font-size:12px; cursor:pointer;">Copy</button></div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin: 8px 0;"><span style="font-size:14px;"><strong>City:</strong> Vihiga</span><button onclick="copyText('Vihiga', this)" style="padding:4px 8px; font-size:12px; cursor:pointer;">Copy</button></div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin: 8px 0;"><span style="font-size:14px;"><strong>Address:</strong> Majengo</span><button onclick="copyText('Majengo', this)" style="padding:4px 8px; font-size:12px; cursor:pointer;">Copy</button></div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin: 8px 0;"><span style="font-size:14px;"><strong>Postal Code:</strong> 50300</span><button onclick="copyText('50300', this)" style="padding:4px 8px; font-size:12px; cursor:pointer;">Copy</button></div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin: 8px 0;"><span style="font-size:14px;"><strong>Phone Number:</strong> 254 718233558</span><button onclick="copyText('254 718233558', this)" style="padding:4px 8px; font-size:12px; cursor:pointer;">Copy</button></div>
+                <p style="margin: 12px 0 0 0; font-size: 13px; color: #b45309; font-weight: bold;">⚠ Delivery Step: Select "Mobile Wallet / Mobile Money" and route to M-PESA.</p>
+            </div>
 
-            <p class="helper-text">Pay instantly inside any app above using debit/credit card, Apple Pay, or Interac.</p>
-             <p class="helper-text" style="color: #f59e0b; font-weight: 600;">Enter these details exactly into your chosen app:</p>
-            <div class="info-group">
-                <div class="info-row">
-                    <span>First Name</span>
-                    <div class="info-values">
-                        <strong id="val-fn">Alex</strong>
-                        <button class="row-copy-btn" onclick="copyRow('val-fn', this)">Copy</button>
+            <div style="background: #fff; padding: 15px; border: 1px solid #e5e7eb; border-radius: 8px;">
+                <h4 style="margin-top:0; color: #1f2937;">Option B: Crypto Addresses</h4>
+                <div style="margin: 8px 0;">
+                    <p style="margin:0 0 4px 0; font-size:12px;"><strong>USDT/PYUSD (ERC20):</strong></p>
+                    <div style="display:flex; gap:10px;">
+                        <code style="background:#f3f4f6; padding:4px; font-size:11px; word-break:break-all; flex-grow:1;">GxtsenZKbCzeJrq2w19BSzyqEc48EjQABVWXQrfe7Ybm</code>
+                        <button onclick="copyText('GxtsenZKbCzeJrq2w19BSzyqEc48EjQABVWXQrfe7Ybm', this)" style="padding:4px 8px; font-size:12px; cursor:pointer;">Copy</button>
                     </div>
                 </div>
-                <div class="info-row">
-                    <span>Last Name</span>
-                    <div class="info-values">
-                        <strong id="val-ln">Musera</strong>
-                        <button class="row-copy-btn" onclick="copyRow('val-ln', this)">Copy</button>
-                    </div>
-                </div>
-                <div class="info-row">
-                    <span>Country</span>
-                    <div class="info-values">
-                        <strong id="val-country">Kenya</strong>
-                        <button class="row-copy-btn" onclick="copyRow('val-country', this)">Copy</button>
-                    </div>
-                </div>
-                <div class="info-row">
-                    <span>City</span>
-                    <div class="info-values">
-                        <strong id="val-city">Vihiga</strong>
-                        <button class="row-copy-btn" onclick="copyRow('val-city', this)">Copy</button>
-                    </div>
-                </div>
-                <div class="info-row">
-                    <span>Address</span>
-                    <div class="info-values">
-                        <strong id="val-address">Majengo</strong>
-                        <button class="row-copy-btn" onclick="copyRow('val-address', this)">Copy</button>
-                    </div>
-                </div>
-                <div class="info-row">
-                    <span>Postal Code</span>
-                    <div class="info-values">
-                        <strong id="val-pc">50300</strong>
-                        <button class="row-copy-btn" onclick="copyRow('val-pc', this)">Copy</button>
-                    </div>
-                </div>
-                <div class="info-row">
-                    <span>Phone Number</span>
-                    <div class="info-values">
-                        <strong id="val-phone">254 718233558</strong>
-                        <button class="row-copy-btn" onclick="copyRow('val-phone', this)">Copy</button>
+                <div style="margin: 8px 0;">
+                    <p style="margin:0 0 4px 0; font-size:12px;"><strong>Bitcoin (BTC):</strong></p>
+                    <div style="display:flex; gap:10px;">
+                        <code style="background:#f3f4f6; padding:4px; font-size:11px; word-break:break-all; flex-grow:1;">bc1qgp8x6twgs3lw4s66lnu8q4srdj60klx7fec406</code>
+                        <button onclick="copyText('bc1qgp8x6twgs3lw4s66lnu8q4srdj60klx7fec406', this)" style="padding:4px 8px; font-size:12px; cursor:pointer;">Copy</button>
                     </div>
                 </div>
             </div>
             
-            <div class="note-box mpesa-alert"><strong>⚠️ Delivery Step:</strong> Choose <strong>"Mobile Wallet"</strong> or <strong>"Mobile Money"</strong> channel, then select <strong>"M-PESA"</strong>.</div>
-            <div class="note-box verification">Text me a screenshot of the receipt when done.</div>
+            <p style="text-align: center; color: #6b7280; font-size: 14px; margin-top: 15px;">⬇️ Once paid, proceed to Step 3 down below to upload verification.</p>
         </div>
 
-        <!-- Tab Content 2: Crypto Wallets -->
-        <div id="crypto" class="tab-content">
-            <p class="helper-text">Pay via Cash App (Bitcoin) or Venmo/PayPal (PYUSD).</p>
-            
-            <div class="crypto-section-block" style="margin-bottom: 12px;">
-                <div class="info-group">
-                    <div class="info-row"><span>Asset</span><strong>PYUSD / USDT (Venmo/PayPal)</strong></div>
-                    <div class="info-row"><span>Network</span><strong style="color: #f59e0b;">Ethereum (ERC20)</strong></div>
-                </div>
-                <div class="code-container">
-                    <span class="code-box" id="usdtAddress">GxtsenZKbCzeJrq2w19BSzyqEc48EjQABVWXQrfe7Ybm</span>
-                    <button class="copy-btn" onclick="copyText('usdtAddress', this)">Copy</button>
-                </div>
-                <div class="note-box alert">Must use <strong>Ethereum (ERC20)</strong> network.</div>
+        <!-- ==========================================
+             STEP 3: VERIFICATION SUBMISSION FORM (HIDDEN INITIALLY)
+             ========================================== -->
+        <div id="receipt-upload-gate" style="display: none; padding: 25px; border: 2px solid #5865F2; border-radius: 12px; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 25px;">
+            <h3 style="margin-top:0; color: #5865F2; border-bottom: 1px solid #e5e7eb; padding-bottom: 10px;">📋 STEP 3: Submit Payment Verification</h3>
+            <p style="font-size: 14px; color: #4b5563; line-height: 1.5;">Provide your transaction details. This sounds a live notification chime directly on my workspace monitor.</p>
+
+            <div style="margin-bottom: 15px;">
+                <label style="display:block; font-size:13px; font-weight:bold; margin-bottom:5px; color:#374151;">Transaction Reference String (MTCN, Reference ID, TxID):</label>
+                <input type="text" id="verify-tx-number" placeholder="Enter reference string from your receipt page" style="width:100%; padding:10px; border-radius:6px; border:1px solid #cbd5e1; box-sizing:border-box;">
             </div>
 
-            <div class="crypto-section-block">
-                <div class="info-group">
-                    <div class="info-row"><span>Asset</span><strong>Bitcoin BTC (Cash App)</strong></div>
-                    <div class="info-row"><span>Network</span><strong style="color: #38bdf8;">Bitcoin Network</strong></div>
-                </div>
-               <div class="code-container">
-    <span class="code-box" id="btcAddress">bc1qgp8x6twgs3lw4s66lnu8q4srdj60klx7fec406</span>
-    <button class="copy-btn" onclick="copyText('btcAddress', this)">Copy</button>
-</div>
-<div class="note-box alert" style="margin-top: -6px; margin-bottom: 10px; font-size: 0.72rem; text-align: left; background-color: rgba(245, 158, 11, 0.12); color: #fcd34d; border-left: 3px solid #f59e0b; padding: 8px 10px; border-radius: 4px;">
-    ⚠️ **For Cash App:** Select the **"Minimum" or "Free" speed tier** inside Cash App when sending to avoid high network fee deductions.
-</div>
-
-                <div class="note-box alert">Select native <strong>Bitcoin Network</strong> in Cash App.</div>
-            </div>
-
-            <div class="note-box verification" style="margin-top: 12px;">Text me a screenshot of the confirmation page.</div>
+            <div style="margin-bottom: 20px;">
+                <label style="display:block; font-size:13px; font-weight:bold; margin-bottom:5px; color:#374151;">Upload Receipt Screenshot (PNG/JPG) [Optional]:</label>
+            <input type="file" id="verify-screenshot" accept="image/*" style="width:100%; padding:8px; border:1px dashed #cbd5e1; border-radius:6px; background:#f9fafb; box-sizing:border-box;">
         </div>
+
+        <button id="submit-payload-btn" onclick="submitReceiptToDiscord()" style="width: 100%; padding: 12px; background: #5865F2; color: white; border: none; font-weight: bold; border-radius: 6px; font-size: 15px; cursor: pointer; transition: background 0.2s;">
+            🚀 Submit Reference & Request Access
+        </button>
     </div>
 
-    <script>
-        document.querySelectorAll('.tab-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const target = button.getAttribute('data-target');
-                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-                button.classList.add('active');
-                document.getElementById(target).classList.add('active');
-            });
-        });
+    <!-- SUCCESS AUTOMATED DELIVERY CONTAINER -->
+    <div id="submission-completed-notice" style="display: none; padding: 25px; border: 2px solid #059669; border-radius: 12px; background: #f0fdf4; text-align: center;"></div>
 
-        function copyText(elementId, btn) {
-            const text = document.getElementById(elementId).innerText;
-            navigator.clipboard.writeText(text).then(() => {
-                const oldText = btn.innerText;
-                btn.innerText = 'Copied';
-                btn.style.backgroundColor = '#10b981';
-                setTimeout(() => {
-                    btn.innerText = oldText;
-                    btn.style.backgroundColor = '#3b82f6';
-                }, 1200);
-            });
-        }
+</div>
 
-        function copyRow(elementId, btn) {
-            const text = document.getElementById(elementId).innerText;
-            navigator.clipboard.writeText(text).then(() => {
-                const oldText = btn.innerText;
-                btn.innerText = 'Saved!';
-                btn.style.backgroundColor = '#10b981';
-                btn.style.color = '#ffffff';
-                setTimeout(() => {
-                    btn.innerText = oldText;
-                    btn.style.backgroundColor = '#334155';
-                    btn.style.color = '#94a3b8';
-                }, 1000);
-            });
-        }
-		function pingLaptop() {
-    fetch('http://192.168.1.154:8080', {
-        method: 'POST',
-        mode: 'cors'
-    }).catch(err => console.log('Ping sent.'));
+<script>
+// Global Scope Settings Configuration Parameters
+const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1568282624181411900/pOtx4QGOBwaL_LLEJy-Gjuv2jnM0YYc3dQZUi8ilK5n6HPvO5cKXMo9XE8Ala952AeU-";
+const PREVIEW_TIME_SECONDS = 15;
+
+let timeLeft = PREVIEW_TIME_SECONDS;
+let globalRedditUser = "";
+
+// Bind Global UI Canvas Handles
+const clockElement = document.getElementById('countdown-clock');
+const pdfFrame = document.getElementById('pdf-frame');
+const lockscreenElement = document.getElementById('payment-lockscreen');
+const timerBarElement = document.getElementById('timer-bar');
+
+// Initialize Protected Countdown Interval Engine
+const countdownInterval = setInterval(() => {
+    timeLeft--;
+    if (clockElement) {
+        clockElement.innerText = "Time Left: " + timeLeft + "s";
+    }
+    
+    if (timeLeft <= 0) {
+        clearInterval(countdownInterval);
+        if (pdfFrame) pdfFrame.style.filter = "blur(15px)";
+        if (lockscreenElement) lockscreenElement.style.display = "flex";
+        if (timerBarElement) timerBarElement.style.background = "#374151";
+        if (clockElement) clockElement.innerText = "🔒 LOCKED";
+    }
+}, 1000);
+
+function unlockPaymentChannel() {
+    globalRedditUser = document.getElementById('lock-reddit-user').value.trim();
+    if (!globalRedditUser) {
+        alert('Please enter your Reddit username to access the billing instructions.');
+        return;
+    }
+
+    // Pipeline basic client tracking metric data to Discord
+    fetch(DISCORD_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            embeds: [{
+                title: "🛑 Client View Lockout Triggered",
+                color: 16720128,
+                fields: [
+                    { name: "Reddit User", value: globalRedditUser, inline: true },
+                    { name: "Status", value: "Viewing Payment Methods", inline: true }
+                ]
+            }]
+        })
+    }).finally(() => {
+        // Expose nested payment instructions layout interfaces to user viewport
+        document.getElementById('secure-invoice-details').style.display = 'block';
+        document.getElementById('receipt-upload-gate').style.display = 'block';
+        document.getElementById('secure-invoice-details').scrollIntoView({ behavior: 'smooth' });
+    });
 }
 
-    </script>
+function submitReceiptToDiscord() {
+    const refNum = document.getElementById('verify-tx-number').value.trim();
+    const fileSelector = document.getElementById('verify-screenshot');
+    const submitBtn = document.getElementById('submit-payload-btn');
+
+    if (!refNum && fileSelector.files.length === 0) {
+        alert("Please provide verification by either entering your transaction reference number OR uploading a receipt screenshot.");
+        return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.innerText = "Verifying Reference Number...";
+
+    let confirmationDetails = "• **Reddit Handle:** `" + (globalRedditUser || 'Anonymous') + "`\n";
+    confirmationDetails += "• **Reference Number Provided:** " + (refNum ? "`" + refNum + "`" : "_None_") + "\n";
+    confirmationDetails += "• **Screenshot Provided:** " + (fileSelector.files.length > 0 ? 'Yes' : 'No');
+
+    // Fire Metadata transaction bundle parameters to server
+    fetch(DISCORD_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            embeds: [{
+                title: "💰 AUTOMATED DELIVERY TRIGGERED",
+                color: 3066993,
+                description: confirmationDetails
+            }]
+        })
+    })
+    .then(() => {
+        // Evaluate and process optional file multi-part streaming payload array elements
+        if (fileSelector.files && fileSelector.files.length > 0) {
+            const multiPartForm = new FormData();
+            multiPartForm.append("file", fileSelector.files[0], "receipt_proof.png");
+            multiPartForm.append("content", "📎 **New Receipt Screenshot Attached**");
+            return fetch(DISCORD_WEBHOOK_URL, { method: "POST", body: multiPartForm });
+        }
+        return Promise.resolve();
+    })
+    .catch(err => console.error("Pipeline latency warning:", err))
+    .finally(() => {
+        // Instantly execute clean automated swap over to the hidden target Drive assets down link
+        document.getElementById('secure-invoice-details').style.display = 'none';
+        document.getElementById('receipt-upload-gate').style.display = 'none';
+        document.getElementById('preview-secure-container').style.display = 'none';
+
+        const successNotice = document.getElementById('submission-completed-notice');
+        
+        successNotice.innerHTML = `
+            <div style="font-size: 50px; margin-bottom: 10px;">🎉</div>
+            <h3 style="color: #065f46; margin: 0 0 10px 0; font-size: 24px;">Verification Accepted Automatically</h3>
+            <p style="font-size: 15px; color: #047857; margin-bottom: 20px;">Thank you! Your reference details have been logged into our system log layout.</p>
+            <a href="https://drive.google.com/file/d/1HHcCMSb-64vQ_XqvmJ2xnXYdF7iBR7mS/view?usp=sharing" target="_blank" style="display: inline-block; padding: 14px 28px; background: #059669; color: white; font-weight: bold; text-decoration: none; border-radius: 8px; font-size: 16px; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);">
+                📥 Click Here to Download Full Book (Google Drive)
+            </a>
+        `;
+
+        successNotice.style.display = 'block';
+        successNotice.scrollIntoView({ behavior: 'smooth' });
+    });
+}
+
+function copyText(text, button) {
+    navigator.clipboard.writeText(text).then(() => {
+        const orig = button.innerText;
+        button.innerText = "Copied!";
+        setTimeout(() => { button.innerText = orig; }, 2000);
+    });
+}
+</script>
 </body>
 </html>
