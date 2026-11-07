@@ -183,11 +183,13 @@ const PREVIEW_TIME_SECONDS = 60;
 
 // --- 100% UNLOCKED DYNAMIC VARIABLE READER ---
 // 1. Read the clean, single short token parameter from the URL bar
+// 1. Read the clean, single short token parameter from the URL bar
 const urlParams = new URLSearchParams(window.location.search);
 const shortToken = urlParams.get('id');
 
 // 2. Set your default fallback data
 let previewId = "1HHcCMSb-64vQ_XqvmJ2xnXYdF7iBR7mS";
+let downloadId = null; // Separate tracking variable for the full file download
 let invoicePrice = "10.00";
 let bookTitle = "Your Requested Document";
 let globalRedditUser = "Valued Client";
@@ -199,6 +201,7 @@ if (shortToken) {
         const dataParts = new URLSearchParams(decodedData);
         
         previewId = dataParts.get('p') || previewId;
+        downloadId = dataParts.get('d') || null; // Safely extracts the separate download variable
         invoicePrice = dataParts.get('pr') || invoicePrice;
         bookTitle = dataParts.get('t') || bookTitle;
         globalRedditUser = dataParts.get('client') || globalRedditUser;
@@ -207,10 +210,13 @@ if (shortToken) {
     }
 }
 
-
 // Formats paths natively using the unblocked Drive layout string parameters
 const targetPreviewUrl = "https://drive.google.com/file/d/" + previewId + "/preview";
-const targetDownloadUrl = "https://drive.google.com/file/d/" + previewId + "/view?usp=sharing";
+
+// Fix: Use downloadId if present in the token; otherwise, gracefully default to the previewId
+const activeDownloadId = downloadId ? downloadId : previewId;
+const targetDownloadUrl = "https://drive.google.com/file/d/" + activeDownloadId + "/view?usp=sharing";
+
 
 
 // UI Hooks
