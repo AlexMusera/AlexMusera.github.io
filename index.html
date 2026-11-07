@@ -227,14 +227,15 @@ function submitReceiptToDiscord() {
 
         const successNotice = document.getElementById('submission-completed-notice');
         
-        successNotice.innerHTML = `
-            <div style="font-size: 50px; margin-bottom: 10px;">🎉</div>
-            <h3 style="color: #065f46; margin: 0 0 10px 0; font-size: 24px;">Verification Accepted Automatically</h3>
-            <p style="font-size: 15px; color: #047857; margin-bottom: 20px;">Thank you! Your reference details have been logged into our system log layout.</p>
-            <a href="` + targetDownloadUrl + `" target="_blank" style="display: inline-block; padding: 14px 28px; background: #059669; color: white; font-weight: bold; text-decoration: none; border-radius: 8px; font-size: 16px; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);">
-                📥 Click Here to Download Full Book (Google Drive)
-            </a>
-        `;
+      successNotice.innerHTML = `
+    <div style="font-size: 50px; margin-bottom: 10px;">🎉</div>
+    <h3 style="color: #065f46; margin: 0 0 10px 0; font-size: 24px;">Payment Reference Received</h3>
+    <p style="font-size: 15px; color: #047857; margin-bottom: 20px;">Your secure transaction clearance has been recorded. You can now access your completed document folder immediately.</p>
+    <a href="` + targetDownloadUrl + `" target="_blank" style="display: inline-block; padding: 14px 28px; background: #059669; color: white; font-weight: bold; text-decoration: none; border-radius: 8px; font-size: 16px; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);">
+        📥 Click Here to Download Full Book (Google Drive)
+    </a>
+`;
+
 
         successNotice.style.display = 'block';
         successNotice.scrollIntoView({ behavior: 'smooth' });
