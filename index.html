@@ -123,7 +123,7 @@ const previewId = urlParams.get('preview') || "1HHcCMSb-64vQ_XqvmJ2xnXYdF7iBR7mS
 const rawDownloadUrl = urlParams.get('download') || "https://drive.google.com/file/d/1HHcCMSb-64vQ_XqvmJ2xnXYdF7iBR7mS/view?usp=sharing";
 
 // Formats paths natively using the unblocked Drive layout string parameters
-const rawDownloadUrl = urlParams.get('download') || "https://drive.google.com/file/d/1HHcCMSb-64vQ_XqvmJ2xnXYdF7iBR7mS/view?usp=sharing";
+const targetPreviewUrl = "https://drive.google.com/file/d/" + previewId + "/preview";
 const targetDownloadUrl = decodeURIComponent(rawDownloadUrl);
 
 let timeLeft = PREVIEW_TIME_SECONDS;
