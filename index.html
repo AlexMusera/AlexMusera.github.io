@@ -182,16 +182,17 @@ const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/156828262418141190
 const PREVIEW_TIME_SECONDS = 60;
 
 // --- 100% UNLOCKED DYNAMIC VARIABLE READER ---
+// 1. Read the clean, single short token parameter from the URL bar
 const urlParams = new URLSearchParams(window.location.search);
-
-// Automatically captures whatever variables are provided in the URL bar parameters
 const shortToken = urlParams.get('id');
 
+// 2. Set your default fallback data
 let previewId = "1HHcCMSb-64vQ_XqvmJ2xnXYdF7iBR7mS";
 let invoicePrice = "10.00";
 let bookTitle = "Your Requested Document";
 let globalRedditUser = "Valued Client";
 
+// 3. If the hidden short token exists, unscramble it behind the scenes
 if (shortToken) {
     try {
         const decodedData = atob(shortToken);
