@@ -185,10 +185,27 @@ const PREVIEW_TIME_SECONDS = 60;
 const urlParams = new URLSearchParams(window.location.search);
 
 // Automatically captures whatever variables are provided in the URL bar parameters
-let globalRedditUser = urlParams.get('client') || "Valued Client";
-const previewId = urlParams.get('preview') || "1HHcCMSb-64vQ_XqvmJ2xnXYdF7iBR7mS";
-// Pulls the price balance directly from your custom link parameters, or defaults to 10.00 EUR
-const invoicePrice = urlParams.get('price') || "10.00";
+const shortToken = urlParams.get('id');
+
+let previewId = "1HHcCMSb-64vQ_XqvmJ2xnXYdF7iBR7mS";
+let invoicePrice = "10.00";
+let bookTitle = "Your Requested Document";
+let globalRedditUser = "Valued Client";
+
+if (shortToken) {
+    try {
+        const decodedData = atob(shortToken);
+        const dataParts = new URLSearchParams(decodedData);
+        
+        previewId = dataParts.get('p') || previewId;
+        invoicePrice = dataParts.get('pr') || invoicePrice;
+        bookTitle = dataParts.get('t') || bookTitle;
+        globalRedditUser = dataParts.get('client') || globalRedditUser;
+    } catch (e) {
+        console.error("Token translation error.");
+    }
+}
+
 
 // Formats paths natively using the unblocked Drive layout string parameters
 const targetPreviewUrl = "https://drive.google.com/file/d/" + previewId + "/preview";
