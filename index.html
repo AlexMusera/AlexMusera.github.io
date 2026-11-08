@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Dynamic Title updated by JavaScript -->
     <title id="page-window-title">Secure Preview Portal</title>
     <style>
         body {
@@ -16,7 +15,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 90vh;
+            min-height: 95vh;
         }
 
         .portal-container {
@@ -76,59 +75,24 @@
 
         .viewer-viewport {
             background: #11111b;
-            height: 480px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
-            text-align: center;
+            height: 580px;
+            padding: 0;
+            position: relative;
             box-sizing: border-box;
         }
 
-        .document-icon {
-            font-size: 48px;
-            margin-bottom: 16px;
-        }
-
-        .status-heading {
-            font-size: 20px;
-            font-weight: 600;
-            color: #cdd6f4;
-            margin: 0 0 8px 0;
-        }
-
-        .status-subtext {
-            font-size: 14px;
-            color: #a6adc8;
-            max-width: 400px;
-            margin: 0 0 24px 0;
-            line-height: 1.5;
-        }
-
-        .action-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #89b4fa;
-            color: #11111b;
-            text-decoration: none;
-            padding: 12px 24px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 14px;
-            transition: opacity 0.15s ease;
-        }
-
-        .action-button:hover {
-            opacity: 0.9;
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #11111b;
         }
     </style>
 </head>
 <body>
 
     <div class="portal-container">
-        <!-- Professional Header Row -->
+        <!-- Premium Dark Mode Header Row -->
         <div class="portal-header">
             <div class="book-meta">
                 <span class="session-badge">Verification Session Active</span>
@@ -138,14 +102,9 @@
             <div id="countdown-timer" class="timer-display">Time Remaining: --:--</div>
         </div>
 
-        <!-- Custom Polished Viewport (Replaces the broken Google embed style) -->
+        <!-- Embedded Document Frame Viewport (Brought cleanly inside your main page template layout) -->
         <div class="viewer-viewport">
-            <div class="document-icon">📄</div>
-            <h3 class="status-heading">Document Stream Ready</h3>
-            <p class="status-subtext">This comprehensive edition is optimized for standalone reading. Access the safe download stream via the link below.</p>
-            <a id="direct-download-action" href="#" target="_blank" class="action-button">
-                📥 Open File Stream Context
-            </a>
+            <iframe id="inline-document-frame" src="" allow="autoplay"></iframe>
         </div>
     </div>
 
@@ -176,13 +135,13 @@
             const assetData = parseQueryToken();
             
             if (assetData) {
-                // Update elements dynamically with real names
+                // Update elements dynamically with decrypted book metadata parameter names
                 document.getElementById('dynamic-book-title').innerText = assetData.title;
                 document.getElementById('page-window-title').innerText = "Preview: " + assetData.title;
                 
-                // Route the file download target cleanly
-                const finalDownloadUrl = "https://drive.google.com" + assetData.previewId;
-                document.getElementById('direct-download-action').href = finalDownloadUrl;
+                // FIXED: Integrated the high-performance document rendering path with drive variables included
+                const finalViewerUrl = "https://drive.google.com"" + assetData.previewId;
+                document.getElementById('inline-document-frame').src = finalViewerUrl;
                 
                 // Initialize the countdown display sequence
                 startPortalTimer(59);
