@@ -5,63 +5,105 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Safe Split-Link Generator</title>
 </head>
-<body style="font-family: system-ui, -apple-system, sans-serif; max-width: 480px; margin: 60px auto; padding: 20px; background: #f3f4f6;">
+<body style="font-family: system-ui, -apple-system, sans-serif; max-width: 480px; margin: 40px auto; padding: 20px; background: #1e1e2e; color: #cdd6f4;">
 
-    <div style="background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border: 1px solid #e5e7eb;">
-        <h3 style="margin-top: 0; color: #111827; font-size: 18px; border-bottom: 2px solid #f3f4f6; padding-bottom: 10px; margin-bottom: 20px;">
-            🔒 Safe Split-Link Generator
-        </h3>
+    <!-- Token Security Setup Block -->
+    <div id="token-config-box" style="background: #252538; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); border: 1px solid #313244; margin-bottom: 20px; display: none;">
+        <label style="display: block; font-size: 11px; font-weight: 700; color: #f38ba8; text-transform: uppercase; margin-bottom: 6px;">🔒 GitHub Access Token Configuration:</label>
+        <input type="password" id="token-setup-input" placeholder="Paste your GitHub Classic PAT here" style="width: 100%; padding: 10px; background: #11111b; color: #cdd6f4; border-radius: 6px; border: 1px solid #45475a; box-sizing: border-box; font-size: 14px; margin-bottom: 10px;">
+        <button onclick="saveTokenToBrowser()" style="width: 100%; padding: 8px; background: #89b4fa; color: #11111b; border: none; font-weight: bold; border-radius: 6px; cursor: pointer;">Save Token Privately</button>
+    </div>
+
+    <!-- Main Generator Block -->
+    <div style="background: #252538; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); border: 1px solid #313244;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #313244; padding-bottom: 10px; margin-bottom: 20px;">
+            <h3 style="margin: 0; color: #a6e3a1; font-size: 18px;">🔒 Safe Split-Link Generator</h3>
+            <button onclick="toggleTokenSettings()" style="background: none; border: none; color: #9399b2; cursor: pointer; font-size: 12px; font-weight: bold;">⚙️ Token Config</button>
+        </div>
         
-        <!-- File Number Counter (Manual override if needed) -->
+        <!-- File Number Counter -->
         <div style="margin-bottom: 15px;">
-            <label style="display: block; font-size: 11px; font-weight: 700; color: #4b5563; text-transform: uppercase; margin-bottom: 6px;">Next File Number Name:</label>
-            <input type="number" id="file-counter-field" value="1" min="1" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; box-sizing: border-box; font-size: 14px;">
+            <label style="display: block; font-size: 11px; font-weight: 700; color: #bac2de; text-transform: uppercase; margin-bottom: 6px;">Next File Number Name:</label>
+            <input type="number" id="file-counter-field" value="1" min="1" style="width: 100%; padding: 10px; background: #11111b; color: #cdd6f4; border-radius: 6px; border: 1px solid #45475a; box-sizing: border-box; font-size: 14px;">
         </div>
 
         <!-- Book Title Input Field -->
         <div style="margin-bottom: 15px;">
-            <label style="display: block; font-size: 11px; font-weight: 700; color: #4b5563; text-transform: uppercase; margin-bottom: 6px;">Book Title & Edition:</label>
-            <input type="text" id="book-title-field" placeholder="e.g., wazua makosa" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; box-sizing: border-box; font-size: 14px;">
+            <label style="display: block; font-size: 11px; font-weight: 700; color: #bac2de; text-transform: uppercase; margin-bottom: 6px;">Book Title & Edition:</label>
+            <input type="text" id="book-title-field" placeholder="e.g., wazua makosa" style="width: 100%; padding: 10px; background: #11111b; color: #cdd6f4; border-radius: 6px; border: 1px solid #45475a; box-sizing: border-box; font-size: 14px;">
         </div>
         
         <!-- Book Price Input Field -->
         <div style="margin-bottom: 15px;">
-            <label style="display: block; font-size: 11px; font-weight: 700; color: #4b5563; text-transform: uppercase; margin-bottom: 6px;">Negotiated Price ($):</label>
-            <input type="text" id="book-price-field" placeholder="45" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; box-sizing: border-box; font-size: 14px;">
+            <label style="display: block; font-size: 11px; font-weight: 700; color: #bac2de; text-transform: uppercase; margin-bottom: 6px;">Negotiated Price ($):</label>
+            <input type="text" id="book-price-field" placeholder="45" style="width: 100%; padding: 10px; background: #11111b; color: #cdd6f4; border-radius: 6px; border: 1px solid #45475a; box-sizing: border-box; font-size: 14px;">
         </div>
         
         <!-- Sample File Asset Link Slot -->
         <div style="margin-bottom: 15px;">
-            <label style="display: block; font-size: 11px; font-weight: 700; color: #4b5563; text-transform: uppercase; margin-bottom: 6px;">15-Page Sample Link/ID (Fast Loader):</label>
-            <input type="text" id="book-preview-field" placeholder="Paste sample file link or ID" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; box-sizing: border-box; font-size: 14px; font-family: monospace;">
+            <label style="display: block; font-size: 11px; font-weight: 700; color: #bac2de; text-transform: uppercase; margin-bottom: 6px;">15-Page Sample Link/ID (Fast Loader):</label>
+            <input type="text" id="book-preview-field" placeholder="Paste sample file link or ID" style="width: 100%; padding: 10px; background: #11111b; color: #cdd6f4; border-radius: 6px; border: 1px solid #45475a; box-sizing: border-box; font-size: 14px; font-family: monospace;">
         </div>
 
         <!-- Full Heavy Asset Link Slot -->
         <div style="margin-bottom: 20px;">
-            <label style="display: block; font-size: 11px; font-weight: 700; color: #4b5563; text-transform: uppercase; margin-bottom: 6px;">Full Book Link/ID (Post-Payment Asset):</label>
-            <input type="text" id="book-download-field" placeholder="Paste full book file link or ID" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; box-sizing: border-box; font-size: 14px; font-family: monospace;">
+            <label style="display: block; font-size: 11px; font-weight: 700; color: #bac2de; text-transform: uppercase; margin-bottom: 6px;">Full Book Link/ID (Post-Payment Asset):</label>
+            <input type="text" id="book-download-field" placeholder="Paste full book file link or ID" style="width: 100%; padding: 10px; background: #11111b; color: #cdd6f4; border-radius: 6px; border: 1px solid #45475a; box-sizing: border-box; font-size: 14px; font-family: monospace;">
         </div>
         
         <!-- Processing Trigger Button -->
-        <button onclick="generateSplitUrl()" style="width: 100%; padding: 12px; background: #059669; color: white; border: none; font-weight: bold; border-radius: 6px; font-size: 15px; cursor: pointer; transition: background 0.15s;">
-            Build Client Link & Download File
+        <button id="submit-btn" onclick="generateSplitUrl()" style="width: 100%; padding: 12px; background: #a6e3a1; color: #11111b; border: none; font-weight: bold; border-radius: 6px; font-size: 15px; cursor: pointer; transition: background 0.15s;">
+            Build & Upload Direct To GitHub
         </button>
         
         <!-- Short Token Output Console Box Area -->
-        <div id="output-box" style="display: none; margin-top: 25px; padding-top: 20px; border-top: 2px solid #f3f4f6;">
-            <label style="display: block; font-size: 11px; font-weight: 700; color: #059669; text-transform: uppercase; margin-bottom: 6px;">Your Short Client Link:</label>
-            <textarea id="output-url-string" readonly style="width: 100%; height: 45px; padding: 10px; background: #f9fafb; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-family: monospace; font-size: 12px; margin-bottom: 10px; resize: none;"></textarea>
-            <button id="copy-btn" onclick="copyToClipboard()" style="width: 100%; padding: 10px; background: #2563eb; color: white; border: none; font-weight: bold; border-radius: 6px; font-size: 14px; cursor: pointer;">📋 Copy Short Link</button>
+        <div id="output-box" style="display: none; margin-top: 25px; padding-top: 20px; border-top: 2px solid #313244;">
+            <label style="display: block; font-size: 11px; font-weight: 700; color: #a6e3a1; text-transform: uppercase; margin-bottom: 6px;">Your Short Client Link:</label>
+            <textarea id="output-url-string" readonly style="width: 100%; height: 45px; padding: 10px; background: #11111b; color: #cdd6f4; border: 1px solid #45475a; border-radius: 6px; box-sizing: border-box; font-family: monospace; font-size: 12px; margin-bottom: 10px; resize: none;"></textarea>
+            <button id="copy-btn" onclick="copyToClipboard()" style="width: 100%; padding: 10px; background: #89b4fa; color: #11111b; border: none; font-weight: bold; border-radius: 6px; font-size: 14px; cursor: pointer;">📋 Copy Short Link</button>
         </div>
     </div>
-
     <script>
+        const GH_OWNER = "alexmusera";
+        const GH_REPO = "alexmusera.github.io";
+
+        // Check browser storage on bootup. If token is missing, show configuration box.
+        window.addEventListener('DOMContentLoaded', () => {
+            if (!localStorage.getItem('my_private_gh_token')) {
+                document.getElementById('token-config-box').style.display = 'block';
+            }
+        });
+
+        function toggleTokenSettings() {
+            var box = document.getElementById('token-config-box');
+            box.style.display = (box.style.display === 'none') ? 'block' : 'none';
+        }
+
+        function saveTokenToBrowser() {
+            var inputVal = document.getElementById('token-setup-input').value.trim();
+            if (!inputVal) {
+                alert("Please paste a valid token value.");
+                return;
+            }
+            localStorage.setItem('my_private_gh_token', inputVal);
+            document.getElementById('token-setup-input').value = "";
+            document.getElementById('token-config-box').style.display = 'none';
+            alert("Token securely saved to your local browser layout context!");
+        }
+
         function extractDriveId(str) {
             var match = str.trim().match(/\/d\/([a-zA-Z0-9-_]+)/);
             return match ? match[1] : str.trim();
         }
 
-        function generateSplitUrl() {
+        async function generateSplitUrl() {
+            var token = localStorage.getItem('my_private_gh_token');
+            if (!token) {
+                alert("GitHub Token missing. Click 'Token Config' on the top right to set it.");
+                document.getElementById('token-config-box').style.display = 'block';
+                return;
+            }
+
             var title = document.getElementById('book-title-field').value.trim();
             var price = document.getElementById('book-price-field').value.trim();
             var rawPreview = document.getElementById('book-preview-field').value;
@@ -69,7 +111,7 @@
             var currentNum = document.getElementById('file-counter-field').value.trim();
             
             if (!price || !rawPreview || !rawDownload || !currentNum) {
-                alert("Please complete all necessary fields.");
+                alert("Please complete all fields.");
                 return;
             }
             
@@ -77,45 +119,70 @@
             var cleanDownloadId = extractDriveId(rawDownload);
             var cleanTitle = title || "Preview";
             
-            // Packs the parameters
             var internalPayload = "p=" + encodeURIComponent(cleanPreviewId) + 
                                   "&d=" + encodeURIComponent(cleanDownloadId) + 
                                   "&pr=" + encodeURIComponent(price) + 
                                   "&t=" + encodeURIComponent(cleanTitle);
             
-            // Compresses all parameters out of sight into a single text hash
             var encryptedToken = btoa(internalPayload);
             
-            var baseDomain = "https://alexmusera.github.io";
+            var baseDomain = "https://" + GH_OWNER + ".github.io";
             var longWorkingUrl = baseDomain + "?id=" + encryptedToken;
             
-            // Generate the small static redirector file text dynamically
             var redirectHtmlContent = '<!DOCTYPE html>\n<html>\n<head>\n' +
                 '<meta charset="UTF-8">\n' +
                 '<title>Processing Session...</title>\n' +
                 '<script>\nwindow.location.replace("' + longWorkingUrl + '");\n<\/script>\n' +
                 '</head>\n<body>\n<p>Redirecting to processing window...</p>\n</body>\n</html>';
 
-            // Create and trigger automatic download of the short numbered file (e.g., "1.html")
-            var blob = new Blob([redirectHtmlContent], { type: 'text/html' });
-            var downloadLink = document.createElement('a');
-            downloadLink.href = URL.createObjectURL(blob);
-            downloadLink.download = currentNum + ".html";
-            document.body.appendChild(downloadLink);
-            downloadLink.click();
-            document.body.removeChild(downloadLink);
+            var filename = currentNum + ".html";
+            var shortClientUrl = baseDomain + "/" + filename;
 
-            // Set the short link box value for your clients
-            var shortClientUrl = baseDomain + "/" + currentNum + ".html";
-            document.getElementById('output-url-string').value = shortClientUrl;
-            document.getElementById('output-box').style.display = 'block';
-            
-            var btn = document.getElementById('copy-btn');
-            btn.style.background = "#2563eb";
-            btn.innerText = "📋 Copy Short Link";
+            var mainBtn = document.getElementById('submit-btn');
+            mainBtn.disabled = true;
+            mainBtn.style.background = "#45475a";
+            mainBtn.style.color = "#a6adc8";
+            mainBtn.innerText = "⚡ Uploading straight to GitHub...";
 
-            // Automatically increase the input box number name by 1 for the next run
-            document.getElementById('file-counter-field').value = parseInt(currentNum) + 1;
+            try {
+                // Content must be base64 encoded for GitHub API
+                var base64FileContent = btoa(unescape(encodeURIComponent(redirectHtmlContent)));
+                var apiUrl = "https://github.com" + GH_OWNER + "/" + GH_REPO + "/contents/" + filename;
+                
+                var response = await fetch(apiUrl, {
+                    method: "PUT",
+                    headers: {
+                        "Authorization": "token " + token,
+                        "Accept": "application/vnd.github+json"
+                    },
+                    body: JSON.stringify({
+                        message: "Automated link generation: " + filename,
+                        content: base64FileContent
+                    })
+                });
+
+                if (response.ok) {
+                    document.getElementById('output-url-string').value = shortClientUrl;
+                    document.getElementById('output-box').style.display = 'block';
+                    
+                    var btn = document.getElementById('copy-btn');
+                    btn.style.background = "#89b4fa";
+                    btn.style.color = "#11111b";
+                    btn.innerText = "📋 Copy Short Link";
+
+                    document.getElementById('file-counter-field').value = parseInt(currentNum) + 1;
+                } else {
+                    var errData = await response.json();
+                    alert("GitHub API Error: " + errData.message);
+                }
+            } catch (error) {
+                alert("Upload failed: " + error.message);
+            } finally {
+                mainBtn.disabled = false;
+                mainBtn.style.background = "#a6e3a1";
+                mainBtn.style.color = "#11111b";
+                mainBtn.innerText = "Build & Upload Direct To GitHub";
+            }
         }
 
         function copyToClipboard() {
@@ -123,7 +190,8 @@
             txt.select();
             navigator.clipboard.writeText(txt.value).then(function() {
                 var btn = document.getElementById('copy-btn');
-                btn.style.background = "#059669";
+                btn.style.background = "#a6e3a1";
+                btn.style.color = "#11111b";
                 btn.innerText = "✓ Copied Short Link!";
             });
         }
