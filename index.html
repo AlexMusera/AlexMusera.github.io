@@ -212,7 +212,9 @@ if (shortToken) {
 }
 
 // Formats paths natively using the unblocked Drive layout string parameters
-const targetPreviewUrl = "https://drive.google.com/file/d/" + previewId + "/preview";
+//const targetPreviewUrl = "https://drive.google.com/file/d/" + previewId + "/preview";
+const targetPreviewUrl = "https://drive.google.com/file/d/" + previewId;
+
 
 // Fix: Use downloadId if present in the token; otherwise, gracefully default to the previewId
 const activeDownloadId = downloadId ? downloadId : previewId;
