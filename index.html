@@ -110,7 +110,7 @@
 
     <script>
         // Helper to cleanly extract verification params from your incoming Base64 link token
-        function parseQueryToken() {
+                function parseQueryToken() {
             const urlParams = new URLSearchParams(window.location.search);
             const token = urlParams.get('id');
             if (!token) return null;
@@ -118,8 +118,14 @@
             try {
                 const decodedString = atob(token);
                 const params = new URLSearchParams(decodedString);
+                
+                // Cleans up the URL parameter string context manually if a raw drive link was passed
+                let rawPreview = params.get('p') || '';
+                let previewMatch = rawPreview.match(/\/d\/([a-zA-Z0-9-_]+)/);
+                let cleanPreviewId = previewMatch ? previewMatch[1] : rawPreview.trim();
+
                 return {
-                    previewId: params.get('p'),
+                    previewId: cleanPreviewId,
                     downloadId: params.get('d'),
                     price: params.get('pr'),
                     title: decodeURIComponent(params.get('t') || 'Standard Asset Reference')
@@ -129,6 +135,7 @@
                 return null;
             }
         }
+
 
         // Initialize portal layout context
         window.addEventListener('DOMContentLoaded', () => {
