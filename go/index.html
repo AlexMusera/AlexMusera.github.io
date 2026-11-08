@@ -1,1 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Verifying Resource Request...</title>
+    <script>
+        // --- YOUR CENTRAL LINKS MAP ---
+        // Add your shorthand codes on the left, and paste the long generated URLs on the right.
+        const urlRegistry = {
+            "netter8": "https://alexmusera.github.io?id=cD0xN0ZHcHdPOGR0a0hFRUlkdDg0MG1VckgxLXdibFp4R1AmZD0xN0ZHcHdPOGR0a0hFRUlkdDg0MG1VckgxLXdibFp4R1AmcHI9MTAmdD1mcmFuayUyMG5ldHRlciUyMGF0bGFzJTIwb2YlMjBodW1hbiUyMGFuYXRvbXklMjA4dGglMjBlZGl0aW9u",
+            "book2": "https://github.io",
+            "book3": "https://github.io",
+            "book4": "https://github.io",
+            "book5": "https://github.io",
+            "book6": "https://github.io",
+            "book7": "https://github.io",
+            "book8": "https://github.io",
+            "book9": "https://github.io",
+            "book10": "https://github.io"
+        };
+
+        (function executeSecureRoute() {
+            const queryParams = new URLSearchParams(window.location.search);
+            const bookKey = queryParams.get('b');
+
+            if (bookKey && urlRegistry[bookKey]) {
+                // Instantly send them to the long payment portal link
+                window.location.href = urlRegistry[bookKey];
+            } else {
+                // If the short link is broken or wrong, send them to your main home page safely
+                window.location.href = "https://alexmusera.github.io";
+            }
+        })();
+    </script>
+</head>
+<body style="background:#fff; font-family:sans-serif; display:flex; justify-content:center; align-items:center; height:100vh; margin:0;">
+    <p style="color:#555;">Loading your payment gateway details...</p>
+</body>
+</html>
 
