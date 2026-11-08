@@ -367,6 +367,36 @@ function submitReceiptToDiscord() {
         submitBtn.innerText = "🚀 Submit Reference & Request Access";
     });
 }
+    // --- FIX: Missing Copy Functionality ---
+function copyText(textValue, buttonElement) {
+    if (!textValue) return;
+
+    // Use the secure Clipboard API to save text to the user's device
+    navigator.clipboard.writeText(textValue)
+        .then(() => {
+            // Store the original button text (e.g., "Copy")
+            const originalText = buttonElement.innerText;
+            
+            // Provide live visual feedback to the user
+            buttonElement.innerText = "✓ Copied!";
+            buttonElement.style.background = "#dcfce7"; // Light green background
+            buttonElement.style.color = "#166534";      // Dark green text
+            buttonElement.style.borderColor = "#16a34a";
+            
+            // Revert back to original look after 1.5 seconds
+            setTimeout(() => {
+                buttonElement.innerText = originalText;
+                buttonElement.style.background = "";
+                buttonElement.style.color = "";
+                buttonElement.style.borderColor = "";
+            }, 1500);
+        })
+        .catch(err => {
+            console.error("Failed to copy text: ", err);
+            alert("Could not copy automatically. Please highlight the text and copy manually.");
+        });
+}
+
 </script>
 
 </html>
