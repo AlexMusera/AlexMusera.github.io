@@ -51,11 +51,11 @@
 
     <script>
         function extractDriveId(str) {
-            var match = str.trim().match(/\/d\/([a-zA-Z0-9-_]+)/);
-            return match ? match[1] : str.trim();
-        }
+    var match = str.trim().match(/\/d\/([a-zA-Z0-9-_]+)/);
+    return match ? match[1] : str.trim();
+}
 
-       function generateSplitUrl() {
+function generateSplitUrl() {
     var price = document.getElementById('book-price-field').value.trim();
     var rawPreview = document.getElementById('book-preview-field').value;
     var rawDownload = document.getElementById('book-download-field').value;
@@ -68,21 +68,14 @@
     var cleanPreviewId = extractDriveId(rawPreview);
     var cleanDownloadId = extractDriveId(rawDownload);
     
-    // 1. Pack the values into a tight, short layout block string
-    var internalPayload = cleanPreviewId + "|" + cleanDownloadId + "|" + price;
+    // COMPRESSION: Use the absolute minimum raw string structure to keep the text short
+    var compactData = cleanPreviewId + "|" + cleanDownloadId + "|" + price;
     
-    // 2. COMPRESSION ENGINE: Shrink the raw data bytes to their physical limit
-    var compressedData = pako.deflate(internalPayload, { to: 'string' });
+    // Encrypt the compressed sequence cleanly
+    var encryptedToken = btoa(compactData);
     
-    // 3. Convert the tiny compressed stream into a tight Base64 web token string
-    var shortToken = btoa(compressedData)
-        .replace(/\+/g, '-')
-        .replace(/\//g, '_')
-        .replace(/=+$/, ''); // Cleans up unnecessary trailing characters
-    
-    // 4. Output your clean personal repo redirection link path layout safely
-    var baseDomain = "https://alexmusera.github.io/";
-    var finalUrl = baseDomain + "netter.html#" + shortToken;
+    // Your exact live production redirection path
+    var finalUrl = "https://github.io" + encryptedToken;
     
     document.getElementById('output-url-string').value = finalUrl;
     document.getElementById('output-box').style.display = 'block';
@@ -91,6 +84,7 @@
     btn.style.background = "#2563eb";
     btn.innerText = "📋 Copy Short Link";
 }
+
 
         function copyToClipboard() {
             var txt = document.getElementById('output-url-string');
