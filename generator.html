@@ -63,11 +63,10 @@
             <button id="copy-btn" onclick="copyToClipboard()" style="width: 100%; padding: 10px; background: #89b4fa; color: #11111b; border: none; font-weight: bold; border-radius: 6px; font-size: 14px; cursor: pointer;">📋 Copy Short Link</button>
         </div>
     </div>
-    <script>
+        <script>
         const GH_OWNER = "alexmusera";
         const GH_REPO = "alexmusera.github.io";
 
-        // Check browser storage on bootup. If token is missing, show configuration box.
         window.addEventListener('DOMContentLoaded', () => {
             if (!localStorage.getItem('my_private_gh_token')) {
                 document.getElementById('token-config-box').style.display = 'block';
@@ -94,6 +93,12 @@
         function extractDriveId(str) {
             var match = str.trim().match(/\/d\/([a-zA-Z0-9-_]+)/);
             return match ? match[1] : str.trim();
+        }
+
+        // Safe conversion helper to handle newlines and special characters cleanly
+        function bytesToBase64(bytes) {
+            const binString = String.fromCodePoint(...bytes);
+            return btoa(binString);
         }
 
         async function generateSplitUrl() {
@@ -145,14 +150,17 @@
             mainBtn.innerText = "⚡ Uploading straight to GitHub...";
 
             try {
-                // Content must be base64 encoded for GitHub API
-                var base64FileContent = btoa(unescape(encodeURIComponent(redirectHtmlContent)));
+                // Encode the text cleanly into UTF-8 bytes first, then convert to Base64
+                const encoder = new TextEncoder();
+                const dataBytes = encoder.encode(redirectHtmlContent);
+                var base64FileContent = bytesToBase64(dataBytes);
+
                 var apiUrl = "https://github.com" + GH_OWNER + "/" + GH_REPO + "/contents/" + filename;
                 
                 var response = await fetch(apiUrl, {
                     method: "PUT",
                     headers: {
-                        "Authorization": "token " + token,
+                        "Authorization": "Bearer " + token, // Standard API Bearer header format
                         "Accept": "application/vnd.github+json"
                     },
                     body: JSON.stringify({
@@ -198,3 +206,4 @@
     </script>
 </body>
 </html>
+
