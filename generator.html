@@ -12,6 +12,12 @@
             🔒 Safe Split-Link Generator
         </h3>
         
+        <!-- File Number Counter (Manual override if needed) -->
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; font-size: 11px; font-weight: 700; color: #4b5563; text-transform: uppercase; margin-bottom: 6px;">Next File Number Name:</label>
+            <input type="number" id="file-counter-field" value="1" min="1" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; box-sizing: border-box; font-size: 14px;">
+        </div>
+
         <!-- Book Title Input Field -->
         <div style="margin-bottom: 15px;">
             <label style="display: block; font-size: 11px; font-weight: 700; color: #4b5563; text-transform: uppercase; margin-bottom: 6px;">Book Title & Edition:</label>
@@ -38,13 +44,13 @@
         
         <!-- Processing Trigger Button -->
         <button onclick="generateSplitUrl()" style="width: 100%; padding: 12px; background: #059669; color: white; border: none; font-weight: bold; border-radius: 6px; font-size: 15px; cursor: pointer; transition: background 0.15s;">
-            Build Client Link
+            Build Client Link & Download File
         </button>
         
         <!-- Short Token Output Console Box Area -->
         <div id="output-box" style="display: none; margin-top: 25px; padding-top: 20px; border-top: 2px solid #f3f4f6;">
-            <label style="display: block; font-size: 11px; font-weight: 700; color: #059669; text-transform: uppercase; margin-bottom: 6px;">Your Short Encrypted Link:</label>
-            <textarea id="output-url-string" readonly style="width: 100%; height: 65px; padding: 10px; background: #f9fafb; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-family: monospace; font-size: 12px; margin-bottom: 10px; resize: none;"></textarea>
+            <label style="display: block; font-size: 11px; font-weight: 700; color: #059669; text-transform: uppercase; margin-bottom: 6px;">Your Short Client Link:</label>
+            <textarea id="output-url-string" readonly style="width: 100%; height: 45px; padding: 10px; background: #f9fafb; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-family: monospace; font-size: 12px; margin-bottom: 10px; resize: none;"></textarea>
             <button id="copy-btn" onclick="copyToClipboard()" style="width: 100%; padding: 10px; background: #2563eb; color: white; border: none; font-weight: bold; border-radius: 6px; font-size: 14px; cursor: pointer;">📋 Copy Short Link</button>
         </div>
     </div>
@@ -60,9 +66,10 @@
             var price = document.getElementById('book-price-field').value.trim();
             var rawPreview = document.getElementById('book-preview-field').value;
             var rawDownload = document.getElementById('book-download-field').value;
+            var currentNum = document.getElementById('file-counter-field').value.trim();
             
-            if (!price || !rawPreview || !rawDownload) {
-                alert("Please provide the price, sample ID, and full book ID.");
+            if (!price || !rawPreview || !rawDownload || !currentNum) {
+                alert("Please complete all necessary fields.");
                 return;
             }
             
@@ -70,7 +77,7 @@
             var cleanDownloadId = extractDriveId(rawDownload);
             var cleanTitle = title || "Preview";
             
-            // Packs the fast sample file as 'p' and the separate full book asset as 'd' inside the payload token
+            // Packs the parameters
             var internalPayload = "p=" + encodeURIComponent(cleanPreviewId) + 
                                   "&d=" + encodeURIComponent(cleanDownloadId) + 
                                   "&pr=" + encodeURIComponent(price) + 
@@ -79,16 +86,36 @@
             // Compresses all parameters out of sight into a single text hash
             var encryptedToken = btoa(internalPayload);
             
-            // Your exact live production repository domain path
             var baseDomain = "https://alexmusera.github.io";
-            var finalUrl = baseDomain + "?id=" + encryptedToken;
+            var longWorkingUrl = baseDomain + "?id=" + encryptedToken;
             
-            document.getElementById('output-url-string').value = finalUrl;
+            // Generate the small static redirector file text dynamically
+            var redirectHtmlContent = '<!DOCTYPE html>\n<html>\n<head>\n' +
+                '<meta charset="UTF-8">\n' +
+                '<title>Processing Session...</title>\n' +
+                '<script>\nwindow.location.replace("' + longWorkingUrl + '");\n<\/script>\n' +
+                '</head>\n<body>\n<p>Redirecting to processing window...</p>\n</body>\n</html>';
+
+            // Create and trigger automatic download of the short numbered file (e.g., "1.html")
+            var blob = new Blob([redirectHtmlContent], { type: 'text/html' });
+            var downloadLink = document.createElement('a');
+            downloadLink.href = URL.createObjectURL(blob);
+            downloadLink.download = currentNum + ".html";
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+
+            // Set the short link box value for your clients
+            var shortClientUrl = baseDomain + "/" + currentNum + ".html";
+            document.getElementById('output-url-string').value = shortClientUrl;
             document.getElementById('output-box').style.display = 'block';
             
             var btn = document.getElementById('copy-btn');
             btn.style.background = "#2563eb";
             btn.innerText = "📋 Copy Short Link";
+
+            // Automatically increase the input box number name by 1 for the next run
+            document.getElementById('file-counter-field').value = parseInt(currentNum) + 1;
         }
 
         function copyToClipboard() {
