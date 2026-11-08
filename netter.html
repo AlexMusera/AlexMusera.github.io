@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="refresh" content="0; url=https://alexmusera.github.io?id=cD0xTVlIbGFiLUVla01Gd3h3clRLYWhkZzBZN3QtMEh4bHgmZD0xREVJNG0xQXJNZTBSNHZyQUdqT3ZzLTBJU3Znc1ZKMWwmcHI9MjAmdD1Db25zdGl0dXRpb25hbCUyMExhdyUyMGZvciUyMGElMjBDaGFuZ2luZyUyMEFtZXJpY2ElMjBJbnN0aXR1dGlvbmFsJTIwUG93ZXJzJTIwYW5kJTIwQ29uc3RyYWludHMlMkMlMjAxMnRoJTIwZWQ=">
-    <title>Redirecting...</title>
+    <title>Verifying Session...</title>
+    <script>
+        // 1. Grabs the long encrypted string directly from the hash parameter after the '#' symbol
+        const secureToken = window.location.hash.substring(1);
+
+        if (secureToken) {
+            // 2. Instantly redirects the client straight to your main layout frame page
+            window.location.href = "index.html?id=" + secureToken;
+        } else {
+            // Fallback to main page if someone opens the link without a hash
+            window.location.href = "index.html";
+        }
+    </script>
 </head>
-<body>
-    <p>If you are not redirected, <a href="https://alexmusera.github.io?id=cD0xTVlIbGFiLUVla01Gd3h3clRLYWhkZzBZN3QtMEh4bHgmZD0xREVJNG0xQXJNZTBSNHZyQUdqT3ZzLTBJU3Znc1ZKMWwmcHI9MjAmdD1Db25zdGl0dXRpb25hbCUyMExhdyUyMGZvciUyMGElMjBDaGFuZ2luZyUyMEFtZXJpY2ElMjBJbnN0aXR1dGlvbmFsJTIwUG93ZXJzJTIwYW5kJTIwQ29uc3RyYWludHMlMkMlMjAxMnRoJTIwZWQ=">click here</a>.</p>
+<body style="background-color: #f3f4f6;">
 </body>
 </html>
