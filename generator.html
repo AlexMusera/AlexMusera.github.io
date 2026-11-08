@@ -154,7 +154,10 @@
                 var base64FileContent = bytesToBase64(dataBytes);
 
                 // FIXED: Direct correction to target the authoritative GitHub endpoint URL path structure
-                var apiUrl = "https://github.com" + GH_OWNER + "/" + GH_REPO + "/contents/" + filename;
+              //  var apiUrl = "https://github.com" + GH_OWNER + "/" + GH_REPO + "/contents/" + filename;
+                var apiUrl = "https://api.github.com/repos/" + GH_OWNER + "/" + GH_REPO + "/contents/" + filename;
+
+              
                 
                 var response = await fetch(apiUrl, {
                     method: "PUT",
