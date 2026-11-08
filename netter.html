@@ -1,36 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Processing Invoice Session...</title>
-    <!-- Load the matching compression engine utility -->
-    <script src="https://cloudflare.com"></script>
+    <title>Processing Session...</title>
     <script>
-        // 1. Grabs the compressed link token directly after the '#' flag
-        const shortToken = window.location.hash.substring(1);
+        const urlParams = new URLSearchParams(window.location.search);
+        const encryptedToken = urlParams.get('id');
 
-        if (shortToken) {
+        if (encryptedToken) {
             try {
-                // Fix web-safe adjustments back to standard text base64
-                let base64 = shortToken.replace(/-/g, '+').replace(/_/g, '/');
-                while (base64.length % 4) { base64 += '='; }
+                // 1. Unpack the compressed string data natively
+                const decodedData = atob(encryptedToken);
+                const parts = decodedData.split('|');
                 
-                // 2. Decompress the token bytes back into normal text data
-                const compressedString = atob(base64);
-                const unpackedData = pako.inflate(compressedString, { to: 'string' });
-                
-                // 3. Extract your data row variables back out neatly
-                const parts = unpackedData.split('|');
                 const previewId = parts[0];
                 const downloadId = parts[1];
                 const price = parts[2];
                 
-                // 4. Re-format parameters and push the user forward to index.html smoothly
-                const indexPayload = `p=${previewId}&d=${downloadId}&pr=${price}`;
+                // 2. Re-pack parameters cleanly and forward the user to index.html smoothly
+                const indexPayload = "p=" + previewId + "&d=" + downloadId + "&pr=" + price;
                 window.location.href = "index.html?id=" + btoa(indexPayload);
                 
             } catch (e) {
-                console.error("Link decryption error:", e);
+                console.error("Link translation error:", e);
                 window.location.href = "index.html";
             }
         } else {
