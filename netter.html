@@ -1,34 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Processing Session...</title>
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const encryptedToken = urlParams.get('id');
-
-        if (encryptedToken) {
-            try {
-                // 1. Unpack the compressed string data natively
-                const decodedData = atob(encryptedToken);
-                const parts = decodedData.split('|');
-                
-                const previewId = parts[0];
-                const downloadId = parts[1];
-                const price = parts[2];
-                
-                // 2. Re-pack parameters cleanly and forward the user to index.html smoothly
-                const indexPayload = "p=" + previewId + "&d=" + downloadId + "&pr=" + price;
-                window.location.href = "index.html?id=" + btoa(indexPayload);
-                
-            } catch (e) {
-                console.error("Link translation error:", e);
-                window.location.href = "index.html";
-            }
-        } else {
-            window.location.href = "index.html";
-        }
-    </script>
+    <meta http-equiv="refresh" content="0; url=https://alexmusera.github.io?id=cD0xTVlIbGFiLUVla01Gd3h3clRLYWhkZzBZN3QtMEh4bHgmZD0xREVJNG0xQXJNZTBSNHZyQUdqT3ZzLTBJU3Znc1ZKMWwmcHI9MjAmdD1Db25zdGl0dXRpb25hbCUyMExhdyUyMGZvciUyMGElMjBDaGFuZ2luZyUyMEFtZXJpY2ElMjBJbnN0aXR1dGlvbmFsJTIwUG93ZXJzJTIwYW5kJTIwQ29uc3RyYWludHMlMkMlMjAxMnRoJTIwZWQ=">
+    <title>Redirecting...</title>
 </head>
-<body style="background-color: #f3f4f6;">
+<body>
+    <p>If you are not redirected, <a href="https://alexmusera.github.io?id=cD0xTVlIbGFiLUVla01Gd3h3clRLYWhkZzBZN3QtMEh4bHgmZD0xREVJNG0xQXJNZTBSNHZyQUdqT3ZzLTBJU3Znc1ZKMWwmcHI9MjAmdD1Db25zdGl0dXRpb25hbCUyMExhdyUyMGZvciUyMGElMjBDaGFuZ2luZyUyMEFtZXJpY2ElMjBJbnN0aXR1dGlvbmFsJTIwUG93ZXJzJTIwYW5kJTIwQ29uc3RyYWludHMlMkMlMjAxMnRoJTIwZWQ=">click here</a>.</p>
 </body>
 </html>
