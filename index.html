@@ -140,7 +140,7 @@
                 document.getElementById('page-window-title').innerText = "Preview: " + assetData.title;
                 
                 // FIXED: Integrated the high-performance document rendering path with drive variables included
-                const finalViewerUrl = "https://drive.google.com"" + assetData.previewId;
+                const finalViewerUrl = "https://drive.google.com"+ assetData.previewId;
                 document.getElementById('inline-document-frame').src = finalViewerUrl;
                 
                 // Initialize the countdown display sequence
