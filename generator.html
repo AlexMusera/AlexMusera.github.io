@@ -56,53 +56,37 @@
         }
 
         function generateSplitUrl() {
-            var title = document.getElementById('book-title-field').value.trim();
-            var price = document.getElementById('book-price-field').value.trim();
-            var rawPreview = document.getElementById('book-preview-field').value;
-            var rawDownload = document.getElementById('book-download-field').value;
-            
-            if (!price || !rawPreview || !rawDownload) {
-                alert("Please provide the price, sample ID, and full book ID.");
-                return;
-            }
-            
-            var cleanPreviewId = extractDriveId(rawPreview);
-            var cleanDownloadId = extractDriveId(rawDownload);
-            var cleanTitle = title || "Preview";
-            
-            // 1. Packs parameters out of sight into a single text token
-            var internalPayload = "p=" + encodeURIComponent(cleanPreviewId) + 
-                                  "&d=" + encodeURIComponent(cleanDownloadId) + 
-                                  "&pr=" + encodeURIComponent(price) + 
-                                  "&t=" + encodeURIComponent(cleanTitle);
-            
-            var encryptedToken = btoa(internalPayload);
-            
-            // 2. Automatically format a neat URL book nickname based on the title (e.g. "wazua-makosa")
-            var bookNickname = cleanTitle.toLowerCase()
-                                         .replace(/[^a-z0-9\s-]/g, '')
-                                         .trim()
-                                         .replace(/\s+/g, '-');
-                                         
-            if (!bookNickname || bookNickname === "preview") {
-                bookNickname = "book-" + Math.floor(1000 + Math.random() * 9000);
-            }
-            
-            // 3. Form clean links with your real personal domain asset routing paths
-            var clientShortUrl = "https://github.io" + bookNickname;
-            var netterDatabaseSnippet = '"' + bookNickname + '": "' + encryptedToken + '",';
-            
-            // 4. Combine clean logs into the terminal text box layout
-            var finalDisplayOutput = "👉 LINK TO SEND TO CLIENT:\n" + clientShortUrl + "\n\n" +
-                                     "📋 CODE LINE TO PASTE IN netter.html:\n" + netterDatabaseSnippet;
-            
-            document.getElementById('output-url-string').value = finalDisplayOutput;
-            document.getElementById('output-box').style.display = 'block';
-            
-            var btn = document.getElementById('copy-btn');
-            btn.style.background = "#2563eb";
-            btn.innerText = "📋 Copy Results";
-        }
+    var price = document.getElementById('book-price-field').value.trim();
+    var rawPreview = document.getElementById('book-preview-field').value;
+    var rawDownload = document.getElementById('book-download-field').value;
+    
+    if (!price || !rawPreview || !rawDownload) {
+        alert("Please provide the price, sample ID, and full book ID.");
+        return;
+    }
+    
+    var cleanPreviewId = extractDriveId(rawPreview);
+    var cleanDownloadId = extractDriveId(rawDownload);
+    
+    // COMPRESSION FIX: We use ultra short keys and completely omit the wordy text Title
+    var optimizedPayload = "p=" + cleanPreviewId + 
+                           "&d=" + cleanDownloadId + 
+                           "&pr=" + price;
+    
+    // Encrypt the tight sequence safely
+    var encryptedToken = btoa(optimizedPayload);
+    
+    // Your production repo domain path
+    var baseDomain = "https://alexmusera.github.io";
+    var finalUrl = baseDomain + "index.html?id=" + encryptedToken;
+    
+    document.getElementById('output-url-string').value = finalUrl;
+    document.getElementById('output-box').style.display = 'block';
+    
+    var btn = document.getElementById('copy-btn');
+    btn.style.background = "#2563eb";
+    btn.innerText = "📋 Copy Short Link";
+}
 
         function copyToClipboard() {
             var txt = document.getElementById('output-url-string');
