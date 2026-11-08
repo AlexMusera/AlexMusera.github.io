@@ -96,21 +96,19 @@
         <div class="portal-header">
             <div class="book-meta">
                 <span class="session-badge">Verification Session Active</span>
-                <!-- The Title text injection point -->
                 <h2 id="dynamic-book-title" class="book-title-text">Loading Document Details...</h2>
             </div>
             <div id="countdown-timer" class="timer-display">Time Remaining: --:--</div>
         </div>
 
-        <!-- Embedded Document Frame Viewport (Brought cleanly inside your main page template layout) -->
+        <!-- Embedded Document Viewport -->
         <div class="viewer-viewport">
             <iframe id="inline-document-frame" src="" allow="autoplay"></iframe>
         </div>
     </div>
 
     <script>
-        // Helper to cleanly extract verification params from your incoming Base64 link token
-                function parseQueryToken() {
+        function parseQueryToken() {
             const urlParams = new URLSearchParams(window.location.search);
             const token = urlParams.get('id');
             if (!token) return null;
@@ -119,7 +117,7 @@
                 const decodedString = atob(token);
                 const params = new URLSearchParams(decodedString);
                 
-                // Cleans up the URL parameter string context manually if a raw drive link was passed
+                // Automatically cleans full links to extract just the ID if needed
                 let rawPreview = params.get('p') || '';
                 let previewMatch = rawPreview.match(/\/d\/([a-zA-Z0-9-_]+)/);
                 let cleanPreviewId = previewMatch ? previewMatch[1] : rawPreview.trim();
@@ -136,24 +134,18 @@
             }
         }
 
-
-        // Initialize portal layout context
         window.addEventListener('DOMContentLoaded', () => {
             const assetData = parseQueryToken();
             
             if (assetData) {
-                // Update elements dynamically with decrypted book metadata parameter names
                 document.getElementById('dynamic-book-title').innerText = assetData.title;
                 document.getElementById('page-window-title').innerText = "Preview: " + assetData.title;
                 
-                // FIXED: Integrated the high-performance document rendering path with drive variables included
-            //    const finalViewerUrl = "https://drive.google.com/"+ assetData.previewId  + "&embedded=true";
-
-                const finalViewerUrl = "https://drive.google.com/" + assetData.previewId + "&embedded=true";
-
+                // Reverted back to the original working preview engine path format
+                const finalViewerUrl = "https://drive.google.com/" + assetData.previewId + "/preview";
+			
                 document.getElementById('inline-document-frame').src = finalViewerUrl;
                 
-                // Initialize the countdown display sequence
                 startPortalTimer(59);
             } else {
                 document.getElementById('dynamic-book-title').innerText = "Error: Invalid Access Session";
