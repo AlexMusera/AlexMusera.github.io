@@ -55,7 +55,7 @@
             return match ? match[1] : str.trim();
         }
 
-        function generateSplitUrl() {
+       function generateSplitUrl() {
     var price = document.getElementById('book-price-field').value.trim();
     var rawPreview = document.getElementById('book-preview-field').value;
     var rawDownload = document.getElementById('book-download-field').value;
@@ -68,19 +68,21 @@
     var cleanPreviewId = extractDriveId(rawPreview);
     var cleanDownloadId = extractDriveId(rawDownload);
     
-    // COMPRESSION FIX: We use ultra short keys and completely omit the wordy text Title
-    var optimizedPayload = "p=" + cleanPreviewId + 
-                           "&d=" + cleanDownloadId + 
-                           "&pr=" + price;
+    // 1. Pack the values into a tight, short layout block string
+    var internalPayload = cleanPreviewId + "|" + cleanDownloadId + "|" + price;
     
-    // Encrypt the tight sequence safely
-    var encryptedToken = btoa(optimizedPayload);
+    // 2. COMPRESSION ENGINE: Shrink the raw data bytes to their physical limit
+    var compressedData = pako.deflate(internalPayload, { to: 'string' });
     
-    // Your production repo domain path
-    var baseDomain = "https://alexmusera.github.io";
-   // var finalUrl = baseDomain + "/index.html?id=" + encryptedToken;
-    var finalUrl = baseDomain + "/netter.html#" + encryptedToken;
-
+    // 3. Convert the tiny compressed stream into a tight Base64 web token string
+    var shortToken = btoa(compressedData)
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+        .replace(/=+$/, ''); // Cleans up unnecessary trailing characters
+    
+    // 4. Output your clean personal repo redirection link path layout safely
+    var baseDomain = "https://alexmusera.github.io/";
+    var finalUrl = baseDomain + "netter.html#" + shortToken;
     
     document.getElementById('output-url-string').value = finalUrl;
     document.getElementById('output-box').style.display = 'block';
