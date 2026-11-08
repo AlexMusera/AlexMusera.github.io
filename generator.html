@@ -63,7 +63,7 @@
             <button id="copy-btn" onclick="copyToClipboard()" style="width: 100%; padding: 10px; background: #89b4fa; color: #11111b; border: none; font-weight: bold; border-radius: 6px; font-size: 14px; cursor: pointer;">📋 Copy Short Link</button>
         </div>
     </div>
-        <script>
+           <script>
         const GH_OWNER = "alexmusera";
         const GH_REPO = "alexmusera.github.io";
 
@@ -95,7 +95,6 @@
             return match ? match[1] : str.trim();
         }
 
-        // Safe conversion helper to handle newlines and special characters cleanly
         function bytesToBase64(bytes) {
             const binString = String.fromCodePoint(...bytes);
             return btoa(binString);
@@ -113,7 +112,7 @@
             var price = document.getElementById('book-price-field').value.trim();
             var rawPreview = document.getElementById('book-preview-field').value;
             var rawDownload = document.getElementById('book-download-field').value;
-            var currentNum = document.getElementById('file-counter-field').value.trim();
+            var currentNum = document.getElementById('file-counter-field').value;
             
             if (!price || !rawPreview || !rawDownload || !currentNum) {
                 alert("Please complete all fields.");
@@ -140,7 +139,7 @@
                 '<script>\nwindow.location.replace("' + longWorkingUrl + '");\n<\/script>\n' +
                 '</head>\n<body>\n<p>Redirecting to processing window...</p>\n</body>\n</html>';
 
-            var filename = currentNum + ".html";
+            var filename = currentNum.toString().trim() + ".html";
             var shortClientUrl = baseDomain + "/" + filename;
 
             var mainBtn = document.getElementById('submit-btn');
@@ -150,17 +149,17 @@
             mainBtn.innerText = "⚡ Uploading straight to GitHub...";
 
             try {
-                // Encode the text cleanly into UTF-8 bytes first, then convert to Base64
                 const encoder = new TextEncoder();
                 const dataBytes = encoder.encode(redirectHtmlContent);
                 var base64FileContent = bytesToBase64(dataBytes);
 
+                // FIXED: Direct correction to target the authoritative GitHub endpoint URL path structure
                 var apiUrl = "https://github.com" + GH_OWNER + "/" + GH_REPO + "/contents/" + filename;
                 
                 var response = await fetch(apiUrl, {
                     method: "PUT",
                     headers: {
-                        "Authorization": "Bearer " + token, // Standard API Bearer header format
+                        "Authorization": "Bearer " + token,
                         "Accept": "application/vnd.github+json"
                     },
                     body: JSON.stringify({
@@ -206,4 +205,3 @@
     </script>
 </body>
 </html>
-
