@@ -43,9 +43,9 @@
         
         <!-- Short Token Output Console Box Area -->
         <div id="output-box" style="display: none; margin-top: 25px; padding-top: 20px; border-top: 2px solid #f3f4f6;">
-            <label style="display: block; font-size: 11px; font-weight: 700; color: #059669; text-transform: uppercase; margin-bottom: 6px;">Your Short Encrypted Link:</label>
-            <textarea id="output-url-string" readonly style="width: 100%; height: 65px; padding: 10px; background: #f9fafb; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-family: monospace; font-size: 12px; margin-bottom: 10px; resize: none;"></textarea>
-            <button id="copy-btn" onclick="copyToClipboard()" style="width: 100%; padding: 10px; background: #2563eb; color: white; border: none; font-weight: bold; border-radius: 6px; font-size: 14px; cursor: pointer;">📋 Copy Short Link</button>
+            <label style="display: block; font-size: 11px; font-weight: 700; color: #059669; text-transform: uppercase; margin-bottom: 6px;">Generated Routing Data:</label>
+            <textarea id="output-url-string" readonly style="width: 100%; height: 130px; padding: 10px; background: #f9fafb; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-family: monospace; font-size: 12px; margin-bottom: 10px; resize: vertical; white-space: pre;"></textarea>
+            <button id="copy-btn" onclick="copyToClipboard()" style="width: 100%; padding: 10px; background: #2563eb; color: white; border: none; font-weight: bold; border-radius: 6px; font-size: 14px; cursor: pointer;">📋 Copy Results</button>
         </div>
     </div>
 
@@ -70,25 +70,38 @@
             var cleanDownloadId = extractDriveId(rawDownload);
             var cleanTitle = title || "Preview";
             
-            // Packs the fast sample file as 'p' and the separate full book asset as 'd' inside the payload token
+            // 1. Packs parameters out of sight into a single text token
             var internalPayload = "p=" + encodeURIComponent(cleanPreviewId) + 
                                   "&d=" + encodeURIComponent(cleanDownloadId) + 
                                   "&pr=" + encodeURIComponent(price) + 
                                   "&t=" + encodeURIComponent(cleanTitle);
             
-            // Compresses all parameters out of sight into a single text hash
             var encryptedToken = btoa(internalPayload);
             
-            // Your exact live production repository domain path
-            var baseDomain = "https://alexmusera.github.io";
-            var finalUrl = baseDomain + "?id=" + encryptedToken;
+            // 2. Automatically format a neat URL book nickname based on the title (e.g. "wazua-makosa")
+            var bookNickname = cleanTitle.toLowerCase()
+                                         .replace(/[^a-z0-9\s-]/g, '')
+                                         .trim()
+                                         .replace(/\s+/g, '-');
+                                         
+            if (!bookNickname || bookNickname === "preview") {
+                bookNickname = "book-" + Math.floor(1000 + Math.random() * 9000);
+            }
             
-            document.getElementById('output-url-string').value = finalUrl;
+            // 3. Form clean links with your real personal domain asset routing paths
+            var clientShortUrl = "https://github.io" + bookNickname;
+            var netterDatabaseSnippet = '"' + bookNickname + '": "' + encryptedToken + '",';
+            
+            // 4. Combine clean logs into the terminal text box layout
+            var finalDisplayOutput = "👉 LINK TO SEND TO CLIENT:\n" + clientShortUrl + "\n\n" +
+                                     "📋 CODE LINE TO PASTE IN netter.html:\n" + netterDatabaseSnippet;
+            
+            document.getElementById('output-url-string').value = finalDisplayOutput;
             document.getElementById('output-box').style.display = 'block';
             
             var btn = document.getElementById('copy-btn');
             btn.style.background = "#2563eb";
-            btn.innerText = "📋 Copy Short Link";
+            btn.innerText = "📋 Copy Results";
         }
 
         function copyToClipboard() {
@@ -97,7 +110,7 @@
             navigator.clipboard.writeText(txt.value).then(function() {
                 var btn = document.getElementById('copy-btn');
                 btn.style.background = "#059669";
-                btn.innerText = "✓ Copied Short Link!";
+                btn.innerText = "✓ Copied Everything Successfully!";
             });
         }
     </script>
