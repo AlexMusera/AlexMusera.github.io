@@ -43,48 +43,53 @@
         
         <!-- Short Token Output Console Box Area -->
         <div id="output-box" style="display: none; margin-top: 25px; padding-top: 20px; border-top: 2px solid #f3f4f6;">
-            <label style="display: block; font-size: 11px; font-weight: 700; color: #059669; text-transform: uppercase; margin-bottom: 6px;">Generated Routing Data:</label>
-            <textarea id="output-url-string" readonly style="width: 100%; height: 130px; padding: 10px; background: #f9fafb; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-family: monospace; font-size: 12px; margin-bottom: 10px; resize: vertical; white-space: pre;"></textarea>
-            <button id="copy-btn" onclick="copyToClipboard()" style="width: 100%; padding: 10px; background: #2563eb; color: white; border: none; font-weight: bold; border-radius: 6px; font-size: 14px; cursor: pointer;">📋 Copy Results</button>
+            <label style="display: block; font-size: 11px; font-weight: 700; color: #059669; text-transform: uppercase; margin-bottom: 6px;">Your Short Encrypted Link:</label>
+            <textarea id="output-url-string" readonly style="width: 100%; height: 65px; padding: 10px; background: #f9fafb; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-family: monospace; font-size: 12px; margin-bottom: 10px; resize: none;"></textarea>
+            <button id="copy-btn" onclick="copyToClipboard()" style="width: 100%; padding: 10px; background: #2563eb; color: white; border: none; font-weight: bold; border-radius: 6px; font-size: 14px; cursor: pointer;">📋 Copy Short Link</button>
         </div>
     </div>
 
     <script>
         function extractDriveId(str) {
-    var match = str.trim().match(/\/d\/([a-zA-Z0-9-_]+)/);
-    return match ? match[1] : str.trim();
-}
+            var match = str.trim().match(/\/d\/([a-zA-Z0-9-_]+)/);
+            return match ? match[1] : str.trim();
+        }
 
-function generateSplitUrl() {
-    var price = document.getElementById('book-price-field').value.trim();
-    var rawPreview = document.getElementById('book-preview-field').value;
-    var rawDownload = document.getElementById('book-download-field').value;
-    
-    if (!price || !rawPreview || !rawDownload) {
-        alert("Please provide the price, sample ID, and full book ID.");
-        return;
-    }
-    
-    var cleanPreviewId = extractDriveId(rawPreview);
-    var cleanDownloadId = extractDriveId(rawDownload);
-    
-    // COMPRESSION: Use the absolute minimum raw string structure to keep the text short
-    var compactData = cleanPreviewId + "|" + cleanDownloadId + "|" + price;
-    
-    // Encrypt the compressed sequence cleanly
-    var encryptedToken = btoa(compactData);
-    
-    // Your exact live production redirection path
-    var finalUrl = "https://github.io" + encryptedToken;
-    
-    document.getElementById('output-url-string').value = finalUrl;
-    document.getElementById('output-box').style.display = 'block';
-    
-    var btn = document.getElementById('copy-btn');
-    btn.style.background = "#2563eb";
-    btn.innerText = "📋 Copy Short Link";
-}
-
+        function generateSplitUrl() {
+            var title = document.getElementById('book-title-field').value.trim();
+            var price = document.getElementById('book-price-field').value.trim();
+            var rawPreview = document.getElementById('book-preview-field').value;
+            var rawDownload = document.getElementById('book-download-field').value;
+            
+            if (!price || !rawPreview || !rawDownload) {
+                alert("Please provide the price, sample ID, and full book ID.");
+                return;
+            }
+            
+            var cleanPreviewId = extractDriveId(rawPreview);
+            var cleanDownloadId = extractDriveId(rawDownload);
+            var cleanTitle = title || "Preview";
+            
+            // Packs the fast sample file as 'p' and the separate full book asset as 'd' inside the payload token
+            var internalPayload = "p=" + encodeURIComponent(cleanPreviewId) + 
+                                  "&d=" + encodeURIComponent(cleanDownloadId) + 
+                                  "&pr=" + encodeURIComponent(price) + 
+                                  "&t=" + encodeURIComponent(cleanTitle);
+            
+            // Compresses all parameters out of sight into a single text hash
+            var encryptedToken = btoa(internalPayload);
+            
+            // Your exact live production repository domain path
+            var baseDomain = "https://alexmusera.github.io";
+            var finalUrl = baseDomain + "?id=" + encryptedToken;
+            
+            document.getElementById('output-url-string').value = finalUrl;
+            document.getElementById('output-box').style.display = 'block';
+            
+            var btn = document.getElementById('copy-btn');
+            btn.style.background = "#2563eb";
+            btn.innerText = "📋 Copy Short Link";
+        }
 
         function copyToClipboard() {
             var txt = document.getElementById('output-url-string');
@@ -92,7 +97,7 @@ function generateSplitUrl() {
             navigator.clipboard.writeText(txt.value).then(function() {
                 var btn = document.getElementById('copy-btn');
                 btn.style.background = "#059669";
-                btn.innerText = "✓ Copied Everything Successfully!";
+                btn.innerText = "✓ Copied Short Link!";
             });
         }
     </script>
