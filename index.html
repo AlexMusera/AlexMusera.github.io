@@ -106,6 +106,96 @@
             <iframe id="inline-document-frame" src="" allow="autoplay"></iframe>
         </div>
     </div>
+	        <!-- ==========================================
+             STEP 2: PAYMENT INSTRUCTIONS (UPGRADED REMITTANCE TABS)
+             ========================================== -->
+        <div id="secure-invoice-details" style="display: none; padding: 25px; border: 1px solid #313244; border-radius: 12px; background: #1e1e2e; margin-bottom: 25px;">
+            <h3 style="margin-top: 0; color: #f5e0dc; border-bottom: 1px solid #313244; padding-bottom: 12px; font-weight: 700; letter-spacing: -0.025em;">
+                💳 Secure Checkout & Order Settlement
+            </h3>
+            <p style="font-size: 15px; color: #cdd6f4;">
+                <strong>Total Amount Due:</strong> 
+                <span id="dynamic-price-display" style="color: #a6e3a1; font-weight: 700; font-size: 18px;">$10.00 USD</span>
+            </p>
+
+            <!-- Option A: Remittance Layout Box -->
+            <div style="background: #181825; padding: 20px; border: 1px solid #313244; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 1px 3px rgba(0,0,0,0.2);">
+                <h4 style="margin-top: 0; color: #cba6f7; font-size: 16px; border-bottom: 1px solid #313244; padding-bottom: 8px;">Option A: Global Remittance Apps</h4>
+                <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 100px; padding: 14px 8px; text-align: center; border: 2px solid #9FE870; border-radius: 8px; background: #163300; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                        <span style="font-weight: 800; font-size: 14px; color: #9FE870; font-family: sans-serif;">wise</span>
+                    </div>
+                    <div style="flex: 1; min-width: 100px; padding: 14px 8px; text-align: center; border: 2px solid #000000; border-radius: 8px; background: #FFCC00; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                        <span style="font-weight: 900; font-size: 13px; color: #000000; font-family: sans-serif;">WESTERN UNION</span>
+                    </div>
+                    <div style="flex: 1; min-width: 100px; padding: 14px 8px; text-align: center; border: 1px solid #45475a; border-radius: 8px; background: #11111b; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                        <span style="font-weight: 800; font-size: 12px; color: #e11d48; font-style: italic;">MoneyGram.</span>
+                    </div>
+                    <div style="flex: 1; min-width: 100px; padding: 14px 8px; text-align: center; border: 1px solid #45475a; border-radius: 8px; background: #11111b; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                        <span style="font-weight: 700; font-size: 13px; color: #cdd6f4;">remitly</span>
+                    </div>
+                </div>
+
+                <p style="text-align: center; font-size: 13px; color: #89b4fa; font-weight: 600; margin: 0 0 15px 0;">
+                    Pay instantly inside any app using debit/credit card, Apple Pay, or Interac.
+                </p>
+
+                <!-- Info Rows -->
+                <div style="display:flex; justify-content:space-between; align-items:center; margin: 10px 0;"><span style="font-size:14px; color:#bac2de;"><strong style="color:#cdd6f4;">First Name:</strong> Alex</span><button onclick="copyText('Alex', this)" style="padding:4px 10px; font-size:12px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button></div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin: 10px 0;"><span style="font-size:14px; color:#bac2de;"><strong style="color:#cdd6f4;">Last Name:</strong> Musera</span><button onclick="copyText('Musera', this)" style="padding:4px 10px; font-size:12px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button></div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin: 10px 0;"><span style="font-size:14px; color:#bac2de;"><strong style="color:#cdd6f4;">Country:</strong> Kenya</span><button onclick="copyText('Kenya', this)" style="padding:4px 10px; font-size:12px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button></div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin: 10px 0;"><span style="font-size:14px; color:#bac2de;"><strong style="color:#cdd6f4;">City:</strong> Vihiga</span><button onclick="copyText('Vihiga', this)" style="padding:4px 10px; font-size:12px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button></div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin: 10px 0;"><span style="font-size:14px; color:#bac2de;"><strong style="color:#cdd6f4;">Address:</strong> Majengo</span><button onclick="copyText('Majengo', this)" style="padding:4px 10px; font-size:12px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button></div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin: 10px 0;"><span style="font-size:14px; color:#bac2de;"><strong style="color:#cdd6f4;">Postal Code:</strong> 50300</span><button onclick="copyText('50300', this)" style="padding:4px 10px; font-size:12px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button></div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin: 10px 0;"><span style="font-size:14px; color:#bac2de;"><strong style="color:#cdd6f4;">Phone Number:</strong> 254 718233558</span><button onclick="copyText('254 718233558', this)" style="padding:4px 10px; font-size:12px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button></div>
+                
+                <div style="margin-top: 15px; padding: 12px 16px; background-color: rgba(22, 163, 74, 0.05); border-left: 4px solid #16a34a; border-radius: 4px;">
+                    <p style="margin: 0; font-size: 13px; color: #a6e3a1; font-weight: 600; line-height: 1.5;">
+                        ⚠️ <strong>Delivery Step:</strong> Choose "Mobile Wallet" channel inside your remittance app, then select "M-PESA".
+                    </p>
+                </div>
+            </div>
+
+            <!-- Option B: Digital Assets Layout Box -->
+            <div style="background: #181825; padding: 20px; border: 1px solid #313244; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.2);">
+                <h4 style="margin-top: 0; color: #cba6f7; font-size: 16px; border-bottom: 1px solid #313244; padding-bottom: 8px;">Option B: Digital Asset Transfer</h4>
+                <div style="margin: 12px 0;">
+                    <p style="margin: 0 0 6px 0; font-size: 13px; color: #bac2de;"><strong>USDT / PYUSD (Network: ERC20):</strong></p>
+                    <div style="display:flex; gap:10px; align-items: center;">
+                        <code style="background:#11111b; padding:6px 10px; font-size:12px; font-family:monospace; word-break:break-all; flex-grow:1; border-radius:4px; border:1px solid #45475a; color:#a6e3a1;">GxtsenZKbCzeJrq2w19BSzyqEc48EjQABVWXQrfe7Ybm</code>
+                        <button onclick="copyText('GxtsenZKbCzeJrq2w19BSzyqEc48EjQABVWXQrfe7Ybm', this)" style="padding:6px 12px; font-size:12px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button>
+                    </div>
+                </div>
+                <div style="margin: 12px 0;">
+                    <p style="margin: 0 0 6px 0; font-size: 13px; color: #bac2de;"><strong>Bitcoin Lightning Invoice (Cash App Compatible):</strong></p>
+                    <div style="display:flex; gap:10px; align-items: center;">
+                        <code style="background:#11111b; padding:6px 10px; font-size:12px; font-family:monospace; word-break:break-all; flex-grow:1; border-radius:4px; border:1px solid #45475a; color:#a6e3a1; max-height:45px; overflow-y:auto; display:block;">lnbc1p4wywz7pp59vse5mx9utuhwlvyfsyt4ygqfu5l5t33m7se0dak964hjd7rm29ssp5dk23cl8utmpecr3yulccelk0gdgms0ljzy6l48trrf5dzx6eha3qdqqcqzynxq8zals8sq9qlzqqqqqqqqqqqqqqqqqqqqqqqqqqysgqrsmww9zclwf588xzh6pegtelh8p8hmgkkakp27pmge4rp3m52jcz04zd2ah0y9vxtk7emmku26p3vw8t7f697yxv8ss6ze96uk5hsucqe2ecqa</code>
+                        <button onclick="copyText('lnbc1p4wywz7pp59vse5mx9utuhwlvyfsyt4ygqfu5l5t33m7se0dak964hjd7rm29ssp5dk23cl8utmpecr3yulccelk0gdgms0ljzy6l48trrf5dzx6eha3qdqqcqzynxq8zals8sq9qlzqqqqqqqqqqqqqqqqqqqqqqqqqqysgqrsmww9zclwf588xzh6pegtelh8p8hmgkkakp27pmge4rp3m52jcz04zd2ah0y9vxtk7emmku26p3vw8t7f697yxv8ss6ze96uk5hsucqe2ecqa', this)" style="padding:4px 12px; font-size:12px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             STEP 3: VERIFICATION SUBMISSION FORM
+             ========================================== -->
+        <div id="receipt-upload-gate" style="display: none; padding: 25px; border: 2px solid #5865F2; border-radius: 12px; background: #1e1e2e; margin-bottom: 25px;">
+            <h3 style="margin-top:0; color: #5865F2; border-bottom: 1px solid #313244; padding-bottom: 10px;">📋 STEP 3: Submit Payment Verification</h3>
+            <p style="font-size: 14px; color: #a6adc8; line-height: 1.5;">Provide transaction details. Live confirmation sounds a notification chime directly on my dashboard monitor.</p>
+            <div style="margin-bottom: 15px;">
+                <label style="display:block; font-size:13px; font-weight:bold; margin-bottom:5px; color:#cdd6f4;">Transaction Reference String (MTCN, Reference ID, TxID):</label>
+                <input type="text" id="verify-tx-number" placeholder="Enter reference string from your receipt page" style="width:100%; padding:10px; border-radius:6px; border:1px solid #45475a; background:#11111b; color:#cdd6f4; box-sizing:border-box;">
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="display:block; font-size:13px; font-weight:bold; margin-bottom:5px; color:#cdd6f4;">Upload Receipt Screenshot (PNG/JPG) [Optional]:</label>
+                <input type="file" id="verify-screenshot" accept="image/*" style="width:100%; padding:8px; border:1px dashed #45475a; border-radius:6px; background:#11111b; color:#bac2de; box-sizing:border-box;">
+            </div>
+
+            <button id="submit-payload-btn" onclick="submitReceiptToDiscord()" style="width: 100%; padding: 12px; background: #5865F2; color: white; border: none; font-weight: bold; border-radius: 6px; font-size: 15px; cursor: pointer; transition: background 0.2s;">
+                🚀 Submit Reference & Request Access
+            </button>
+        </div>
+
 
     <script>
         function parseQueryToken() {
