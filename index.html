@@ -473,7 +473,7 @@
         }
 
         // --- INITIALIZATION ---
-              window.addEventListener('DOMContentLoaded', () => {
+                  window.addEventListener('DOMContentLoaded', () => {
             const assetData = parseQueryToken();
 
             if (assetData) {
@@ -481,16 +481,12 @@
                 document.getElementById('dynamic-book-title').innerText = assetData.title;
                 document.getElementById('dynamic-price-display').innerText = "$" + assetData.price + " USD";
 
-                // 2. Load the Google Drive Preview into the iframe
-                if (assetData.previewId) {
-                    document.getElementById('inline-document-frame').src = `https://drive.google.com/file/d/${assetData.previewId}/preview`;
-                }
-
-                // 3. Check if already verified
+                // 2. Check if already verified
                 const isAlreadyVerified = localStorage.getItem('verified_book_' + assetData.downloadId);
                 let downloadCount = parseInt(localStorage.getItem('download_count_' + assetData.downloadId)) || 0;
 
                 if (isAlreadyVerified === 'true') {
+                    // --- VERIFIED USERS ---
                     // Show Success Screen Immediately
                     const gateContainer = document.getElementById('receipt-upload-gate');
                     gateContainer.style.display = 'block';
@@ -513,9 +509,33 @@
                             📥 Download File
                         </a>
                     `;
+                    
+                    // Still load the preview for verified users
+                    if (assetData.previewId) {
+                        document.getElementById('inline-document-frame').src = `https://drive.google.com/file/d/${assetData.previewId}/preview`;
+                    }
+
                 } else {
-                    // Start the countdown timer if not verified yet
-                    startPortalTimer(60); 
+                    // --- UNVERIFIED USERS ---
+                    
+                    const iframe = document.getElementById('inline-document-frame');
+                    let timerStarted = false; // Prevents the timer from starting twice
+
+                    // Wait for the iframe to finish loading
+                    iframe.addEventListener('load', () => {
+                        if (!timerStarted) {
+                            timerStarted = true;
+                            // Start the timer ONLY after the preview loads
+                            startPortalTimer(60); 
+                        }
+                    });
+
+                    // Fallback: If there is no preview ID, start the timer immediately
+                    if (assetData.previewId) {
+                        iframe.src = `https://drive.google.com/file/d/${assetData.previewId}/preview`;
+                    } else {
+                        startPortalTimer(60);
+                    }
                 }
             }
         });
