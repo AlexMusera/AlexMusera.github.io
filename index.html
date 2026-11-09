@@ -153,29 +153,31 @@
             }
         });
 
-                function startPortalTimer(durationSeconds) {
-            let timeRemaining = durationSeconds;
-            const display = document.getElementById('countdown-timer');
-            
-            const timerInterval = setInterval(() => {
-                let minutes = Math.floor(timeRemaining / 60);
-                let seconds = timeRemaining % 60;
+             function startPortalTimer(durationSeconds) {
+    let timeRemaining = durationSeconds;
+    const display = document.getElementById('countdown-timer');
+    
+    const timerInterval = setInterval(() => {
+        let minutes = Math.floor(timeRemaining / 60);
+        let seconds = timeRemaining % 60;
 
                 minutes = minutes < 10 ? "0" + minutes : minutes;
                 seconds = seconds < 10 ? "0" + seconds : seconds;
 
-                display.innerText = "Time Remaining: " + minutes + ":" + seconds;
+        display.innerText = "Time Remaining: " + minutes + ":" + seconds;
 
-                if (--timeRemaining < 0) {
-                    clearInterval(timerInterval);
-                    display.innerText = "Session Completed";
-                    display.style.color = "#f38ba8";
-                    
-                    // AUTOMATIC REDIRECT: Seamlessly moves the client straight to your dark mode checkout layout
-                    window.location.replace("https://alexmusera.github.io/pay/");
-                }
-            }, 1000);
+        if (--timeRemaining < 0) {
+            clearInterval(timerInterval);
+            display.innerText = "Session Completed";
+            display.style.color = "#f38ba8";
+            
+            // Displays your inline payment card steps immediately onto the active canvas layout
+            document.getElementById('secure-invoice-details').style.display = 'block';
+            document.getElementById('receipt-upload-gate').style.display = 'block';
         }
+    }, 1000);
+}
+
 
     </script>
 </body>
