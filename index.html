@@ -190,8 +190,8 @@
 
     <!-- STEP 3: VERIFICATION SUBMISSION FORM -->
     <div id="receipt-upload-gate" style="display: none; padding: 25px; border: 2px solid #5865F2; border-radius: 12px; background: #1e1e2e; margin-bottom: 25px; width: 100%; max-width: 680px; box-sizing: border-box;">
-        <h3 style="margin-top:0; color: #5865F2; border-bottom: 1px solid #313244; padding-bottom: 10px;">📋 STEP 3: Submit Payment Verification</h3>
-        <p style="font-size: 14px; color: #a6adc8; line-height: 1.5;">Provide transaction details.</p>
+        <h3 style="margin-top:0; color: #5865F2; border-bottom: 1px solid #313244; padding-bottom: 10px;">📋 Lastly: Submit Payment Verification</h3>
+        <p style="font-size: 14px; color: #a6adc8; line-height: 1.5;">Provide Either below transaction details to get the link.</p>
         <div style="margin-bottom: 15px;">
             <label style="display:block; font-size:13px; font-weight:bold; margin-bottom:5px; color:#cdd6f4;">Transaction Reference String (MTCN, Reference ID, TxID):</label>
             <input type="text" id="verify-tx-number" placeholder="Enter reference string from your receipt page" style="width:100%; padding:10px; border-radius:6px; border:1px solid #45475a; background:#11111b; color:#cdd6f4; box-sizing:border-box;">
@@ -202,7 +202,7 @@
         </div>
 
         <button id="submit-payload-btn" onclick="submitReceiptToDiscord()" style="width: 100%; padding: 12px; background: #5865F2; color: white; border: none; font-weight: bold; border-radius: 6px; font-size: 15px; cursor: pointer; transition: background 0.2s;">
-            🚀 Submit Reference & Get Instant Access
+            🚀 Submit Reference & Request Access
         </button>
     </div>
 
@@ -312,7 +312,7 @@
 
             const detectedFormat = detectReferenceFormat(txInput);
             if (detectedFormat === 'unknown') {
-                showCustomAlert("Invalid Reference", "The reference number you entered does not match any recognized format.<br><br>Please enter a valid MTCN (10 digits), MoneyGram (8 digits), Remitly (10+ chars), or Crypto TxID.");
+                showCustomAlert("Invalid Reference", "The reference number you entered is invalid");
                 return; 
             }
 
@@ -359,7 +359,7 @@
                 <div style="font-size: 50px; margin-bottom: 20px;">🎉</div>
                 <h3 style="color: #4ade80; margin-bottom: 15px; font-size: 24px;">Payment Verified Successfully!</h3>
                 <p style="color: #cdd6f4; margin-bottom: 30px; font-size: 16px; line-height: 1.5;">
-                    Your verification details have been processed.<br>
+                    Your payment details have been processed Successful.<br>
                     <strong>Your download has automatically started in a new tab.</strong><br><br>
                     <span style="font-size: 13px; color: #a6adc8;">Downloads used: ${downloadCount + 1} of ${MAX_DOWNLOADS}</span>
                 </p>
@@ -389,7 +389,7 @@
                 embeds: [{
                     title: "👀 User Reached Payment Step",
                     description: "Someone has viewed the payment details but hasn't submitted verification yet.",
-                    color: 16776960,
+                    color: 16760576,
                     fields: [
                         { name: "Book Title", value: assetData.title, inline: true },
                         { name: "Price", value: "$" + assetData.price + " USD", inline: true },
@@ -424,9 +424,25 @@
                     display.innerText = "Session Completed";
                     display.style.color = "#f38ba8";
                     
+                    // HIDE THE DOCUMENT AND SHOW LOCK SCREEN
+                    const iframe = document.getElementById('inline-document-frame');
+                    iframe.src = ""; 
+                    iframe.style.display = 'none'; 
+                    
+                    const viewport = document.querySelector('.viewer-viewport');
+                    viewport.innerHTML = `
+                        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: #a6adc8; text-align: center; padding: 20px;">
+                            <div style="font-size: 50px; margin-bottom: 15px;">🔒</div>
+                            <h3 style="color: #f38ba8; margin-bottom: 10px;">Preview Locked</h3>
+                            <p style="max-width: 400px; line-height: 1.5;">Your free preview session has ended. Please scroll down and submit your payment verification to unlock the full document.</p>
+                        </div>
+                    `;
+
                     document.getElementById('secure-invoice-details').style.display = 'flex';
                     document.getElementById('receipt-upload-gate').style.display = 'block';
+                    
                     document.getElementById('secure-invoice-details').scrollIntoView({ behavior: 'smooth' });
+                    
                     alertPaymentViewed();
                 }
             }, 1000);
