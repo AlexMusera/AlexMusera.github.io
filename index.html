@@ -274,6 +274,53 @@
         }
     }, 1000);
 }
+		// --- MOBILE SECURE TEXT COPY FUNCTION ---
+function copyText(textValue, buttonElement) {
+    if (!textValue) return;
+
+    function showFeedback() {
+        const originalText = buttonElement.innerText;
+        buttonElement.innerText = "✓ Copied!";
+        buttonElement.style.background = "rgba(166, 227, 161, 0.1)"; 
+        buttonElement.style.color = "#a6e3a1";                     
+        buttonElement.style.borderColor = "#a6e3a1";
+        
+        setTimeout(() => {
+            buttonElement.innerText = originalText;
+            buttonElement.style.background = "";
+            buttonElement.style.color = "";
+            buttonElement.style.borderColor = "";
+        }, 1500);
+    }
+
+    // Modern browser clipboard trigger path
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(textValue)
+            .then(() => { showFeedback(); })
+            .catch(err => { useFallbackCopy(textValue); });
+    } else {
+        // High-compatibility layout fallback path for iOS mobile devices
+        useFallbackCopy(textValue);
+    }
+
+    function useFallbackCopy(text) {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed";
+        textArea.style.opacity = "0";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            document.execCommand('copy');
+            showFeedback();
+        } catch (err) {
+            console.error("Copy action fault:", err);
+        }
+        document.body.removeChild(textArea);
+    }
+}
+
 
 
     </script>
