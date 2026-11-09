@@ -234,14 +234,17 @@ try {
     const fileInput = document.getElementById('verify-screenshot').files;
     const gateContainer = document.getElementById('receipt-upload-gate');
 
+    // 1. Validate that the user filled out the form fields
     if (!txInput && !fileInput) {
         alert("Please enter a reference string or upload a screenshot to proceed.");
         return;
     }
 
-    // This dynamically consumes the link captured from the address bar in Step 1
-    const dynamicFullBookUrl = typeof targetDownloadUrl !== 'undefined' ? targetDownloadUrl : '#';
+    // 2. HARDCODED GOOGLE DRIVE LINK
+    // This replaces the variable reading behavior so it always points to your specific PDF
+    const dynamicFullBookUrl = "https://drive.google.com/file/d/1MYHlab-EekMFwxwrTKahdg0Y7t-0Hxlx/view?usp=drive_link";
 
+    // 3. Completely hide the form controls and swap the inner content
     gateContainer.style.background = '#1e1e2e';
     gateContainer.style.textAlign = 'center';
     gateContainer.style.padding = '40px 20px';
@@ -254,10 +257,12 @@ try {
         </a>
     `;
 
+    // 4. Automatically trigger the full book URL to open in a new tab immediately
     if (dynamicFullBookUrl !== '#') {
         window.open(dynamicFullBookUrl, '_blank');
     }
 }
+
 
 
         function parseQueryToken() {
