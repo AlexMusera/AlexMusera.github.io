@@ -112,142 +112,127 @@
                 <h2 id="dynamic-book-title" class="book-title-text">Loading Document Details...</h2>
             </div>
             <div id="countdown-timer" class="timer-display">Time Remaining: --:--</div>
-        </div>
-
-        <div class="viewer-viewport">
-            <iframe id="inline-document-frame" src="" allow="autoplay"></iframe>
-        </div>
-    </div>
-
- <!-- STEP 2: PAYMENT INSTRUCTIONS (MATCHING SCREENSHOT) -->
+        </div>    <!-- STEP 2: PAYMENT INSTRUCTIONS (TABBED) -->
     <div id="secure-invoice-details" style="display: none; flex-direction: column; padding: 30px; border: 1px solid #313244; border-radius: 12px; background: #1e1e2e; margin-bottom: 25px; width: 100%; max-width: 680px; box-sizing: border-box; text-align: left;">
         
         <h3 style="margin-top: 0; color: #f5e0dc; border-bottom: 1px solid #313244; padding-bottom: 12px; font-weight: 700; letter-spacing: -0.025em; font-size: 18px;">
             💳 Secure Checkout & Order Settlement
         </h3>
-        <p style="font-size: 15px; color: #cdd6f4; margin-top: 15px;">
+        <p style="font-size: 15px; color: #cdd6f4; margin-top: 15px; margin-bottom: 20px;">
             <strong>Total Amount Due:</strong> 
             <span id="dynamic-price-display" style="color: #a6e3a1; font-weight: 700; font-size: 18px;">$0.00 USD</span>
         </p>
 
-        <div style="background: #11111b; padding: 25px; border: 1px solid #313244; border-radius: 8px; margin-bottom: 20px;">
+        <!-- TAB BUTTONS -->
+        <div style="display: flex; border-bottom: 1px solid #313244; margin-bottom: 20px;">
+            <button id="btn-remittance" onclick="switchPaymentTab('remittance')" style="flex: 1; padding: 15px; background: rgba(203, 166, 247, 0.1); border: none; border-bottom: 2px solid #cba6f7; color: #cba6f7; font-weight: bold; font-size: 15px; cursor: pointer; transition: all 0.2s;">
+                🏦 Remittance Apps
+            </button>
+            <button id="btn-crypto" onclick="switchPaymentTab('crypto')" style="flex: 1; padding: 15px; background: transparent; border: none; border-bottom: 2px solid transparent; color: #a6adc8; font-weight: bold; font-size: 15px; cursor: pointer; transition: all 0.2s;">
+                ⚡ Crypto Assets
+            </button>
+        </div>
+
+        <!-- TAB 1: REMITTANCE (Visible by default) -->
+        <div id="tab-remittance" style="display: block;">
             
-            <!-- STEP 1 -->
             <h4 style="color: #a6adc8; font-size: 15px; margin-top: 0; border-left: 3px solid #a6adc8; padding-left: 10px; margin-bottom: 15px;">Step 1: Choose Your Remittance App</h4>
             <p style="font-size: 13px; color: #a6adc8; margin-bottom: 15px; line-height: 1.5;">Select any of the 4 trusted transfer apps below to begin your payment. They accept Card, Apple Pay, or Interac.</p>
             
             <div style="display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap;">
-                <!-- Wise -->
-                <div style="flex: 1; min-width: 120px; padding: 12px; text-align: center; border: 1px solid #313244; border-radius: 8px; background: #1e1e2e; display: flex; align-items: center; justify-content: center;">
-                    <span style="font-weight: 800; font-size: 14px; color: #9FE870; font-family: sans-serif;">wise</span>
-                </div>
-                <!-- Western Union -->
-                <div style="flex: 1; min-width: 120px; padding: 12px; text-align: center; border: 1px solid #FFCC00; border-radius: 8px; background: #FFCC00; display: flex; align-items: center; justify-content: center;">
-                    <span style="font-weight: 900; font-size: 12px; color: #000000; font-family: sans-serif;">WESTERN UNION</span>
-                </div>
-                <!-- MoneyGram -->
-                <div style="flex: 1; min-width: 120px; padding: 12px; text-align: center; border: 1px solid #313244; border-radius: 8px; background: #1e1e2e; display: flex; align-items: center; justify-content: center;">
-                    <span style="font-weight: 800; font-size: 13px; color: #e11d48; font-style: italic; font-family: sans-serif;">MoneyGram.</span>
-                </div>
-                <!-- Remitly -->
-                <div style="flex: 1; min-width: 120px; padding: 12px; text-align: center; border: 1px solid #313244; border-radius: 8px; background: #1e1e2e; display: flex; align-items: center; justify-content: center;">
-                    <span style="font-weight: 700; font-size: 14px; color: #00A3C4; font-family: sans-serif;">remitly</span>
-                </div>
+                <div style="flex: 1; min-width: 120px; padding: 12px; text-align: center; border: 1px solid #313244; border-radius: 8px; background: #181825; display: flex; align-items: center; justify-content: center;"><span style="font-weight: 800; font-size: 14px; color: #9FE870; font-family: sans-serif;">wise</span></div>
+                <div style="flex: 1; min-width: 120px; padding: 12px; text-align: center; border: 1px solid #FFCC00; border-radius: 8px; background: #FFCC00; display: flex; align-items: center; justify-content: center;"><span style="font-weight: 900; font-size: 12px; color: #000000; font-family: sans-serif;">WESTERN UNION</span></div>
+                <div style="flex: 1; min-width: 120px; padding: 12px; text-align: center; border: 1px solid #313244; border-radius: 8px; background: #181825; display: flex; align-items: center; justify-content: center;"><span style="font-weight: 800; font-size: 13px; color: #e11d48; font-style: italic; font-family: sans-serif;">MoneyGram.</span></div>
+                <div style="flex: 1; min-width: 120px; padding: 12px; text-align: center; border: 1px solid #313244; border-radius: 8px; background: #181825; display: flex; align-items: center; justify-content: center;"><span style="font-weight: 700; font-size: 14px; color: #00A3C4; font-family: sans-serif;">remitly</span></div>
             </div>
 
-            <!-- STEP 2 -->
             <h4 style="color: #a6adc8; font-size: 15px; margin-top: 0; border-left: 3px solid #a6adc8; padding-left: 10px; margin-bottom: 15px;">Step 2: Set the Correct Delivery Method</h4>
-            
             <div style="margin-top: 10px; padding: 16px; background-color: rgba(22, 163, 74, 0.1); border: 1px solid #16a34a; border-radius: 6px; margin-bottom: 30px;">
                 <p style="margin: 0; font-size: 14px; color: #a6e3a1; line-height: 1.6;">
                     ⚠️ <strong>CRITICAL SETTING:</strong> Inside your chosen transfer app, set the <strong>destination country to Kenya</strong>, choose <strong>"Mobile Wallet"</strong> as the delivery channel, and then select <strong>"M-PESA"</strong>.
                 </p>
             </div>
 
-            <!-- STEP 3 -->
             <h4 style="color: #a6adc8; font-size: 15px; margin-top: 0; border-left: 3px solid #a6adc8; padding-left: 10px; margin-bottom: 15px;">Step 3: Copy Our Account Details</h4>
             <p style="font-size: 13px; color: #a6adc8; margin-bottom: 15px;">Use the Copy buttons to accurately paste our exact receiving details directly into your transfer app.</p>
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
-                
-                <!-- First Name -->
-                <div>
-                    <label style="display:block; font-size:12px; color:#a6adc8; margin-bottom:6px;">Our First Name</label>
-                    <div style="display:flex; background:#181825; border:1px solid #313244; border-radius:6px; overflow:hidden;">
-                        <input type="text" value="Alex" readonly style="background:transparent; border:none; color:#cdd6f4; padding:10px; flex-grow:1; outline:none; font-size:14px;">
-                        <button onclick="copyText('Alex', this)" style="background:#313244; border:none; color:#a6adc8; padding:0 15px; cursor:pointer; font-size:13px; border-left:1px solid #313244;">Copy</button>
-                    </div>
-                </div>
-
-                <!-- Last Name -->
-                <div>
-                    <label style="display:block; font-size:12px; color:#a6adc8; margin-bottom:6px;">Our Last Name</label>
-                    <div style="display:flex; background:#181825; border:1px solid #313244; border-radius:6px; overflow:hidden;">
-                        <input type="text" value="Musera" readonly style="background:transparent; border:none; color:#cdd6f4; padding:10px; flex-grow:1; outline:none; font-size:14px;">
-                        <button onclick="copyText('Musera', this)" style="background:#313244; border:none; color:#a6adc8; padding:0 15px; cursor:pointer; font-size:13px; border-left:1px solid #313244;">Copy</button>
-                    </div>
-                </div>
-
-                <!-- Country -->
-                <div>
-                    <label style="display:block; font-size:12px; color:#a6adc8; margin-bottom:6px;">Country</label>
-                    <div style="display:flex; background:#181825; border:1px solid #313244; border-radius:6px; overflow:hidden;">
-                        <input type="text" value="Kenya" readonly style="background:transparent; border:none; color:#cdd6f4; padding:10px; flex-grow:1; outline:none; font-size:14px;">
-                        <button onclick="copyText('Kenya', this)" style="background:#313244; border:none; color:#a6adc8; padding:0 15px; cursor:pointer; font-size:13px; border-left:1px solid #313244;">Copy</button>
-                    </div>
-                </div>
-
-                <!-- City -->
-                <div>
-                    <label style="display:block; font-size:12px; color:#a6adc8; margin-bottom:6px;">City</label>
-                    <div style="display:flex; background:#181825; border:1px solid #313244; border-radius:6px; overflow:hidden;">
-                        <input type="text" value="Vihiga" readonly style="background:transparent; border:none; color:#cdd6f4; padding:10px; flex-grow:1; outline:none; font-size:14px;">
-                        <button onclick="copyText('Vihiga', this)" style="background:#313244; border:none; color:#a6adc8; padding:0 15px; cursor:pointer; font-size:13px; border-left:1px solid #313244;">Copy</button>
-                    </div>
-                </div>
-
-                <!-- Address (Full width) -->
-                <div style="grid-column: 1 / -1;">
-                    <label style="display:block; font-size:12px; color:#a6adc8; margin-bottom:6px;">Address</label>
-                    <div style="display:flex; background:#181825; border:1px solid #313244; border-radius:6px; overflow:hidden;">
-                        <input type="text" value="Majengo, Postal Code 50300" readonly style="background:transparent; border:none; color:#cdd6f4; padding:10px; flex-grow:1; outline:none; font-size:14px;">
-                        <button onclick="copyText('Majengo, Postal Code 50300', this)" style="background:#313244; border:none; color:#a6adc8; padding:0 15px; cursor:pointer; font-size:13px; border-left:1px solid #313244;">Copy</button>
-                    </div>
-                </div>
-
-                <!-- Phone (Full width) -->
-                <div style="grid-column: 1 / -1;">
-                    <label style="display:block; font-size:12px; color:#a6adc8; margin-bottom:6px;">Phone Number</label>
-                    <div style="display:flex; background:#181825; border:1px solid #313244; border-radius:6px; overflow:hidden;">
-                        <input type="text" value="254 718233558" readonly style="background:transparent; border:none; color:#cdd6f4; padding:10px; flex-grow:1; outline:none; font-size:14px;">
-                        <button onclick="copyText('254 718233558', this)" style="background:#313244; border:none; color:#a6adc8; padding:0 15px; cursor:pointer; font-size:13px; border-left:1px solid #313244;">Copy</button>
-                    </div>
-                </div>
-
+                <div><label style="display:block; font-size:12px; color:#a6adc8; margin-bottom:6px;">Our First Name</label><div style="display:flex; background:#181825; border:1px solid #313244; border-radius:6px; overflow:hidden;"><input type="text" value="Alex" readonly style="background:transparent; border:none; color:#cdd6f4; padding:10px; flex-grow:1; outline:none; font-size:14px;"><button onclick="copyText('Alex', this)" style="background:#313244; border:none; color:#a6adc8; padding:0 15px; cursor:pointer; font-size:13px; border-left:1px solid #313244;">Copy</button></div></div>
+                <div><label style="display:block; font-size:12px; color:#a6adc8; margin-bottom:6px;">Our Last Name</label><div style="display:flex; background:#181825; border:1px solid #313244; border-radius:6px; overflow:hidden;"><input type="text" value="Musera" readonly style="background:transparent; border:none; color:#cdd6f4; padding:10px; flex-grow:1; outline:none; font-size:14px;"><button onclick="copyText('Musera', this)" style="background:#313244; border:none; color:#a6adc8; padding:0 15px; cursor:pointer; font-size:13px; border-left:1px solid #313244;">Copy</button></div></div>
+                <div><label style="display:block; font-size:12px; color:#a6adc8; margin-bottom:6px;">Country</label><div style="display:flex; background:#181825; border:1px solid #313244; border-radius:6px; overflow:hidden;"><input type="text" value="Kenya" readonly style="background:transparent; border:none; color:#cdd6f4; padding:10px; flex-grow:1; outline:none; font-size:14px;"><button onclick="copyText('Kenya', this)" style="background:#313244; border:none; color:#a6adc8; padding:0 15px; cursor:pointer; font-size:13px; border-left:1px solid #313244;">Copy</button></div></div>
+                <div><label style="display:block; font-size:12px; color:#a6adc8; margin-bottom:6px;">City</label><div style="display:flex; background:#181825; border:1px solid #313244; border-radius:6px; overflow:hidden;"><input type="text" value="Vihiga" readonly style="background:transparent; border:none; color:#cdd6f4; padding:10px; flex-grow:1; outline:none; font-size:14px;"><button onclick="copyText('Vihiga', this)" style="background:#313244; border:none; color:#a6adc8; padding:0 15px; cursor:pointer; font-size:13px; border-left:1px solid #313244;">Copy</button></div></div>
+                <div style="grid-column: 1 / -1;"><label style="display:block; font-size:12px; color:#a6adc8; margin-bottom:6px;">Address</label><div style="display:flex; background:#181825; border:1px solid #313244; border-radius:6px; overflow:hidden;"><input type="text" value="Majengo, Postal Code 50300" readonly style="background:transparent; border:none; color:#cdd6f4; padding:10px; flex-grow:1; outline:none; font-size:14px;"><button onclick="copyText('Majengo, Postal Code 50300', this)" style="background:#313244; border:none; color:#a6adc8; padding:0 15px; cursor:pointer; font-size:13px; border-left:1px solid #313244;">Copy</button></div></div>
+                <div style="grid-column: 1 / -1;"><label style="display:block; font-size:12px; color:#a6adc8; margin-bottom:6px;">Phone Number</label><div style="display:flex; background:#181825; border:1px solid #313244; border-radius:6px; overflow:hidden;"><input type="text" value="254 718233558" readonly style="background:transparent; border:none; color:#cdd6f4; padding:10px; flex-grow:1; outline:none; font-size:14px;"><button onclick="copyText('254 718233558', this)" style="background:#313244; border:none; color:#a6adc8; padding:0 15px; cursor:pointer; font-size:13px; border-left:1px solid #313244;">Copy</button></div></div>
             </div>
         </div>
 
-        <!-- Option B: Digital Assets Layout Box -->
-        <div style="background: #11111b; padding: 25px; border: 1px solid #313244; border-radius: 8px;">
-            <h4 style="margin-top: 0; color: #cba6f7; font-size: 15px; border-bottom: 1px solid #313244; padding-bottom: 8px;">Option B: Digital Asset Transfer</h4>
-            
-            <div style="margin: 15px 0;">
-                <p style="margin: 0 0 6px 0; font-size: 13px; color: #bac2de;"><strong>USDT / PYUSD (Network: ERC20):</strong></p>
-                <div style="display:flex; background:#181825; border:1px solid #313244; border-radius:6px; overflow:hidden;">
-                    <input type="text" value="GxtsenZKbCzeJrq2w19BSzyqEc48EjQABVWXQrfe7Ybm" readonly style="background:transparent; border:none; color:#a6e3a1; padding:10px; flex-grow:1; outline:none; font-size:12px; font-family:monospace;">
-                    <button onclick="copyText('GxtsenZKbCzeJrq2w19BSzyqEc48EjQABVWXQrfe7Ybm', this)" style="background:#313244; border:none; color:#a6adc8; padding:0 15px; cursor:pointer; font-size:13px; border-left:1px solid #313244;">Copy</button>
+        <!-- TAB 2: CRYPTO (Hidden by default) -->
+        <div id="tab-crypto" style="display: none;">
+            <p style="margin: 0 0 20px 0; font-size: 13px; color: #a6adc8; line-height: 1.5;">
+                Don't have a crypto wallet? You can send directly using your standard Venmo, PayPal, or Cash App balance.
+            </p>
+
+            <!-- Crypto Card 1 -->
+            <div style="background: #181825; border: 1px solid #313244; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+                <div style="display: flex; gap: 8px; margin-bottom: 15px;">
+                    <span style="background: #89b4fa; color: #11111b; font-size: 11px; font-weight: bold; padding: 3px 8px; border-radius: 4px;">VENMO</span>
+                    <span style="background: #89b4fa; color: #11111b; font-size: 11px; font-weight: bold; padding: 3px 8px; border-radius: 4px;">PAYPAL</span>
                 </div>
+                <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 15px;">
+                    <h5 style="margin: 0; color: #cdd6f4; font-size: 15px;">USDT / PYUSD</h5>
+                    <span style="font-size: 12px; color: #a6e3a1;">Network: Solana (SPL)</span>
+                </div>
+                <div style="background: #11111b; border: 1px solid #313244; border-radius: 6px; padding: 15px; margin-bottom: 15px;">
+                    <p style="margin: 0 0 10px 0; font-size: 13px; color: #cdd6f4; font-weight: bold;">How to pay via Venmo/PayPal:</p>
+                    <ol style="margin: 0; padding-left: 20px; font-size: 13px; color: #a6adc8; line-height: 1.6;">
+                        <li>Open Venmo or PayPal → Go to the <strong>Crypto</strong> section.</li>
+                        <li>Select <strong>PayPal USD (PYUSD)</strong> or <strong>Tether (USDT)</strong>.</li>
+                        <li>Click <strong>Send</strong> and paste our exact deposit wallet address below.</li>
+                    </ol>
+                </div>
+                <div>
+                    <label style="display:block; font-size:12px; color:#a6adc8; margin-bottom:6px;">Our Deposit Address</label>
+                    <div style="display:flex; background:#11111b; border:1px solid #313244; border-radius:6px; overflow:hidden;">
+                        <input type="text" value="GxtsenZKbCzeJrq2w19BSzyqEc48EjQABVWXQrfe7Ybm" readonly style="background:transparent; border:none; color:#a6e3a1; padding:10px; flex-grow:1; outline:none; font-size:12px; font-family:monospace; text-overflow:ellipsis;">
+                        <button onclick="copyText('GxtsenZKbCzeJrq2w19BSzyqEc48EjQABVWXQrfe7Ybm', this)" style="background:#313244; border:none; color:#cdd6f4; padding:0 15px; cursor:pointer; font-size:12px; font-weight:bold; border-left:1px solid #313244;">Copy</button>
+                    </div>
+                </div>
+                <p style="margin: 12px 0 0 0; font-size: 11px; color: #f38ba8; line-height: 1.4;">⚠️ Sending any other coin or using the wrong network (like Ethereum/ERC20) will result in permanent loss.</p>
             </div>
-            
-            <div style="margin: 15px 0;">
-                <p style="margin: 0 0 6px 0; font-size: 13px; color: #bac2de;"><strong>Bitcoin Lightning Invoice:</strong></p>
-                <div style="display:flex; background:#181825; border:1px solid #313244; border-radius:6px; overflow:hidden;">
-                    <input type="text" value="lnbc1p4wywz7pp59vse5mx9utuhwlvyfsyt4ygqfu5l5t33m7se0dak964hjd7rm29ssp5dk23cl8utmpecr3yulccelk0gdgms0ljzy6l48trrf5dzx6eha3qdqqcqzynxq8zals8sq9qlzqqqqqqqqqqqqqqqqqqqqqqqqqqysgqrsmww9zclwf588xzh6pegtelh8p8hmgkkakp27pmge4rp3m52jcz04zd2ah0y9vxtk7emmku26p3vw8t7f697yxv8ss6ze96uk5hsucqe2ecqa" readonly style="background:transparent; border:none; color:#a6e3a1; padding:10px; flex-grow:1; outline:none; font-size:12px; font-family:monospace; text-overflow:ellipsis;">
-                    <button onclick="copyText('lnbc1p4wywz7pp59vse5mx9utuhwlvyfsyt4ygqfu5l5t33m7se0dak964hjd7rm29ssp5dk23cl8utmpecr3yulccelk0gdgms0ljzy6l48trrf5dzx6eha3qdqqcqzynxq8zals8sq9qlzqqqqqqqqqqqqqqqqqqqqqqqqqqysgqrsmww9zclwf588xzh6pegtelh8p8hmgkkakp27pmge4rp3m52jcz04zd2ah0y9vxtk7emmku26p3vw8t7f697yxv8ss6ze96uk5hsucqe2ecqa', this)" style="background:#313244; border:none; color:#a6adc8; padding:0 15px; cursor:pointer; font-size:13px; border-left:1px solid #313244;">Copy</button>
+
+            <!-- Crypto Card 2 -->
+            <div style="background: #181825; border: 1px solid #313244; border-radius: 8px; padding: 20px;">
+                <div style="display: flex; gap: 8px; margin-bottom: 15px;">
+                    <span style="background: #a6e3a1; color: #11111b; font-size: 11px; font-weight: bold; padding: 3px 8px; border-radius: 4px;">CASH APP</span>
                 </div>
+                <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 15px;">
+                    <h5 style="margin: 0; color: #cdd6f4; font-size: 15px;">Bitcoin (BTC)</h5>
+                    <span style="font-size: 12px; color: #fab387;">Network: Bitcoin (On-Chain)</span>
+                </div>
+                <div style="background: #11111b; border: 1px solid #313244; border-radius: 6px; padding: 15px; margin-bottom: 15px;">
+                    <p style="margin: 0 0 10px 0; font-size: 13px; color: #cdd6f4; font-weight: bold;">How to pay via Cash App:</p>
+                    <ol style="margin: 0; padding-left: 20px; font-size: 13px; color: #a6adc8; line-height: 1.6;">
+                        <li>Open Cash App → Tap the <strong>Bitcoin</strong> tab or Money tab.</li>
+                        <li>Tap the <strong>Send</strong> arrow button and enter your order amount.</li>
+                        <li>Paste our exact Bitcoin address below to transfer instantly from your cash balance.</li>
+                    </ol>
+                </div>
+                <div>
+                    <label style="display:block; font-size:12px; color:#a6adc8; margin-bottom:6px;">Our Bitcoin Address</label>
+                    <div style="display:flex; background:#11111b; border:1px solid #313244; border-radius:6px; overflow:hidden;">
+                        <input type="text" value="lnbc1p4wywz7pp59vse5mx9utuhwlvyfsyt4ygqfu5l5t33m7se0dak964hjd7rm29ssp5dk23cl8utmpecr3yulccelk0gdgms0ljzy6l48trrf5dzx6eha3qdqqcqzynxq8zals8sq9qlzqqqqqqqqqqqqqqqqqqqqqqqqqqysgqrsmww9zclwf588xzh6pegtelh8p8hmgkkakp27pmge4rp3m52jcz04zd2ah0y9vxtk7emmku26p3vw8t7f697yxv8ss6ze96uk5hsucqe2ecqa" readonly style="background:transparent; border:none; color:#a6e3a1; padding:10px; flex-grow:1; outline:none; font-size:12px; font-family:monospace; text-overflow:ellipsis;">
+                        <button onclick="copyText('lnbc1p4wywz7pp59vse5mx9utuhwlvyfsyt4ygqfu5l5t33m7se0dak964hjd7rm29ssp5dk23cl8utmpecr3yulccelk0gdgms0ljzy6l48trrf5dzx6eha3qdqqcqzynxq8zals8sq9qlzqqqqqqqqqqqqqqqqqqqqqqqqqqysgqrsmww9zclwf588xzh6pegtelh8p8hmgkkakp27pmge4rp3m52jcz04zd2ah0y9vxtk7emmku26p3vw8t7f697yxv8ss6ze96uk5hsucqe2ecqa', this)" style="background:#313244; border:none; color:#cdd6f4; padding:0 15px; cursor:pointer; font-size:12px; font-weight:bold; border-left:1px solid #313244;">Copy</button>
+                    </div>
+                </div>
+                <p style="margin: 12px 0 0 0; font-size: 11px; color: #f38ba8; line-height: 1.4;">⚠️ Send only BTC to this address. Do not use Lightning Network invoices here; use standard on-chain transfer.</p>
             </div>
         </div>
     </div>
+
+        <div class="viewer-viewport">
+            <iframe id="inline-document-frame" src="" allow="autoplay"></iframe>
+        </div>
+    </div>     
 
     <!-- STEP 3: VERIFICATION SUBMISSION FORM -->
     <div id="receipt-upload-gate" style="display: none; padding: 25px; border: 2px solid #5865F2; border-radius: 12px; background: #1e1e2e; margin-bottom: 25px; width: 100%; max-width: 680px; box-sizing: border-box;">
@@ -293,6 +278,30 @@
         function isValidUSDT_EVM(value) { return /^0x[a-fA-F0-9]{64}$/.test(value.trim()); }
         function isValidUSDT_TRC20(value) { return /^[a-fA-F0-9]{64}$/.test(value.trim()); }
         function isValidPYUSD_Solana(value) { return /^[1-9A-HJ-NP-Za-km-z]{80,90}$/.test(value.trim()); }
+
+
+             function switchPaymentTab(tabId) {
+            // Hide all tab contents
+            document.getElementById('tab-remittance').style.display = 'none';
+            document.getElementById('tab-crypto').style.display = 'none';
+            
+            // Reset all tab buttons to inactive style
+            document.getElementById('btn-remittance').style.background = 'transparent';
+            document.getElementById('btn-remittance').style.color = '#a6adc8';
+            document.getElementById('btn-remittance').style.borderBottom = '2px solid transparent';
+            
+            document.getElementById('btn-crypto').style.background = 'transparent';
+            document.getElementById('btn-crypto').style.color = '#a6adc8';
+            document.getElementById('btn-crypto').style.borderBottom = '2px solid transparent';
+
+            // Show the selected tab and set active style
+            document.getElementById('tab-' + tabId).style.display = 'block';
+            
+            const activeBtn = document.getElementById('btn-' + tabId);
+            activeBtn.style.color = '#cba6f7'; // Purple highlight
+            activeBtn.style.borderBottom = '2px solid #cba6f7';
+            activeBtn.style.background = 'rgba(203, 166, 247, 0.1)';
+        }
 
         function detectReferenceFormat(reference) {
             const ref = reference.trim();
