@@ -292,7 +292,7 @@
     const detectedFormat = detectReferenceFormat(txInput);
     
     if (detectedFormat === 'unknown') {
-        alert("Invalid Transaction Reference.\n\nPlease enter a valid MTCN (10 digits), MoneyGram (8 digits), Remitly (10+ characters), or Crypto TxID (0x...).");
+        alert("Invalid Transaction Reference.");
         return; // This stops the function. They don't get the file.
     }
 
