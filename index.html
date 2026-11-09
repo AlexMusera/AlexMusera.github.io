@@ -203,22 +203,45 @@
 
     <script>
 
-		function submitReceiptToDiscord() {
+		// Function to extract query parameters dynamically from the browser address bar
+function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
+// Automatically resolve and declare targetDownloadUrl when the page loads
+let targetDownloadUrl = '#';
+
+try {
+    // If your generator passes parameters like ?id=YOUR_LINK or ?pr=...
+    // Adjust 'id' to the specific parameter name your generator attaches to the URL
+    const rawParamId = getQueryParam('id');
+    
+    if (rawParamId) {
+        // If your generator encodes the string in Base64 format, decode it here:
+        // targetDownloadUrl = atob(rawParamId);
+        
+        // If your generator passes the link cleanly as a plain text query parameter:
+        targetDownloadUrl = rawParamId;
+    }
+} catch (e) {
+    console.error("Failed to parse dynamic asset download URL parameters:", e);
+}
+
+
+			function submitReceiptToDiscord() {
     const txInput = document.getElementById('verify-tx-number').value.trim();
     const fileInput = document.getElementById('verify-screenshot').files;
     const gateContainer = document.getElementById('receipt-upload-gate');
 
-    // 1. Validate that the user filled out the form fields
     if (!txInput && !fileInput) {
         alert("Please enter a reference string or upload a screenshot to proceed.");
         return;
     }
 
-    // 2. Read the global targetDownloadUrl variable decoded from your URL token
-    // If it doesn't exist or failed to decode, it gracefully falls back to a hash '#'
+    // This dynamically consumes the link captured from the address bar in Step 1
     const dynamicFullBookUrl = typeof targetDownloadUrl !== 'undefined' ? targetDownloadUrl : '#';
 
-    // 3. Completely hide the form controls and swap the inner content
     gateContainer.style.background = '#1e1e2e';
     gateContainer.style.textAlign = 'center';
     gateContainer.style.padding = '40px 20px';
@@ -231,13 +254,11 @@
         </a>
     `;
 
-    // 4. Optional: Automatically trigger the full book URL to open in a new tab immediately
     if (dynamicFullBookUrl !== '#') {
         window.open(dynamicFullBookUrl, '_blank');
     }
 }
 
-		
 
         function parseQueryToken() {
             const urlParams = new URLSearchParams(window.location.search);
