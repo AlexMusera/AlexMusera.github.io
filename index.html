@@ -142,7 +142,7 @@
                 document.getElementById('page-window-title').innerText = "Preview: " + assetData.title;
                 
                 // Reverted back to the original working preview engine path format
-                const finalViewerUrl = "https://drive.google.com/" + assetData.previewId + "/preview";
+                const finalViewerUrl = "https://drive.google.com/file/d/" + assetData.previewId + "/preview";
 			
                 document.getElementById('inline-document-frame').src = finalViewerUrl;
                 
