@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-window-title">Secure Preview Portal</title>
+    <title>Secure Preview Portal</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -242,8 +242,10 @@ try {
 
     // 2. HARDCODED GOOGLE DRIVE LINK
     // This replaces the variable reading behavior so it always points to your specific PDF
-    const dynamicFullBookUrl = "https://drive.google.com/file/d/1MYHlab-EekMFwxwrTKahdg0Y7t-0Hxlx/view?usp=drive_link";
+ //   const dynamicFullBookUrl = "https://drive.google.com/file/d/1MYHlab-EekMFwxwrTKahdg0Y7t-0Hxlx/view?usp=drive_link";
 
+	const dynamicFullBookUrl = typeof finalViewerUrl !== 'undefined' ? finalViewerUrl : '#';
+	
     // 3. Completely hide the form controls and swap the inner content
     gateContainer.style.background = '#1e1e2e';
     gateContainer.style.textAlign = 'center';
@@ -296,7 +298,7 @@ try {
             
             if (assetData) {
                 document.getElementById('dynamic-book-title').innerText = assetData.title;
-                document.getElementById('page-window-title').innerText = "Preview: " + assetData.title;
+              //  document.getElementById('page-window-title').innerText = "Preview: " + assetData.title;
                 
                 // Reverted back to the original working preview engine path format
                 const finalViewerUrl = "https://drive.google.com/file/d/" + assetData.previewId + "/preview";
