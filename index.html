@@ -375,6 +375,36 @@
             }
         }
 
+        // 1. Western Union MTCN: Exactly 10 digits [reference:0]
+function isValidMTCN(value) {
+    return /^\d{10}$/.test(value.trim());
+}
+
+// 2. MoneyGram: Exactly 8 digits [reference:1]
+function isValidMoneyGram(value) {
+    return /^\d{8}$/.test(value.trim());
+}
+
+// 3. Remitly: Alphanumeric string (at least 10 characters)
+function isValidRemitly(value) {
+    return /^[a-zA-Z0-9]{10,}$/.test(value.trim());
+}
+
+// 4. Crypto - EVM (Ethereum/BSC): 0x followed by 64 hex characters
+function isValidUSDT_EVM(value) {
+    return /^0x[a-fA-F0-9]{64}$/.test(value.trim());
+}
+
+// 5. Crypto - TRON (USDT): 64 hex characters (no 0x prefix)
+function isValidUSDT_TRC20(value) {
+    return /^[a-fA-F0-9]{64}$/.test(value.trim());
+}
+
+// 6. Crypto - Solana (PYUSD): Base58 signature (approx 80-90 chars)
+function isValidPYUSD_Solana(value) {
+    return /^[1-9A-HJ-NP-Za-km-z]{80,90}$/.test(value.trim());
+}
+
         function detectReferenceFormat(reference) {
     const ref = reference.trim();
     if (!ref) return 'empty';
