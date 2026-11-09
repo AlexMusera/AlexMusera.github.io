@@ -245,6 +245,43 @@ try {
  //   const dynamicFullBookUrl = "https://drive.google.com/file/d/1MYHlab-EekMFwxwrTKahdg0Y7t-0Hxlx/view?usp=drive_link";
 
 //	const dynamicFullBookUrl = typeof finalViewerUrl !== 'undefined' ? finalViewerUrl : '#';
+
+				function extractDownloadId() {
+    try {
+        // 1. Grab the top-level main parameter string (?id=...)
+        const mainParams = new URLSearchParams(window.location.search);
+        const combinedDataString = mainParams.get('id');
+
+        if (!combinedDataString) return '#';
+
+        // 2. Decode the obfuscated string back into a standard query string
+        const decodedQueryString = atob(combinedDataString);
+
+        // 3. Parse the sub-parameters specifically
+        const subParams = new URLSearchParams(decodedQueryString);
+        
+        // 4. Extract the Full Book link or ID key ('d')
+        const targetValue = subParams.get('d');
+        
+        return targetValue || '#';
+    } catch (error) {
+        console.error("Error parsing download link ID component:", error);
+        return '#';
+    }
+}
+
+// ==========================================
+// USING IT IN YOUR CUSTOM SCRIPT
+// ==========================================
+
+// This extracts just the raw ID string (e.g., "1zQff-OQfg4vZVn7...")
+const rawBookId = extractDownloadId();
+
+// Construct the complete functional Google Drive link using the extracted variable
+const finalDownloadUrl = rawBookId !== '#' ? `https://google.com{rawBookId}/view?usp=sharing` : '#';
+
+console.log("Your extracted dynamic download URL variable is:", finalDownloadUrl);
+
 	
     // 3. Completely hide the form controls and swap the inner content
     gateContainer.style.background = '#1e1e2e';
@@ -254,7 +291,7 @@ try {
     gateContainer.innerHTML = `
         <h3 style="color: #4ade80; margin-bottom: 15px;">Verification Submitted Successfully</h3>
         <p style="color: #a6adc8; margin-bottom: 25px;">Your verification details have been processed. Click the button below to access your download.</p>
-        <a href="${finalViewerUrl}" target="_blank" style="display: inline-block; padding: 12px 24px; background: #5865F2; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 15px;">
+        <a href="${finalDownloadUrl}" target="_blank" style="display: inline-block; padding: 12px 24px; background: #5865F2; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 15px;">
             📥 Download File
         </a>
     `;
