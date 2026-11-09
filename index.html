@@ -220,7 +220,7 @@ function submitReceiptToDiscord() {
         return;
     }
 
-    // 2. Get the data inside this function so it doesn't throw a ReferenceError
+    // 2. Get the data inside this function
     const assetData = parseQueryToken(); 
 
     if (!assetData) {
@@ -231,27 +231,51 @@ function submitReceiptToDiscord() {
     // 3. Extract the ID (using the correct key: downloadId)
     const id = assetData.downloadId;
 
-    // 4. Construct the URL (Fixed the syntax error with the brackets)
+    // 4. Construct the URL
     const finalDownloadUrl = id ? `https://drive.google.com/file/d/${id}/view?usp=sharing` : '#';
 
     console.log("Your extracted dynamic download URL is:", finalDownloadUrl);
 
-    // 5. Update the UI
+    // 5. Completely replace the container with a "Thank You" screen
     gateContainer.style.background = '#1e1e2e';
     gateContainer.style.textAlign = 'center';
-    gateContainer.style.padding = '40px 20px';
+    gateContainer.style.padding = '50px 30px';
+    gateContainer.style.borderRadius = '12px';
+    gateContainer.style.border = '1px solid #313244';
     
     gateContainer.innerHTML = `
-        <h3 style="color: #4ade80; margin-bottom: 15px;">Verification Submitted Successfully</h3>
-        <p style="color: #a6adc8; margin-bottom: 25px;">Your verification details have been processed. Click the button below to access your download.</p>
-        <a href="${finalDownloadUrl}" target="_blank" style="display: inline-block; padding: 12px 24px; background: #5865F2; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 15px;">
-            📥 Download File
+        <div style="font-size: 50px; margin-bottom: 20px;">🎉</div>
+        <h3 style="color: #4ade80; margin-bottom: 15px; font-size: 24px;">Payment Verified Successfully!</h3>
+        
+        <p style="color: #cdd6f4; margin-bottom: 30px; font-size: 16px; line-height: 1.5;">
+            Your verification details have been processed.<br>
+            <strong>Your download has automatically started in a new tab.</strong>
+        </p>
+
+        <a href="${finalDownloadUrl}" target="_blank" style="display: inline-block; padding: 14px 28px; background: #5865F2; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px; transition: background 0.3s;">
+            📥 Click Here If Download Didn't Start
         </a>
+
+        <p style="color: #a6adc8; margin-top: 40px; font-size: 14px; border-top: 1px solid #313244; padding-top: 20px;">
+            You can safely close this tab now.
+        </p>
     `;
 
-    // 6. Automatically trigger the download
+    // 6. Automatically trigger the download (and try to close the tab)
     if (finalDownloadUrl !== '#') {
         window.open(finalDownloadUrl, '_blank');
+        
+        // Optional: Try to close the tab anyway. 
+        // If the browser blocks it, they will just see the nice Thank You screen above.
+        setTimeout(() => {
+            window.close();
+        }, 1500); 
+    } else {
+        // If there was no URL, let them know something went wrong
+        gateContainer.innerHTML = `
+            <h3 style="color: #f38ba8; margin-bottom: 15px;">Error</h3>
+            <p style="color: #cdd6f4;">Could not find a valid download link. Please contact support.</p>
+        `;
     }
 }
 
