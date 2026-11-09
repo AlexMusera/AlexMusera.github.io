@@ -109,7 +109,7 @@
 	        <!-- ==========================================
              STEP 2: PAYMENT INSTRUCTIONS (UPGRADED REMITTANCE TABS)
              ========================================== -->
-<div id="secure-invoice-details" style="display: none; padding: 25px; border: 1px solid #313244; border-radius: 12px; background: #1e1e2e; margin-bottom: 25px;">
+<div id="secure-invoice-details" style="display:flex; justify-content:space-between; padding: 25px; border: 1px solid #313244; border-radius: 12px; background: #1e1e2e; margin-bottom: 25px;">
             <h3 style="margin-top: 0; color: #f5e0dc; border-bottom: 1px solid #313244; padding-bottom: 12px; font-weight: 700; letter-spacing: -0.025em;">
                 💳 Secure Checkout & Order Settlement
             </h3>
@@ -140,6 +140,8 @@
                     Pay instantly inside any app using debit/credit card, Apple Pay, or Interac.
                 </p>
 
+				<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin: 15px 0;">
+
                 <!-- Info Rows -->
                 <div style="display:flex; justify-content:space-between; align-items:center; margin: 10px 0;"><span style="font-size:14px; color:#bac2de;"><strong style="color:#cdd6f4;">First Name:</strong> Alex</span><button onclick="copyText('Alex', this)" style="padding:4px 10px; font-size:12px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button></div>
                 <div style="display:flex; justify-content:space-between; align-items:center; margin: 10px 0;"><span style="font-size:14px; color:#bac2de;"><strong style="color:#cdd6f4;">Last Name:</strong> Musera</span><button onclick="copyText('Musera', this)" style="padding:4px 10px; font-size:12px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button></div>
@@ -148,6 +150,7 @@
                 <div style="display:flex; justify-content:space-between; align-items:center; margin: 10px 0;"><span style="font-size:14px; color:#bac2de;"><strong style="color:#cdd6f4;">Address:</strong> Majengo</span><button onclick="copyText('Majengo', this)" style="padding:4px 10px; font-size:12px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button></div>
                 <div style="display:flex; justify-content:space-between; align-items:center; margin: 10px 0;"><span style="font-size:14px; color:#bac2de;"><strong style="color:#cdd6f4;">Postal Code:</strong> 50300</span><button onclick="copyText('50300', this)" style="padding:4px 10px; font-size:12px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button></div>
                 <div style="display:flex; justify-content:space-between; align-items:center; margin: 10px 0;"><span style="font-size:14px; color:#bac2de;"><strong style="color:#cdd6f4;">Phone Number:</strong> 254 718233558</span><button onclick="copyText('254 718233558', this)" style="padding:4px 10px; font-size:12px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button></div>
+					</div>
                 
                 <div style="margin-top: 15px; padding: 12px 16px; background-color: rgba(22, 163, 74, 0.05); border-left: 4px solid #16a34a; border-radius: 4px;">
                     <p style="margin: 0; font-size: 13px; color: #a6e3a1; font-weight: 600; line-height: 1.5;">
