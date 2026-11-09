@@ -264,6 +264,9 @@
             // Displays your inline payment card steps immediately onto the active canvas layout
             document.getElementById('secure-invoice-details').style.display = 'block';
             document.getElementById('receipt-upload-gate').style.display = 'block';
+
+			document.getElementById('secure-invoice-details').scrollIntoView({ behavior: 'smooth' });
+
         }
     }, 1000);
 }
