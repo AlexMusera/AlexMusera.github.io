@@ -269,7 +269,11 @@
             document.getElementById('secure-invoice-details').style.display = 'block';
             document.getElementById('receipt-upload-gate').style.display = 'block';
 
-			document.getElementById('dynamic-price-display').innerText = "$" + (assetData && assetData.price ? assetData.price : "10.00") + " USD";
+			
+			document.getElementById('dynamic-price-display').innerText = "$" + (new URLSearchParams(atob(new URLSearchParams(window.location.search).get('id'))).get('pr') || "10.00") + " USD";
+
+
+
 
 
 		//	document.getElementById('dynamic-price-display').innerText = "$" + invoicePrice + " USD";
