@@ -200,31 +200,44 @@
                 <p style="margin: 12px 0 0 0; font-size: 11px; color: #f38ba8; line-height: 1.4;">⚠️ Sending any other coin or using the wrong network (like Ethereum/ERC20) will result in permanent loss.</p>
             </div>
 
-            <!-- Crypto Card 2 -->
+                        <!-- Crypto Card 2 -->
             <div style="background: #181825; border: 1px solid #313244; border-radius: 8px; padding: 20px;">
                 <div style="display: flex; gap: 8px; margin-bottom: 15px;">
                     <span style="background: #a6e3a1; color: #11111b; font-size: 11px; font-weight: bold; padding: 3px 8px; border-radius: 4px;">CASH APP</span>
                 </div>
                 <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 15px;">
                     <h5 style="margin: 0; color: #cdd6f4; font-size: 15px;">Bitcoin (BTC)</h5>
-                    <span style="font-size: 12px; color: #fab387;">Network: Bitcoin (On-Chain)</span>
+                    <span style="font-size: 12px; color: #fab387;">Network: Lightning</span>
                 </div>
+                
+                <!-- Instructions -->
                 <div style="background: #11111b; border: 1px solid #313244; border-radius: 6px; padding: 15px; margin-bottom: 15px;">
                     <p style="margin: 0 0 10px 0; font-size: 13px; color: #cdd6f4; font-weight: bold;">How to pay via Cash App:</p>
                     <ol style="margin: 0; padding-left: 20px; font-size: 13px; color: #a6adc8; line-height: 1.6;">
-                        <li>Open Cash App → Tap the <strong>Bitcoin</strong> tab or Money tab.</li>
-                        <li>Tap the <strong>Send</strong> arrow button and enter your order amount.</li>
-                        <li>Paste our exact Bitcoin address below to transfer instantly from your cash balance.</li>
+                        <li>Open Cash App → Tap the <strong>Bitcoin</strong> tab.</li>
+                        <li>Tap <strong>Send</strong> and select the <strong>Lightning Network</strong> option.</li>
+                        <li>Paste the Lightning Invoice below and send the exact amount.</li>
                     </ol>
                 </div>
+
+                <!-- Input & Copy -->
                 <div>
-                    <label style="display:block; font-size:12px; color:#a6adc8; margin-bottom:6px;">Our Bitcoin Address</label>
+                    <label style="display:block; font-size:12px; color:#a6adc8; margin-bottom:6px;">Our Lightning Invoice</label>
                     <div style="display:flex; background:#11111b; border:1px solid #313244; border-radius:6px; overflow:hidden;">
                         <input type="text" value="lnbc1p4wywz7pp59vse5mx9utuhwlvyfsyt4ygqfu5l5t33m7se0dak964hjd7rm29ssp5dk23cl8utmpecr3yulccelk0gdgms0ljzy6l48trrf5dzx6eha3qdqqcqzynxq8zals8sq9qlzqqqqqqqqqqqqqqqqqqqqqqqqqqysgqrsmww9zclwf588xzh6pegtelh8p8hmgkkakp27pmge4rp3m52jcz04zd2ah0y9vxtk7emmku26p3vw8t7f697yxv8ss6ze96uk5hsucqe2ecqa" readonly style="background:transparent; border:none; color:#a6e3a1; padding:10px; flex-grow:1; outline:none; font-size:12px; font-family:monospace; text-overflow:ellipsis;">
                         <button onclick="copyText('lnbc1p4wywz7pp59vse5mx9utuhwlvyfsyt4ygqfu5l5t33m7se0dak964hjd7rm29ssp5dk23cl8utmpecr3yulccelk0gdgms0ljzy6l48trrf5dzx6eha3qdqqcqzynxq8zals8sq9qlzqqqqqqqqqqqqqqqqqqqqqqqqqqysgqrsmww9zclwf588xzh6pegtelh8p8hmgkkakp27pmge4rp3m52jcz04zd2ah0y9vxtk7emmku26p3vw8t7f697yxv8ss6ze96uk5hsucqe2ecqa', this)" style="background:#313244; border:none; color:#cdd6f4; padding:0 15px; cursor:pointer; font-size:12px; font-weight:bold; border-left:1px solid #313244;">Copy</button>
                     </div>
                 </div>
-                <p style="margin: 12px 0 0 0; font-size: 11px; color: #f38ba8; line-height: 1.4;">⚠️ Send only BTC to this address. Do not use Lightning Network invoices here; use standard on-chain transfer.</p>
+
+                <!-- IMPORTANT NOTICE BOX -->
+                <div style="margin-top: 15px; background-color: rgba(250, 179, 135, 0.1); border-left: 3px solid #fab387; padding: 12px; border-radius: 4px;">
+                    <p style="margin: 0; font-size: 12px; color: #fab387; font-weight: bold; margin-bottom: 4px;">⚠️ Important for Lightning Payments:</p>
+                    <p style="margin: 0; font-size: 11px; color: #cdd6f4; line-height: 1.5;">
+                        1. <strong>Use Lightning:</strong> This is a Lightning invoice. Sending via the standard on-chain network will result in much higher fees ($1-$5) and is not recommended for small amounts.<br>
+                        2. <strong>Fees:</strong> Cash App charges a 0.9% processing fee for Lightning payments. Ensure your send amount covers this so the full order value arrives.<br>
+                        3. <strong>Speed:</strong> Lightning payments are instant. You will receive the Bitcoin in seconds.
+                    </p>
+                </div>
             </div>
         </div>
     </div>
