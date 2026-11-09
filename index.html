@@ -277,11 +277,17 @@ try {
 // This extracts just the raw ID string (e.g., "1zQff-OQfg4vZVn7...")
 const rawBookId = extractDownloadId();
 
+				if (assetData) {
+    document.getElementById('dynamic-book-title').innerText = assetData.title;
+
+    // Extract the ID
+    const id = assetData.rawBookId;
+
 // Construct the complete functional Google Drive link using the extracted variable
 //const finalDownloadUrl = rawBookId !== '#' ? `https://google.com{rawBookId}/view?usp=sharing` : '#';
 				
 				// Ensure the domain is correct and the dollar sign ($) is included before the braces
-const finalDownloadUrl = rawBookId !== '#' ? `https://drive.google.com{assetData.rawBookId}/view?usp=sharing` : '#';
+const finalDownloadUrl = rawBookId !== '#' ? `https://drive.google.com{/${id}/view?usp=sharing` : '#';
 
 
 console.log("Your extracted dynamic download URL variable is:", finalDownloadUrl);
