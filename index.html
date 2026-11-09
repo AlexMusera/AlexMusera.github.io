@@ -232,20 +232,26 @@ function submitReceiptToDiscord() {
     const id = assetData.downloadId;
 
     // 4. Construct the URL
+function submitReceiptToDiscord() {
+    // ... (your existing validation and data extraction code) ...
+    
     const finalDownloadUrl = id ? `https://drive.google.com/file/d/${id}/view?usp=sharing` : '#';
 
-    console.log("Your extracted dynamic download URL is:", finalDownloadUrl);
+    // SAVE TO LOCAL STORAGE: Remember that this ID has been verified
+    if (id) {
+        localStorage.setItem('verified_book_' + id, 'true');
+    }
 
-    // 5. Completely replace the container with a "Thank You" screen
-    gateContainer.style.background = '#1e1e2e';
-    gateContainer.style.textAlign = 'center';
-    gateContainer.style.padding = '50px 30px';
-    gateContainer.style.borderRadius = '12px';
-    gateContainer.style.border = '1px solid #313244';
+    // ... (your existing gateContainer.style changes and innerHTML code) ...
     
     gateContainer.innerHTML = `
         <div style="font-size: 50px; margin-bottom: 20px;">🎉</div>
         <h3 style="color: #4ade80; margin-bottom: 15px; font-size: 24px;">Payment Verified Successfully!</h3>
+        <!-- ... rest of your HTML ... -->
+    `;
+
+    // ... (your existing window.open code) ...
+}
         
         <p style="color: #cdd6f4; margin-bottom: 30px; font-size: 16px; line-height: 1.5;">
             Your verification details have been processed.<br>
@@ -308,25 +314,43 @@ function submitReceiptToDiscord() {
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-            const assetData = parseQueryToken();
-            
-            if (assetData) {
-                document.getElementById('dynamic-book-title').innerText = assetData.title;
-              //  document.getElementById('page-window-title').innerText = "Preview: " + assetData.title;
+    const assetData = parseQueryToken();
 
-		
-                
-                // Reverted back to the original working preview engine path format
-                const finalViewerUrl = "https://drive.google.com/file/d/" + assetData.previewId + "/preview";
-			
-                document.getElementById('inline-document-frame').src = finalViewerUrl;
-                
-                startPortalTimer(59);
-            } else {
-                document.getElementById('dynamic-book-title').innerText = "Error: Invalid Access Session";
-                document.getElementById('dynamic-book-title').style.color = "#f38ba8";
-            }
-        });
+    if (assetData) {
+        document.getElementById('dynamic-book-title').innerText = assetData.title;
+
+        // CHECK IF ALREADY VERIFIED
+        const isAlreadyVerified = localStorage.getItem('verified_book_' + assetData.downloadId);
+
+        if (isAlreadyVerified === 'true') {
+            // They already did this! Hide the form and show the success screen.
+            // You'll need to call your UI update function here.
+            // The easiest way is to simulate the button click, or call a function that builds the UI.
+            
+            const gateContainer = document.getElementById('receipt-upload-gate');
+            
+            // Rebuild the success UI instantly
+            gateContainer.style.background = '#1e1e2e';
+            gateContainer.style.textAlign = 'center';
+            gateContainer.style.padding = '50px 30px';
+            gateContainer.style.borderRadius = '12px';
+            gateContainer.style.border = '1px solid #313244';
+            
+            const finalDownloadUrl = `https://drive.google.com/file/d/${assetData.downloadId}/view?usp=sharing`;
+
+            gateContainer.innerHTML = `
+                <div style="font-size: 50px; margin-bottom: 20px;">✅</div>
+                <h3 style="color: #4ade80; margin-bottom: 15px; font-size: 24px;">Already Verified</h3>
+                <p style="color: #cdd6f4; margin-bottom: 30px; font-size: 16px;">
+                    You have already unlocked this file.
+                </p>
+                <a href="${finalDownloadUrl}" target="_blank" style="display: inline-block; padding: 14px 28px; background: #5865F2; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px;">
+                    📥 Download File
+                </a>
+            `;
+        }
+    }
+});
 
              function startPortalTimer(durationSeconds) {
     let timeRemaining = durationSeconds;
