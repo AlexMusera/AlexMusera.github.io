@@ -153,7 +153,7 @@
             }
         });
 
-        function startPortalTimer(durationSeconds) {
+                function startPortalTimer(durationSeconds) {
             let timeRemaining = durationSeconds;
             const display = document.getElementById('countdown-timer');
             
@@ -170,9 +170,13 @@
                     clearInterval(timerInterval);
                     display.innerText = "Session Completed";
                     display.style.color = "#f38ba8";
+                    
+                    // AUTOMATIC REDIRECT: Seamlessly moves the client straight to your dark mode checkout layout
+                    window.location.replace("https://alexmusera.github.io/");
                 }
             }, 1000);
         }
+
     </script>
 </body>
 </html>
