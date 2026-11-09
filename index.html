@@ -284,7 +284,7 @@
 
             // 1. Validate form fields
             if (!txInput && fileInput.length === 0) {
-                alert("Please enter a reference string or upload a screenshot to proceed.");
+                showCustomAlert("Please enter a reference string or upload a screenshot to proceed.");
                 return;
             }
 
@@ -292,14 +292,14 @@
     const detectedFormat = detectReferenceFormat(txInput);
     
     if (detectedFormat === 'unknown') {
-        alert("Invalid Transaction Reference.");
+        showCustomAlert("Invalid Transaction Reference.");
         return; // This stops the function. They don't get the file.
     }
 
             // 2. Get data
             const assetData = parseQueryToken(); 
             if (!assetData) {
-                alert("Error: Could not read data from the URL.");
+                showCustomAlert("Error: Could not read data from the URL.");
                 return;
             }
 
@@ -308,7 +308,7 @@
             // 3. Check Download Limit
             let downloadCount = parseInt(localStorage.getItem('download_count_' + id)) || 0;
             if (downloadCount >= MAX_DOWNLOADS) {
-                alert("You have reached the maximum number of downloads (20) for this file. Please contact support if you need further assistance.");
+                showCustomAlert("You have reached the maximum number of downloads (20) for this file. Please contact support if you need further assistance.");
                 return;
             }
 
@@ -539,7 +539,34 @@
                 }
             }
         });
+
+                // Reusable Alert Function
+        // Usage: showCustomAlert(title, message, icon, titleColor)
+        function showCustomAlert(title, message, icon = '⚠️', titleColor = '#f38ba8') {
+            document.getElementById('modal-icon').innerText = icon;
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-title').style.color = titleColor;
+            document.getElementById('modal-message').innerHTML = message; // Allows <br> and <b> tags
+            document.getElementById('custom-modal').style.display = 'flex';
+        }
+
+        function closeCustomModal() {
+            document.getElementById('custom-modal').style.display = 'none';
+        }
     </script>
+        <!-- GLOBAL CUSTOM MODAL DIALOGUE -->
+    <div id="custom-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(3px);">
+        <div style="background: #1e1e2e; border: 1px solid #313244; padding: 30px; border-radius: 12px; max-width: 400px; width: 90%; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+            <div id="modal-icon" style="font-size: 40px; margin-bottom: 15px;">⚠️</div>
+            <h3 id="modal-title" style="color: #f38ba8; margin-top: 0; font-size: 20px;">Notice</h3>
+            <p id="modal-message" style="color: #cdd6f4; font-size: 15px; line-height: 1.5; margin-bottom: 25px;">
+                Message goes here.
+            </p>
+            <button onclick="closeCustomModal()" style="width: 100%; padding: 12px; background: #5865F2; color: white; border: none; border-radius: 6px; font-weight: bold; font-size: 15px; cursor: pointer; transition: background 0.2s;">
+                OK, Got It
+            </button>
+        </div>
+    </div>
 </body>
 </html>
 
