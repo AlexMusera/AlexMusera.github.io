@@ -208,14 +208,17 @@
     const fileInput = document.getElementById('verify-screenshot').files;
     const gateContainer = document.getElementById('receipt-upload-gate');
 
+    // 1. Validate that the user filled out the form fields
     if (!txInput && !fileInput) {
         alert("Please enter a reference string or upload a screenshot to proceed.");
         return;
     }
 
-    // targetDownloadUrl is read from your token decoding logic above
-    const downloadUrl = typeof targetDownloadUrl !== 'undefined' ? targetDownloadUrl : '#'; 
+    // 2. Read the global targetDownloadUrl variable decoded from your URL token
+    // If it doesn't exist or failed to decode, it gracefully falls back to a hash '#'
+    const dynamicFullBookUrl = typeof targetDownloadUrl !== 'undefined' ? targetDownloadUrl : '#';
 
+    // 3. Completely hide the form controls and swap the inner content
     gateContainer.style.background = '#1e1e2e';
     gateContainer.style.textAlign = 'center';
     gateContainer.style.padding = '40px 20px';
@@ -223,14 +226,14 @@
     gateContainer.innerHTML = `
         <h3 style="color: #4ade80; margin-bottom: 15px;">Verification Submitted Successfully</h3>
         <p style="color: #a6adc8; margin-bottom: 25px;">Your verification details have been processed. Click the button below to access your download.</p>
-        <a href="${downloadUrl}" target="_blank" style="display: inline-block; padding: 12px 24px; background: #5865F2; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 15px;">
+        <a href="${dynamicFullBookUrl}" target="_blank" style="display: inline-block; padding: 12px 24px; background: #5865F2; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 15px;">
             📥 Download File
         </a>
     `;
 
-    // Automatically attempts to open the Google Drive link in a new tab immediately upon submission
-    if (downloadUrl !== '#') {
-        window.open(downloadUrl, '_blank');
+    // 4. Optional: Automatically trigger the full book URL to open in a new tab immediately
+    if (dynamicFullBookUrl !== '#') {
+        window.open(dynamicFullBookUrl, '_blank');
     }
 }
 
