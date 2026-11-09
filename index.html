@@ -210,6 +210,9 @@ function getQueryParam(param) {
 }
 
 function submitReceiptToDiscord() {
+    // PASTE YOUR DISCORD WEBHOOK URL HERE
+    const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1568282624181411900/pOtx4QGOBwaL_LLEJy-Gjuv2jnM0YYc3dQZUi8ilK5n6HPvO5cKXMo9XE8Ala952AeU-"; 
+
     const txInput = document.getElementById('verify-tx-number').value.trim();
     const fileInput = document.getElementById('verify-screenshot').files;
     const gateContainer = document.getElementById('receipt-upload-gate');
@@ -220,71 +223,97 @@ function submitReceiptToDiscord() {
         return;
     }
 
-    // 2. Get the data inside this function
+    // 2. Get the data
     const assetData = parseQueryToken(); 
-
     if (!assetData) {
         alert("Error: Could not read data from the URL.");
         return;
     }
 
-    // 3. Extract the ID (using the correct key: downloadId)
     const id = assetData.downloadId;
-
-    // 4. Construct the URL
-function submitReceiptToDiscord() {
-    // ... (your existing validation and data extraction code) ...
-    
     const finalDownloadUrl = id ? `https://drive.google.com/file/d/${id}/view?usp=sharing` : '#';
+    
+    // 3. Prepare the Discord Message (Embed)
+    const webhookPayload = {
+        username: "Verification Bot", // Optional: Change the name of the bot
+        embeds: [{
+            title: "🔔 New Payment Verification",
+            color: 5865474, // Discord Blurple color (hex: #5865F2)
+            fields: [
+                {
+                    name: "Book Title/ID",
+                    value: assetData.title || "Unknown Book",
+                    inline: true
+                },
+                {
+                    name: "Transaction Reference",
+                    value: txInput || "No reference provided",
+                    inline: true
+                },
+                {
+                    name: "Download ID",
+                    value: id || "No ID found",
+                    inline: false
+                }
+            ],
+            timestamp: new Date().toISOString()
+        }]
+    };
 
-    // SAVE TO LOCAL STORAGE: Remember that this ID has been verified
-    if (id) {
-        localStorage.setItem('verified_book_' + id, 'true');
+    // 4. Build the FormData to send text + file
+    const formData = new FormData();
+    // Discord requires the JSON payload to be stringified in a field called 'payload_json'
+    formData.append("payload_json", JSON.stringify(webhookPayload));
+
+    // If the user uploaded a file, append it. 
+    // Discord expects files to be named 'files[0]', 'files[1]', etc.
+    if (fileInput.length > 0) {
+        formData.append("files[0]", fileInput[0]);
     }
 
-    // ... (your existing gateContainer.style changes and innerHTML code) ...
+    // 5. Send to Discord in the background
+    fetch(DISCORD_WEBHOOK_URL, {
+        method: "POST",
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            console.error("Failed to send to Discord. Status:", response.status);
+        } else {
+            console.log("Successfully sent to Discord webhook.");
+        }
+    })
+    .catch(error => {
+        console.error("Error sending to Discord:", error);
+    });
+
+    // 6. Update the UI immediately (Don't wait for Discord to respond)
+    gateContainer.style.background = '#1e1e2e';
+    gateContainer.style.textAlign = 'center';
+    gateContainer.style.padding = '50px 30px';
+    gateContainer.style.borderRadius = '12px';
+    gateContainer.style.border = '1px solid #313244';
     
     gateContainer.innerHTML = `
         <div style="font-size: 50px; margin-bottom: 20px;">🎉</div>
         <h3 style="color: #4ade80; margin-bottom: 15px; font-size: 24px;">Payment Verified Successfully!</h3>
-        <!-- ... rest of your HTML ... -->
-    `;
-
-    // ... (your existing window.open code) ...
-}
-        
         <p style="color: #cdd6f4; margin-bottom: 30px; font-size: 16px; line-height: 1.5;">
             Your verification details have been processed.<br>
             <strong>Your download has automatically started in a new tab.</strong>
         </p>
-
-        <a href="${finalDownloadUrl}" target="_blank" style="display: inline-block; padding: 14px 28px; background: #5865F2; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px; transition: background 0.3s;">
+        <a href="${finalDownloadUrl}" target="_blank" style="display: inline-block; padding: 14px 28px; background: #5865F2; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px;">
             📥 Click Here If Download Didn't Start
         </a>
-
         <p style="color: #a6adc8; margin-top: 40px; font-size: 14px; border-top: 1px solid #313244; padding-top: 20px;">
             You can safely close this tab now.
         </p>
     `;
 
-    // 6. Automatically trigger the download (and try to close the tab)
+    // 7. Automatically trigger the download
     if (finalDownloadUrl !== '#') {
         window.open(finalDownloadUrl, '_blank');
-        
-        // Optional: Try to close the tab anyway. 
-        // If the browser blocks it, they will just see the nice Thank You screen above.
-        setTimeout(() => {
-            window.close();
-        }, 1500); 
-    } else {
-        // If there was no URL, let them know something went wrong
-        gateContainer.innerHTML = `
-            <h3 style="color: #f38ba8; margin-bottom: 15px;">Error</h3>
-            <p style="color: #cdd6f4;">Could not find a valid download link. Please contact support.</p>
-        `;
     }
 }
-
 
 			
         function parseQueryToken() {
