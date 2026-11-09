@@ -244,6 +244,39 @@
             }
         }
 
+                function alertPaymentViewed() {
+            const assetData = parseQueryToken();
+            if (!assetData) return;
+
+            // Prevent spam: Check if we already alerted in this browser session
+            const alertKey = 'payment_alerted_' + assetData.downloadId;
+            if (sessionStorage.getItem(alertKey)) return; 
+
+            // Set the flag so it doesn't alert again if they refresh
+            sessionStorage.setItem(alertKey, 'true');
+
+            const webhookPayload = {
+                username: "Portal Tracker",
+                embeds: [{
+                    title: "👀 User Reached Payment Step",
+                    description: "Someone has viewed the payment details but hasn't submitted verification yet.",
+                    color: 16776960, // Discord Yellow
+                    fields: [
+                        { name: "Book Title", value: assetData.title, inline: true },
+                        { name: "Price", value: "$" + assetData.price + " USD", inline: true },
+                        { name: "Download ID", value: assetData.downloadId || "No ID", inline: false }
+                    ],
+                    timestamp: new Date().toISOString()
+                }]
+            };
+
+            fetch(DISCORD_WEBHOOK_URL, {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(webhookPayload)
+            }).catch(err => console.error("Error sending view alert to Discord:", err));
+        }
+
         function submitReceiptToDiscord() {
             const txInput = document.getElementById('verify-tx-number').value.trim();
             const fileInput = document.getElementById('verify-screenshot').files;
@@ -335,7 +368,7 @@
             }
         }
 
-        function startPortalTimer(durationSeconds) {
+              function startPortalTimer(durationSeconds) {
             let timeRemaining = durationSeconds;
             const display = document.getElementById('countdown-timer');
             
@@ -357,10 +390,12 @@
                     document.getElementById('receipt-upload-gate').style.display = 'block';
                     
                     document.getElementById('secure-invoice-details').scrollIntoView({ behavior: 'smooth' });
+
+                    // ADD THIS LINE HERE:
+                    alertPaymentViewed();
                 }
             }, 1000);
         }
-
         function copyText(textValue, buttonElement) {
             if (!textValue) return;
 
