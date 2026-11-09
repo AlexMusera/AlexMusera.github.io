@@ -292,24 +292,23 @@
     const detectedFormat = detectReferenceFormat(txInput);
     
     if (detectedFormat === 'unknown') {
-        showCustomAlert("Invalid Transaction Reference.");
+        showCustomAlert("Invalid Reference", "Invalid Transaction Reference.");
         return; // This stops the function. They don't get the file.
     }
 
             // 2. Get data
             const assetData = parseQueryToken(); 
-            if (!assetData) {
-                showCustomAlert("Error: Could not read data from the URL.");
-                return;
-            }
+           if (!assetData) {
+            showCustomAlert("Data Error", "Could not read document data from the URL. Please check the link.");
+    return;
+}
 
             const id = assetData.downloadId;
             
             // 3. Check Download Limit
             let downloadCount = parseInt(localStorage.getItem('download_count_' + id)) || 0;
             if (downloadCount >= MAX_DOWNLOADS) {
-                showCustomAlert("You have reached the maximum number of downloads (20) for this file. Please contact support if you need further assistance.");
-                return;
+             showCustomAlert("Limit Reached", `You have reached the maximum number of downloads (${MAX_DOWNLOADS}) for this file.<br><br>Please contact support if you need further assistance.`);                return;
             }
 
             // Save verification and increment download counter
