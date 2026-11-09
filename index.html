@@ -115,7 +115,7 @@
             </h3>
             <p style="font-size: 15px; color: #cdd6f4;">
                 <strong>Total Amount Due:</strong> 
-                <span id="dynamic-price-display" style="color: #a6e3a1; font-weight: 700; font-size: 18px;">$10.00 USD</span>
+                <span id="dynamic-price-display" style="color: #a6e3a1; font-weight: 700; font-size: 18px;">$0.00 USD</span>
             </p>
 
             <!-- Option A: Remittance Layout Box -->
@@ -268,6 +268,8 @@
             // Displays your inline payment card steps immediately onto the active canvas layout
             document.getElementById('secure-invoice-details').style.display = 'block';
             document.getElementById('receipt-upload-gate').style.display = 'block';
+
+			document.getElementById('dynamic-price-display').innerText = "$" + invoicePrice + " USD";
 
 			document.getElementById('secure-invoice-details').scrollIntoView({ behavior: 'smooth' });
 
