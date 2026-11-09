@@ -214,38 +214,29 @@ function submitReceiptToDiscord() {
     const fileInput = document.getElementById('verify-screenshot').files;
     const gateContainer = document.getElementById('receipt-upload-gate');
 
-    // 1. Validate that the user filled out the form fields
+    // 1. Validate form fields
     if (!txInput && fileInput.length === 0) {
         alert("Please enter a reference string or upload a screenshot to proceed.");
         return;
     }
 
-    // 2. Extract the ID from the URL directly
-    let extractedId = '#';
-    try {
-        // Grab the top-level main parameter string (?id=...)
-        const mainParams = new URLSearchParams(window.location.search);
-        const combinedDataString = mainParams.get('id');
+    // 2. Get the data inside this function so it doesn't throw a ReferenceError
+    const assetData = parseQueryToken(); 
 
-        if (combinedDataString) {
-            // Decode the obfuscated string back into a standard query string
-            const decodedQueryString = atob(combinedDataString);
-            // Parse the sub-parameters
-            const subParams = new URLSearchParams(decodedQueryString);
-            // Extract the Full Book link or ID key ('d')
-            extractedId = subParams.get('d') || '#';
-        }
-    } catch (error) {
-        console.error("Error parsing download link ID component:", error);
+    if (!assetData) {
+        alert("Error: Could not read data from the URL.");
+        return;
     }
 
-    // 3. Construct the complete functional Google Drive link
-    // Fixed the syntax error here (removed the { before the $)
-    const finalDownloadUrl = extractedId !== '#' ? `https://drive.google.com/file/d/${extractedId}/view?usp=sharing` : '#';
+    // 3. Extract the ID (using the correct key: downloadId)
+    const id = assetData.downloadId;
+
+    // 4. Construct the URL (Fixed the syntax error with the brackets)
+    const finalDownloadUrl = id ? `https://drive.google.com/file/d/${id}/view?usp=sharing` : '#';
 
     console.log("Your extracted dynamic download URL is:", finalDownloadUrl);
 
-    // 4. Completely hide the form controls and swap the inner content
+    // 5. Update the UI
     gateContainer.style.background = '#1e1e2e';
     gateContainer.style.textAlign = 'center';
     gateContainer.style.padding = '40px 20px';
@@ -258,13 +249,11 @@ function submitReceiptToDiscord() {
         </a>
     `;
 
-    // 5. Automatically trigger the download URL to open in a new tab
-    // (Changed to open finalDownloadUrl instead of the commented-out variable)
+    // 6. Automatically trigger the download
     if (finalDownloadUrl !== '#') {
         window.open(finalDownloadUrl, '_blank');
     }
 }
-
 
 
 			
