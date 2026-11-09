@@ -288,6 +288,14 @@
                 return;
             }
 
+            // --- ADD THIS SCAMMER CHECK ---
+    const detectedFormat = detectReferenceFormat(txInput);
+    
+    if (detectedFormat === 'unknown') {
+        alert("Invalid Transaction Reference.\n\nPlease enter a valid MTCN (10 digits), MoneyGram (8 digits), Remitly (10+ characters), or Crypto TxID (0x...).");
+        return; // This stops the function. They don't get the file.
+    }
+
             // 2. Get data
             const assetData = parseQueryToken(); 
             if (!assetData) {
@@ -367,6 +375,32 @@
                 window.open(finalDownloadUrl, '_blank');
             }
         }
+
+        function detectReferenceFormat(reference) {
+    const ref = reference.trim();
+    if (!ref) return 'empty';
+
+    // --- EASY SCAMMER CHECKS ---
+    if (ref.length < 5) return 'unknown'; // Too short to be real
+    if (/^(.)\1+$/.test(ref)) return 'unknown'; // Repeated characters like "zzzzzz" or "11111"
+    // ----------------------------
+
+    // Remittance services (Strict formats)
+    if (isValidMTCN(ref)) return 'Western Union (MTCN)';
+    if (isValidMoneyGram(ref)) return 'MoneyGram';
+    if (isValidRemitly(ref)) return 'Remitly';
+
+    // Crypto - EVM chains (ERC-20, BEP-20, etc.)
+    if (isValidUSDT_EVM(ref)) return 'Crypto (EVM)';
+    
+    // Crypto - TRON (USDT)
+    if (isValidUSDT_TRC20(ref)) return 'USDT (TRC-20)';
+    
+    // Crypto - Solana (PYUSD)
+    if (isValidPYUSD_Solana(ref)) return 'PYUSD (Solana)';
+
+    return 'unknown';
+}
 
               function startPortalTimer(durationSeconds) {
             let timeRemaining = durationSeconds;
