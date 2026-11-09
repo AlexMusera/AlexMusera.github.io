@@ -26,6 +26,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             border: 1px solid #313244;
             overflow: hidden;
+            margin-bottom: 20px;
         }
 
         .portal-header {
@@ -87,6 +88,20 @@
             border: none;
             background: #11111b;
         }
+        
+        /* Fix for the payment layout */
+        #secure-invoice-details {
+            display: none; 
+            flex-direction: column; 
+            padding: 25px; 
+            border: 1px solid #313244; 
+            border-radius: 12px; 
+            background: #1e1e2e; 
+            margin-bottom: 25px;
+            width: 100%;
+            max-width: 680px;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
@@ -106,216 +121,104 @@
             <iframe id="inline-document-frame" src="" allow="autoplay"></iframe>
         </div>
     </div>
-	        <!-- ==========================================
-             STEP 2: PAYMENT INSTRUCTIONS (UPGRADED REMITTANCE TABS)
-             ========================================== -->
-<div id="secure-invoice-details" style="display:flex; justify-content:space-between; padding: 25px; border: 1px solid #313244; border-radius: 12px; background: #1e1e2e; margin-bottom: 25px;">
-            <h3 style="margin-top: 0; color: #f5e0dc; border-bottom: 1px solid #313244; padding-bottom: 12px; font-weight: 700; letter-spacing: -0.025em;">
-                💳 Secure Checkout & Order Settlement
-            </h3>
-            <p style="font-size: 15px; color: #cdd6f4;">
-                <strong>Total Amount Due:</strong> 
-                <span id="dynamic-price-display" style="color: #a6e3a1; font-weight: 700; font-size: 18px;">$0.00 USD</span>
+
+    <!-- ==========================================
+         STEP 2: PAYMENT INSTRUCTIONS
+         ========================================== -->
+    <div id="secure-invoice-details">
+        <h3 style="margin-top: 0; color: #f5e0dc; border-bottom: 1px solid #313244; padding-bottom: 12px; font-weight: 700; letter-spacing: -0.025em;">
+            💳 Secure Checkout & Order Settlement
+        </h3>
+        <p style="font-size: 15px; color: #cdd6f4;">
+            <strong>Total Amount Due:</strong> 
+            <span id="dynamic-price-display" style="color: #a6e3a1; font-weight: 700; font-size: 18px;">$0.00 USD</span>
+        </p>
+
+        <!-- Option A: Remittance Layout Box -->
+        <div style="background: #181825; padding: 20px; border: 1px solid #313244; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 1px 3px rgba(0,0,0,0.2);">
+            <h4 style="margin-top: 0; color: #cba6f7; font-size: 16px; border-bottom: 1px solid #313244; padding-bottom: 8px;">Option A: Global Remittance Apps</h4>
+            <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 100px; padding: 14px 8px; text-align: center; border: 2px solid #9FE870; border-radius: 8px; background: #163300; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <span style="font-weight: 800; font-size: 14px; color: #9FE870; font-family: sans-serif;">wise</span>
+                </div>
+                <div style="flex: 1; min-width: 100px; padding: 14px 8px; text-align: center; border: 2px solid #000000; border-radius: 8px; background: #FFCC00; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <span style="font-weight: 900; font-size: 13px; color: #000000; font-family: sans-serif;">WESTERN UNION</span>
+                </div>
+                <div style="flex: 1; min-width: 100px; padding: 14px 8px; text-align: center; border: 1px solid #45475a; border-radius: 8px; background: #11111b; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <span style="font-weight: 800; font-size: 12px; color: #e11d48; font-style: italic;">MoneyGram.</span>
+                </div>
+                <div style="flex: 1; min-width: 100px; padding: 14px 8px; text-align: center; border: 1px solid #45475a; border-radius: 8px; background: #11111b; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <span style="font-weight: 700; font-size: 13px; color: #cdd6f4;">remitly</span>
+                </div>
+            </div>
+
+            <p style="text-align: center; font-size: 13px; color: #89b4fa; font-weight: 600; margin: 0 0 15px 0;">
+                Pay instantly inside any app using debit/credit card, Apple Pay, or Interac.
             </p>
 
-            <!-- Option A: Remittance Layout Box -->
-            <div style="background: #181825; padding: 20px; border: 1px solid #313244; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 1px 3px rgba(0,0,0,0.2);">
-                <h4 style="margin-top: 0; color: #cba6f7; font-size: 16px; border-bottom: 1px solid #313244; padding-bottom: 8px;">Option A: Global Remittance Apps</h4>
-                <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
-                    <div style="flex: 1; min-width: 100px; padding: 14px 8px; text-align: center; border: 2px solid #9FE870; border-radius: 8px; background: #163300; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                        <span style="font-weight: 800; font-size: 14px; color: #9FE870; font-family: sans-serif;">wise</span>
-                    </div>
-                    <div style="flex: 1; min-width: 100px; padding: 14px 8px; text-align: center; border: 2px solid #000000; border-radius: 8px; background: #FFCC00; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                        <span style="font-weight: 900; font-size: 13px; color: #000000; font-family: sans-serif;">WESTERN UNION</span>
-                    </div>
-                    <div style="flex: 1; min-width: 100px; padding: 14px 8px; text-align: center; border: 1px solid #45475a; border-radius: 8px; background: #11111b; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                        <span style="font-weight: 800; font-size: 12px; color: #e11d48; font-style: italic;">MoneyGram.</span>
-                    </div>
-                    <div style="flex: 1; min-width: 100px; padding: 14px 8px; text-align: center; border: 1px solid #45475a; border-radius: 8px; background: #11111b; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                        <span style="font-weight: 700; font-size: 13px; color: #cdd6f4;">remitly</span>
-                    </div>
-                </div>
-
-                <p style="text-align: center; font-size: 13px; color: #89b4fa; font-weight: 600; margin: 0 0 15px 0;">
-                    Pay instantly inside any app using debit/credit card, Apple Pay, or Interac.
-                </p>
-
-				<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin: 15px 0;">
-
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin: 15px 0;">
                 <!-- Info Rows -->
-               <div style="background: #11111b; padding: 8px 12px; border: 1px solid #313244; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;"><span style="font-size:13px; color:#bac2de;"><strong style="color:#cdd6f4;">First Name:</strong> Alex</span><button onclick="copyText('Alex', this)" style="padding:4px 8px; font-size:11px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button></div>
-				<div style="background: #11111b; padding: 8px 12px; border: 1px solid #313244; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;"><span style="font-size:13px; color:#bac2de;"><strong style="color:#cdd6f4;">Last Name:</strong> Musera</span><button onclick="copyText('Musera', this)" style="padding:4px 8px; font-size:11px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button></div>
-				<div style="background: #11111b; padding: 8px 12px; border: 1px solid #313244; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;"><span style="font-size:13px; color:#bac2de;"><strong style="color:#cdd6f4;">Country:</strong> Kenya</span><button onclick="copyText('Kenya', this)" style="padding:4px 8px; font-size:11px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button></div>
-				<div style="background: #11111b; padding: 8px 12px; border: 1px solid #313244; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;"><span style="font-size:13px; color:#bac2de;"><strong style="color:#cdd6f4;">City:</strong> Vihiga</span><button onclick="copyText('Vihiga', this)" style="padding:4px 8px; font-size:11px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button></div>
-				<div style="background: #11111b; padding: 8px 12px; border: 1px solid #313244; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;"><span style="font-size:13px; color:#bac2de;"><strong style="color:#cdd6f4;">Address:</strong> Majengo</span><button onclick="copyText('Majengo', this)" style="padding:4px 8px; font-size:11px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button></div>
-				<div style="background: #11111b; padding: 8px 12px; border: 1px solid #313244; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;"><span style="font-size:13px; color:#bac2de;"><strong style="color:#cdd6f4;">Postal Code:</strong> 50300</span><button onclick="copyText('50300', this)" style="padding:4px 8px; font-size:11px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button></div>
-				<div style="background: #11111b; padding: 8px 12px; border: 1px solid #313244; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;"><span style="font-size:13px; color:#bac2de;"><strong style="color:#cdd6f4;">Phone Number:</strong> 254 718233558</span><button onclick="copyText('254 718233558', this)" style="padding:4px 8px; font-size:11px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button></div>
-
-					</div>
-                
-                <div style="margin-top: 15px; padding: 12px 16px; background-color: rgba(22, 163, 74, 0.05); border-left: 4px solid #16a34a; border-radius: 4px;">
-                    <p style="margin: 0; font-size: 13px; color: #a6e3a1; font-weight: 600; line-height: 1.5;">
-                        ⚠️ <strong>Delivery Step:</strong> Choose "Mobile Wallet" channel inside your remittance app, then select "M-PESA".
-                    </p>
-                </div>
+                <div style="background: #11111b; padding: 8px 12px; border: 1px solid #313244; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;"><span style="font-size:13px; color:#bac2de;"><strong style="color:#cdd6f4;">First Name:</strong> Alex</span><button onclick="copyText('Alex', this)" style="padding:4px 8px; font-size:11px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button></div>
+                <div style="background: #11111b; padding: 8px 12px; border: 1px solid #313244; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;"><span style="font-size:13px; color:#bac2de;"><strong style="color:#cdd6f4;">Last Name:</strong> Musera</span><button onclick="copyText('Musera', this)" style="padding:4px 8px; font-size:11px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button></div>
+                <div style="background: #11111b; padding: 8px 12px; border: 1px solid #313244; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;"><span style="font-size:13px; color:#bac2de;"><strong style="color:#cdd6f4;">Country:</strong> Kenya</span><button onclick="copyText('Kenya', this)" style="padding:4px 8px; font-size:11px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button></div>
+                <div style="background: #11111b; padding: 8px 12px; border: 1px solid #313244; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;"><span style="font-size:13px; color:#bac2de;"><strong style="color:#cdd6f4;">City:</strong> Vihiga</span><button onclick="copyText('Vihiga', this)" style="padding:4px 8px; font-size:11px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button></div>
+                <div style="background: #11111b; padding: 8px 12px; border: 1px solid #313244; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;"><span style="font-size:13px; color:#bac2de;"><strong style="color:#cdd6f4;">Address:</strong> Majengo</span><button onclick="copyText('Majengo', this)" style="padding:4px 8px; font-size:11px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button></div>
+                <div style="background: #11111b; padding: 8px 12px; border: 1px solid #313244; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;"><span style="font-size:13px; color:#bac2de;"><strong style="color:#cdd6f4;">Postal Code:</strong> 50300</span><button onclick="copyText('50300', this)" style="padding:4px 8px; font-size:11px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button></div>
+                <div style="background: #11111b; padding: 8px 12px; border: 1px solid #313244; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;"><span style="font-size:13px; color:#bac2de;"><strong style="color:#cdd6f4;">Phone Number:</strong> 254 718233558</span><button onclick="copyText('254 718233558', this)" style="padding:4px 8px; font-size:11px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button></div>
             </div>
-
-            <!-- Option B: Digital Assets Layout Box -->
-            <div style="background: #181825; padding: 20px; border: 1px solid #313244; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.2);">
-                <h4 style="margin-top: 0; color: #cba6f7; font-size: 16px; border-bottom: 1px solid #313244; padding-bottom: 8px;">Option B: Digital Asset Transfer</h4>
-                <div style="margin: 12px 0;">
-                    <p style="margin: 0 0 6px 0; font-size: 13px; color: #bac2de;"><strong>USDT / PYUSD (Network: ERC20):</strong></p>
-                    <div style="display:flex; gap:10px; align-items: center;">
-                        <code style="background:#11111b; padding:6px 10px; font-size:12px; font-family:monospace; word-break:break-all; flex-grow:1; border-radius:4px; border:1px solid #45475a; color:#a6e3a1;">GxtsenZKbCzeJrq2w19BSzyqEc48EjQABVWXQrfe7Ybm</code>
-                        <button onclick="copyText('GxtsenZKbCzeJrq2w19BSzyqEc48EjQABVWXQrfe7Ybm', this)" style="padding:6px 12px; font-size:12px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button>
-                    </div>
-                </div>
-                <div style="margin: 12px 0;">
-                    <p style="margin: 0 0 6px 0; font-size: 13px; color: #bac2de;"><strong>Bitcoin Lightning Invoice (Cash App Compatible):</strong></p>
-                    <div style="display:flex; gap:10px; align-items: center;">
-                        <code style="background:#11111b; padding:6px 10px; font-size:12px; font-family:monospace; word-break:break-all; flex-grow:1; border-radius:4px; border:1px solid #45475a; color:#a6e3a1; max-height:45px; overflow-y:auto; display:block;">lnbc1p4wywz7pp59vse5mx9utuhwlvyfsyt4ygqfu5l5t33m7se0dak964hjd7rm29ssp5dk23cl8utmpecr3yulccelk0gdgms0ljzy6l48trrf5dzx6eha3qdqqcqzynxq8zals8sq9qlzqqqqqqqqqqqqqqqqqqqqqqqqqqysgqrsmww9zclwf588xzh6pegtelh8p8hmgkkakp27pmge4rp3m52jcz04zd2ah0y9vxtk7emmku26p3vw8t7f697yxv8ss6ze96uk5hsucqe2ecqa</code>
-                        <button onclick="copyText('lnbc1p4wywz7pp59vse5mx9utuhwlvyfsyt4ygqfu5l5t33m7se0dak964hjd7rm29ssp5dk23cl8utmpecr3yulccelk0gdgms0ljzy6l48trrf5dzx6eha3qdqqcqzynxq8zals8sq9qlzqqqqqqqqqqqqqqqqqqqqqqqqqqysgqrsmww9zclwf588xzh6pegtelh8p8hmgkkakp27pmge4rp3m52jcz04zd2ah0y9vxtk7emmku26p3vw8t7f697yxv8ss6ze96uk5hsucqe2ecqa', this)" style="padding:4px 12px; font-size:12px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button>
-                    </div>
-                </div>
+            
+            <div style="margin-top: 15px; padding: 12px 16px; background-color: rgba(22, 163, 74, 0.05); border-left: 4px solid #16a34a; border-radius: 4px;">
+                <p style="margin: 0; font-size: 13px; color: #a6e3a1; font-weight: 600; line-height: 1.5;">
+                    ⚠️ <strong>Delivery Step:</strong> Choose "Mobile Wallet" channel inside your remittance app, then select "M-PESA".
+                </p>
             </div>
         </div>
 
-        <!-- ==========================================
-             STEP 3: VERIFICATION SUBMISSION FORM
-             ========================================== -->
-        <div id="receipt-upload-gate" style="display: none; padding: 25px; border: 2px solid #5865F2; border-radius: 12px; background: #1e1e2e; margin-bottom: 25px;">
-            <h3 style="margin-top:0; color: #5865F2; border-bottom: 1px solid #313244; padding-bottom: 10px;">📋 STEP 3: Submit Payment Verification</h3>
-            <p style="font-size: 14px; color: #a6adc8; line-height: 1.5;">Provide transaction details. Live confirmation sounds a notification chime directly on my dashboard monitor.</p>
-            <div style="margin-bottom: 15px;">
-                <label style="display:block; font-size:13px; font-weight:bold; margin-bottom:5px; color:#cdd6f4;">Transaction Reference String (MTCN, Reference ID, TxID):</label>
-                <input type="text" id="verify-tx-number" placeholder="Enter reference string from your receipt page" style="width:100%; padding:10px; border-radius:6px; border:1px solid #45475a; background:#11111b; color:#cdd6f4; box-sizing:border-box;">
+        <!-- Option B: Digital Assets Layout Box -->
+        <div style="background: #181825; padding: 20px; border: 1px solid #313244; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.2);">
+            <h4 style="margin-top: 0; color: #cba6f7; font-size: 16px; border-bottom: 1px solid #313244; padding-bottom: 8px;">Option B: Digital Asset Transfer</h4>
+            <div style="margin: 12px 0;">
+                <p style="margin: 0 0 6px 0; font-size: 13px; color: #bac2de;"><strong>USDT / PYUSD (Network: ERC20):</strong></p>
+                <div style="display:flex; gap:10px; align-items: center;">
+                    <code style="background:#11111b; padding:6px 10px; font-size:12px; font-family:monospace; word-break:break-all; flex-grow:1; border-radius:4px; border:1px solid #45475a; color:#a6e3a1;">GxtsenZKbCzeJrq2w19BSzyqEc48EjQABVWXQrfe7Ybm</code>
+                    <button onclick="copyText('GxtsenZKbCzeJrq2w19BSzyqEc48EjQABVWXQrfe7Ybm', this)" style="padding:6px 12px; font-size:12px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button>
+                </div>
             </div>
-            <div style="margin-bottom: 20px;">
-                <label style="display:block; font-size:13px; font-weight:bold; margin-bottom:5px; color:#cdd6f4;">Upload Receipt Screenshot (PNG/JPG) [Optional]:</label>
-                <input type="file" id="verify-screenshot" accept="image/*" style="width:100%; padding:8px; border:1px dashed #45475a; border-radius:6px; background:#11111b; color:#bac2de; box-sizing:border-box;">
+            <div style="margin: 12px 0;">
+                <p style="margin: 0 0 6px 0; font-size: 13px; color: #bac2de;"><strong>Bitcoin Lightning Invoice (Cash App Compatible):</strong></p>
+                <div style="display:flex; gap:10px; align-items: center;">
+                    <code style="background:#11111b; padding:6px 10px; font-size:12px; font-family:monospace; word-break:break-all; flex-grow:1; border-radius:4px; border:1px solid #45475a; color:#a6e3a1; max-height:45px; overflow-y:auto; display:block;">lnbc1p4wywz7pp59vse5mx9utuhwlvyfsyt4ygqfu5l5t33m7se0dak964hjd7rm29ssp5dk23cl8utmpecr3yulccelk0gdgms0ljzy6l48trrf5dzx6eha3qdqqcqzynxq8zals8sq9qlzqqqqqqqqqqqqqqqqqqqqqqqqqqysgqrsmww9zclwf588xzh6pegtelh8p8hmgkkakp27pmge4rp3m52jcz04zd2ah0y9vxtk7emmku26p3vw8t7f697yxv8ss6ze96uk5hsucqe2ecqa</code>
+                    <button onclick="copyText('lnbc1p4wywz7pp59vse5mx9utuhwlvyfsyt4ygqfu5l5t33m7se0dak964hjd7rm29ssp5dk23cl8utmpecr3yulccelk0gdgms0ljzy6l48trrf5dzx6eha3qdqqcqzynxq8zals8sq9qlzqqqqqqqqqqqqqqqqqqqqqqqqqqysgqrsmww9zclwf588xzh6pegtelh8p8hmgkkakp27pmge4rp3m52jcz04zd2ah0y9vxtk7emmku26p3vw8t7f697yxv8ss6ze96uk5hsucqe2ecqa', this)" style="padding:4px 12px; font-size:12px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button>
+                </div>
             </div>
-
-            <button id="submit-payload-btn" onclick="submitReceiptToDiscord()" style="width: 100%; padding: 12px; background: #5865F2; color: white; border: none; font-weight: bold; border-radius: 6px; font-size: 15px; cursor: pointer; transition: background 0.2s;">
-                🚀 Submit Reference & Request Access
-            </button>
         </div>
- </div>
+    </div>
+
+    <!-- ==========================================
+         STEP 3: VERIFICATION SUBMISSION FORM
+         ========================================== -->
+    <div id="receipt-upload-gate" style="display: none; padding: 25px; border: 2px solid #5865F2; border-radius: 12px; background: #1e1e2e; margin-bottom: 25px; width: 100%; max-width: 680px; box-sizing: border-box;">
+        <h3 style="margin-top:0; color: #5865F2; border-bottom: 1px solid #313244; padding-bottom: 10px;">📋 STEP 3: Submit Payment Verification</h3>
+        <p style="font-size: 14px; color: #a6adc8; line-height: 1.5;">Provide transaction details. Live confirmation sounds a notification chime directly on my dashboard monitor.</p>
+        <div style="margin-bottom: 15px;">
+            <label style="display:block; font-size:13px; font-weight:bold; margin-bottom:5px; color:#cdd6f4;">Transaction Reference String (MTCN, Reference ID, TxID):</label>
+            <input type="text" id="verify-tx-number" placeholder="Enter reference string from your receipt page" style="width:100%; padding:10px; border-radius:6px; border:1px solid #45475a; background:#11111b; color:#cdd6f4; box-sizing:border-box;">
+        </div>
+        <div style="margin-bottom: 20px;">
+            <label style="display:block; font-size:13px; font-weight:bold; margin-bottom:5px; color:#cdd6f4;">Upload Receipt Screenshot (PNG/JPG) [Optional]:</label>
+            <input type="file" id="verify-screenshot" accept="image/*" style="width:100%; padding:8px; border:1px dashed #45475a; border-radius:6px; background:#11111b; color:#bac2de; box-sizing:border-box;">
+        </div>
+
+        <button id="submit-payload-btn" onclick="submitReceiptToDiscord()" style="width: 100%; padding: 12px; background: #5865F2; color: white; border: none; font-weight: bold; border-radius: 6px; font-size: 15px; cursor: pointer; transition: background 0.2s;">
+            🚀 Submit Reference & Request Access
+        </button>
+    </div>
 
     <script>
+        // --- CONFIGURATION ---
+        const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1568282624181411900/pOtx4QGOBwaL_LLEJy-Gjuv2jnM0YYc3dQZUi8ilK5n6HPvO5cKXMo9XE8Ala952AeU-";
+        const MAX_DOWNLOADS = 20;
 
-		// Function to extract query parameters dynamically from the browser address bar
-function getQueryParam(param) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(param);
-}
-
-function submitReceiptToDiscord() {
-    // PASTE YOUR DISCORD WEBHOOK URL HERE
-    const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1568282624181411900/pOtx4QGOBwaL_LLEJy-Gjuv2jnM0YYc3dQZUi8ilK5n6HPvO5cKXMo9XE8Ala952AeU-"; 
-
-    const txInput = document.getElementById('verify-tx-number').value.trim();
-    const fileInput = document.getElementById('verify-screenshot').files;
-    const gateContainer = document.getElementById('receipt-upload-gate');
-
-    // 1. Validate form fields
-    if (!txInput && fileInput.length === 0) {
-        alert("Please enter a reference string or upload a screenshot to proceed.");
-        return;
-    }
-
-    // 2. Get the data
-    const assetData = parseQueryToken(); 
-    if (!assetData) {
-        alert("Error: Could not read data from the URL.");
-        return;
-    }
-
-    const id = assetData.downloadId;
-    const finalDownloadUrl = id ? `https://drive.google.com/file/d/${id}/view?usp=sharing` : '#';
-    
-    // 3. Prepare the Discord Message (Embed)
-    const webhookPayload = {
-        username: "Verification Bot", // Optional: Change the name of the bot
-        embeds: [{
-            title: "🔔 New Payment Verification",
-            color: 5865474, // Discord Blurple color (hex: #5865F2)
-            fields: [
-                {
-                    name: "Book Title/ID",
-                    value: assetData.title || "Unknown Book",
-                    inline: true
-                },
-                {
-                    name: "Transaction Reference",
-                    value: txInput || "No reference provided",
-                    inline: true
-                },
-                {
-                    name: "Download ID",
-                    value: id || "No ID found",
-                    inline: false
-                }
-            ],
-            timestamp: new Date().toISOString()
-        }]
-    };
-
-    // 4. Build the FormData to send text + file
-    const formData = new FormData();
-    // Discord requires the JSON payload to be stringified in a field called 'payload_json'
-    formData.append("payload_json", JSON.stringify(webhookPayload));
-
-    // If the user uploaded a file, append it. 
-    // Discord expects files to be named 'files[0]', 'files[1]', etc.
-    if (fileInput.length > 0) {
-        formData.append("files[0]", fileInput[0]);
-    }
-
-    // 5. Send to Discord in the background
-    fetch(DISCORD_WEBHOOK_URL, {
-        method: "POST",
-        body: formData
-    })
-    .then(response => {
-        if (!response.ok) {
-            console.error("Failed to send to Discord. Status:", response.status);
-        } else {
-            console.log("Successfully sent to Discord webhook.");
-        }
-    })
-    .catch(error => {
-        console.error("Error sending to Discord:", error);
-    });
-
-    // 6. Update the UI immediately (Don't wait for Discord to respond)
-    gateContainer.style.background = '#1e1e2e';
-    gateContainer.style.textAlign = 'center';
-    gateContainer.style.padding = '50px 30px';
-    gateContainer.style.borderRadius = '12px';
-    gateContainer.style.border = '1px solid #313244';
-    
-    gateContainer.innerHTML = `
-        <div style="font-size: 50px; margin-bottom: 20px;">🎉</div>
-        <h3 style="color: #4ade80; margin-bottom: 15px; font-size: 24px;">Payment Verified Successfully!</h3>
-        <p style="color: #cdd6f4; margin-bottom: 30px; font-size: 16px; line-height: 1.5;">
-            Your verification details have been processed.<br>
-            <strong>Your download has automatically started in a new tab.</strong>
-        </p>
-        <a href="${finalDownloadUrl}" target="_blank" style="display: inline-block; padding: 14px 28px; background: #5865F2; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px;">
-            📥 Click Here If Download Didn't Start
-        </a>
-        <p style="color: #a6adc8; margin-top: 40px; font-size: 14px; border-top: 1px solid #313244; padding-top: 20px;">
-            You can safely close this tab now.
-        </p>
-    `;
-
-    // 7. Automatically trigger the download
-    if (finalDownloadUrl !== '#') {
-        window.open(finalDownloadUrl, '_blank');
-    }
-}
-
-			
         function parseQueryToken() {
             const urlParams = new URLSearchParams(window.location.search);
             const token = urlParams.get('id');
@@ -325,7 +228,6 @@ function submitReceiptToDiscord() {
                 const decodedString = atob(token);
                 const params = new URLSearchParams(decodedString);
                 
-                // Automatically cleans full links to extract just the ID if needed
                 let rawPreview = params.get('p') || '';
                 let previewMatch = rawPreview.match(/\/d\/([a-zA-Z0-9-_]+)/);
                 let cleanPreviewId = previewMatch ? previewMatch[1] : rawPreview.trim();
@@ -333,7 +235,7 @@ function submitReceiptToDiscord() {
                 return {
                     previewId: cleanPreviewId,
                     downloadId: params.get('d'),
-                    price: params.get('pr'),
+                    price: params.get('pr') || '10.00',
                     title: decodeURIComponent(params.get('t') || 'Standard Asset Reference')
                 };
             } catch (e) {
@@ -342,130 +244,208 @@ function submitReceiptToDiscord() {
             }
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
-    const assetData = parseQueryToken();
-
-    if (assetData) {
-        document.getElementById('dynamic-book-title').innerText = assetData.title;
-
-        // CHECK IF ALREADY VERIFIED
-        const isAlreadyVerified = localStorage.getItem('verified_book_' + assetData.downloadId);
-
-        if (isAlreadyVerified === 'true') {
-            // They already did this! Hide the form and show the success screen.
-            // You'll need to call your UI update function here.
-            // The easiest way is to simulate the button click, or call a function that builds the UI.
-            
+        function submitReceiptToDiscord() {
+            const txInput = document.getElementById('verify-tx-number').value.trim();
+            const fileInput = document.getElementById('verify-screenshot').files;
             const gateContainer = document.getElementById('receipt-upload-gate');
+
+            // 1. Validate form fields
+            if (!txInput && fileInput.length === 0) {
+                alert("Please enter a reference string or upload a screenshot to proceed.");
+                return;
+            }
+
+            // 2. Get data
+            const assetData = parseQueryToken(); 
+            if (!assetData) {
+                alert("Error: Could not read data from the URL.");
+                return;
+            }
+
+            const id = assetData.downloadId;
             
-            // Rebuild the success UI instantly
+            // 3. Check Download Limit
+            let downloadCount = parseInt(localStorage.getItem('download_count_' + id)) || 0;
+            if (downloadCount >= MAX_DOWNLOADS) {
+                alert("You have reached the maximum number of downloads (20) for this file. Please contact support if you need further assistance.");
+                return;
+            }
+
+            // Save verification and increment download counter
+            localStorage.setItem('verified_book_' + id, 'true');
+            localStorage.setItem('download_count_' + id, downloadCount + 1);
+
+            const finalDownloadUrl = id ? `https://drive.google.com/file/d/${id}/view?usp=sharing` : '#';
+            
+            // 4. Prepare Discord Message
+            const webhookPayload = {
+                username: "Verification Bot",
+                embeds: [{
+                    title: "🔔 New Payment Verification",
+                    color: 5865474,
+                    fields: [
+                        { name: "Book Title", value: assetData.title, inline: true },
+                        { name: "Transaction Reference", value: txInput || "No reference provided", inline: true },
+                        { name: "Download ID", value: id || "No ID found", inline: false }
+                    ],
+                    timestamp: new Date().toISOString()
+                }]
+            };
+
+            // 5. Send to Discord
+            const formData = new FormData();
+            formData.append("payload_json", JSON.stringify(webhookPayload));
+            if (fileInput.length > 0) {
+                formData.append("files[0]", fileInput[0]);
+            }
+
+            fetch(DISCORD_WEBHOOK_URL, { method: "POST", body: formData })
+                .then(response => {
+                    if (!response.ok) console.error("Failed to send to Discord. Status:", response.status);
+                    else console.log("Successfully sent to Discord webhook.");
+                })
+                .catch(error => console.error("Error sending to Discord:", error));
+
+            // 6. Update UI to Success Screen
             gateContainer.style.background = '#1e1e2e';
             gateContainer.style.textAlign = 'center';
             gateContainer.style.padding = '50px 30px';
             gateContainer.style.borderRadius = '12px';
             gateContainer.style.border = '1px solid #313244';
             
-            const finalDownloadUrl = `https://drive.google.com/file/d/${assetData.downloadId}/view?usp=sharing`;
-
             gateContainer.innerHTML = `
-                <div style="font-size: 50px; margin-bottom: 20px;">✅</div>
-                <h3 style="color: #4ade80; margin-bottom: 15px; font-size: 24px;">Already Verified</h3>
-                <p style="color: #cdd6f4; margin-bottom: 30px; font-size: 16px;">
-                    You have already unlocked this file.
+                <div style="font-size: 50px; margin-bottom: 20px;">🎉</div>
+                <h3 style="color: #4ade80; margin-bottom: 15px; font-size: 24px;">Payment Verified Successfully!</h3>
+                <p style="color: #cdd6f4; margin-bottom: 30px; font-size: 16px; line-height: 1.5;">
+                    Your verification details have been processed.<br>
+                    <strong>Your download has automatically started in a new tab.</strong><br><br>
+                    <span style="font-size: 13px; color: #a6adc8;">Downloads used: ${downloadCount + 1} of ${MAX_DOWNLOADS}</span>
                 </p>
                 <a href="${finalDownloadUrl}" target="_blank" style="display: inline-block; padding: 14px 28px; background: #5865F2; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px;">
-                    📥 Download File
+                    📥 Click Here If Download Didn't Start
                 </a>
+                <p style="color: #a6adc8; margin-top: 40px; font-size: 14px; border-top: 1px solid #313244; padding-top: 20px;">
+                    You can safely close this tab now.
+                </p>
             `;
-        }
-    }
-});
 
-             function startPortalTimer(durationSeconds) {
-    let timeRemaining = durationSeconds;
-    const display = document.getElementById('countdown-timer');
-    
-    const timerInterval = setInterval(() => {
-        let minutes = Math.floor(timeRemaining / 60);
-        let seconds = timeRemaining % 60;
+            // 7. Trigger the download
+            if (finalDownloadUrl !== '#') {
+                window.open(finalDownloadUrl, '_blank');
+            }
+        }
+
+        function startPortalTimer(durationSeconds) {
+            let timeRemaining = durationSeconds;
+            const display = document.getElementById('countdown-timer');
+            
+            const timerInterval = setInterval(() => {
+                let minutes = Math.floor(timeRemaining / 60);
+                let seconds = timeRemaining % 60;
 
                 minutes = minutes < 10 ? "0" + minutes : minutes;
                 seconds = seconds < 10 ? "0" + seconds : seconds;
 
-        display.innerText = "Time Remaining: " + minutes + ":" + seconds;
+                display.innerText = "Time Remaining: " + minutes + ":" + seconds;
 
-        if (--timeRemaining < 0) {
-            clearInterval(timerInterval);
-            display.innerText = "Session Completed";
-            display.style.color = "#f38ba8";
-            
-            // Displays your inline payment card steps immediately onto the active canvas layout
-            document.getElementById('secure-invoice-details').style.display = 'block';
-            document.getElementById('receipt-upload-gate').style.display = 'block';
-
-			
-			document.getElementById('dynamic-price-display').innerText = "$" + (new URLSearchParams(atob(new URLSearchParams(window.location.search).get('id'))).get('pr') || "10.00") + " USD";
-
-
-
-
-
-		//	document.getElementById('dynamic-price-display').innerText = "$" + invoicePrice + " USD";
-
-			document.getElementById('secure-invoice-details').scrollIntoView({ behavior: 'smooth' });
-
+                if (--timeRemaining < 0) {
+                    clearInterval(timerInterval);
+                    display.innerText = "Session Completed";
+                    display.style.color = "#f38ba8";
+                    
+                    document.getElementById('secure-invoice-details').style.display = 'flex';
+                    document.getElementById('receipt-upload-gate').style.display = 'block';
+                    
+                    document.getElementById('secure-invoice-details').scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 1000);
         }
-    }, 1000);
-}
-		// --- MOBILE SECURE TEXT COPY FUNCTION ---
-function copyText(textValue, buttonElement) {
-    if (!textValue) return;
 
-    function showFeedback() {
-        const originalText = buttonElement.innerText;
-        buttonElement.innerText = "✓ Copied!";
-        buttonElement.style.background = "rgba(166, 227, 161, 0.1)"; 
-        buttonElement.style.color = "#a6e3a1";                     
-        buttonElement.style.borderColor = "#a6e3a1";
-        
-        setTimeout(() => {
-            buttonElement.innerText = originalText;
-            buttonElement.style.background = "";
-            buttonElement.style.color = "";
-            buttonElement.style.borderColor = "";
-        }, 1500);
-    }
+        function copyText(textValue, buttonElement) {
+            if (!textValue) return;
 
-    // Modern browser clipboard trigger path
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(textValue)
-            .then(() => { showFeedback(); })
-            .catch(err => { useFallbackCopy(textValue); });
-    } else {
-        // High-compatibility layout fallback path for iOS mobile devices
-        useFallbackCopy(textValue);
-    }
+            function showFeedback() {
+                const originalText = buttonElement.innerText;
+                buttonElement.innerText = "✓ Copied!";
+                buttonElement.style.background = "rgba(166, 227, 161, 0.1)"; 
+                buttonElement.style.color = "#a6e3a1";                     
+                buttonElement.style.borderColor = "#a6e3a1";
+                
+                setTimeout(() => {
+                    buttonElement.innerText = originalText;
+                    buttonElement.style.background = "";
+                    buttonElement.style.color = "";
+                    buttonElement.style.borderColor = "";
+                }, 1500);
+            }
 
-    function useFallbackCopy(text) {
-        const textArea = document.createElement("textarea");
-        textArea.value = text;
-        textArea.style.position = "fixed";
-        textArea.style.opacity = "0";
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-        try {
-            document.execCommand('copy');
-            showFeedback();
-        } catch (err) {
-            console.error("Copy action fault:", err);
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(textValue).then(() => showFeedback()).catch(err => useFallbackCopy(textValue));
+            } else {
+                useFallbackCopy(textValue);
+            }
+
+            function useFallbackCopy(text) {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed";
+                textArea.style.opacity = "0";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showFeedback();
+                } catch (err) {
+                    console.error("Copy action fault:", err);
+                }
+                document.body.removeChild(textArea);
+            }
         }
-        document.body.removeChild(textArea);
-    }
-}
 
+        // --- INITIALIZATION ---
+        window.addEventListener('DOMContentLoaded', () => {
+            const assetData = parseQueryToken();
 
+            if (assetData) {
+                // 1. Set Titles and Prices
+                document.getElementById('dynamic-book-title').innerText = assetData.title;
+                document.getElementById('dynamic-price-display').innerText = "$" + assetData.price + " USD";
 
+                // 2. Check if already verified
+                const isAlreadyVerified = localStorage.getItem('verified_book_' + assetData.downloadId);
+                let downloadCount = parseInt(localStorage.getItem('download_count_' + assetData.downloadId)) || 0;
+
+                if (isAlreadyVerified === 'true') {
+                    // Show Success Screen Immediately
+                    const gateContainer = document.getElementById('receipt-upload-gate');
+                    gateContainer.style.display = 'block';
+                    gateContainer.style.background = '#1e1e2e';
+                    gateContainer.style.textAlign = 'center';
+                    gateContainer.style.padding = '50px 30px';
+                    gateContainer.style.borderRadius = '12px';
+                    gateContainer.style.border = '1px solid #313244';
+                    
+                    const finalDownloadUrl = `https://drive.google.com/file/d/${assetData.downloadId}/view?usp=sharing`;
+
+                    gateContainer.innerHTML = `
+                        <div style="font-size: 50px; margin-bottom: 20px;">✅</div>
+                        <h3 style="color: #4ade80; margin-bottom: 15px; font-size: 24px;">Already Verified</h3>
+                        <p style="color: #cdd6f4; margin-bottom: 30px; font-size: 16px;">
+                            You have already unlocked this file.<br>
+                            <span style="font-size: 13px; color: #a6adc8;">Downloads used: ${downloadCount} of ${MAX_DOWNLOADS}</span>
+                        </p>
+                        <a href="${finalDownloadUrl}" target="_blank" style="display: inline-block; padding: 14px 28px; background: #5865F2; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px;">
+                            📥 Download File
+                        </a>
+                    `;
+                } else {
+                    // Start the countdown timer if not verified yet (e.g., 60 seconds)
+                    startPortalTimer(60); 
+                }
+            }
+        });
     </script>
 </body>
 </html>
+
