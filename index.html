@@ -404,7 +404,7 @@
         }
 
         // --- INITIALIZATION ---
-        window.addEventListener('DOMContentLoaded', () => {
+              window.addEventListener('DOMContentLoaded', () => {
             const assetData = parseQueryToken();
 
             if (assetData) {
@@ -412,7 +412,12 @@
                 document.getElementById('dynamic-book-title').innerText = assetData.title;
                 document.getElementById('dynamic-price-display').innerText = "$" + assetData.price + " USD";
 
-                // 2. Check if already verified
+                // 2. Load the Google Drive Preview into the iframe
+                if (assetData.previewId) {
+                    document.getElementById('inline-document-frame').src = `https://drive.google.com/file/d/${assetData.previewId}/preview`;
+                }
+
+                // 3. Check if already verified
                 const isAlreadyVerified = localStorage.getItem('verified_book_' + assetData.downloadId);
                 let downloadCount = parseInt(localStorage.getItem('download_count_' + assetData.downloadId)) || 0;
 
@@ -440,7 +445,7 @@
                         </a>
                     `;
                 } else {
-                    // Start the countdown timer if not verified yet (e.g., 60 seconds)
+                    // Start the countdown timer if not verified yet
                     startPortalTimer(60); 
                 }
             }
