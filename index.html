@@ -202,6 +202,33 @@
 
 
     <script>
+		function submitReceiptToDiscord() {
+    const txInput = document.getElementById('verify-tx-number').value.trim();
+    const fileInput = document.getElementById('verify-screenshot').files;
+    const gateContainer = document.getElementById('receipt-upload-gate');
+
+    if (!txInput && !fileInput) {
+        alert("Please enter a reference string or upload a screenshot to proceed.");
+        return;
+    }
+
+    const downloadUrl = '#'; 
+
+    gateContainer.style.background = '#1e1e2e';
+    gateContainer.style.textAlign = 'center';
+    gateContainer.style.padding = '40px 20px';
+    
+    gateContainer.innerHTML = `
+        <h3 style="color: #4ade80; margin-bottom: 15px;">Verification Submitted Successfully</h3>
+        <p style="color: #a6adc8; margin-bottom: 25px;">Your verification details have been processed. Click the button below to access your download.</p>
+        <a href="${downloadUrl}" download style="display: inline-block; padding: 12px 24px; background: #5865F2; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 15px;">
+            📥 Download File
+        </a>
+    `;
+
+    window.open(downloadUrl, '_blank');
+}
+
         function parseQueryToken() {
             const urlParams = new URLSearchParams(window.location.search);
             const token = urlParams.get('id');
