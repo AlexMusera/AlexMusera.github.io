@@ -89,7 +89,6 @@
             background: #11111b;
         }
         
-        /* Fix for the payment layout */
         #secure-invoice-details {
             display: none; 
             flex-direction: column; 
@@ -107,7 +106,6 @@
 <body>
 
     <div class="portal-container">
-        <!-- Premium Dark Mode Header Row -->
         <div class="portal-header">
             <div class="book-meta">
                 <span class="session-badge">Verification Session Active</span>
@@ -116,15 +114,12 @@
             <div id="countdown-timer" class="timer-display">Time Remaining: --:--</div>
         </div>
 
-        <!-- Embedded Document Viewport -->
         <div class="viewer-viewport">
             <iframe id="inline-document-frame" src="" allow="autoplay"></iframe>
         </div>
     </div>
 
-    <!-- ==========================================
-         STEP 2: PAYMENT INSTRUCTIONS
-         ========================================== -->
+    <!-- STEP 2: PAYMENT INSTRUCTIONS -->
     <div id="secure-invoice-details">
         <h3 style="margin-top: 0; color: #f5e0dc; border-bottom: 1px solid #313244; padding-bottom: 12px; font-weight: 700; letter-spacing: -0.025em;">
             💳 Secure Checkout & Order Settlement
@@ -157,7 +152,6 @@
             </p>
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin: 15px 0;">
-                <!-- Info Rows -->
                 <div style="background: #11111b; padding: 8px 12px; border: 1px solid #313244; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;"><span style="font-size:13px; color:#bac2de;"><strong style="color:#cdd6f4;">First Name:</strong> Alex</span><button onclick="copyText('Alex', this)" style="padding:4px 8px; font-size:11px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button></div>
                 <div style="background: #11111b; padding: 8px 12px; border: 1px solid #313244; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;"><span style="font-size:13px; color:#bac2de;"><strong style="color:#cdd6f4;">Last Name:</strong> Musera</span><button onclick="copyText('Musera', this)" style="padding:4px 8px; font-size:11px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button></div>
                 <div style="background: #11111b; padding: 8px 12px; border: 1px solid #313244; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;"><span style="font-size:13px; color:#bac2de;"><strong style="color:#cdd6f4;">Country:</strong> Kenya</span><button onclick="copyText('Kenya', this)" style="padding:4px 8px; font-size:11px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button></div>
@@ -178,7 +172,7 @@
         <div style="background: #181825; padding: 20px; border: 1px solid #313244; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.2);">
             <h4 style="margin-top: 0; color: #cba6f7; font-size: 16px; border-bottom: 1px solid #313244; padding-bottom: 8px;">Option B: Digital Asset Transfer</h4>
             <div style="margin: 12px 0;">
-                <p style="margin: 0 0 6px 0; font-size: 13px; color: #bac2de;"><strong>USDT / PYUSD (Network: ERC20) [PayPal/Venmo Crypto Transfers]:</strong></p>
+                <p style="margin: 0 0 6px 0; font-size: 13px; color: #bac2de;"><strong>USDT / PYUSD (Network: ERC20):</strong></p>
                 <div style="display:flex; gap:10px; align-items: center;">
                     <code style="background:#11111b; padding:6px 10px; font-size:12px; font-family:monospace; word-break:break-all; flex-grow:1; border-radius:4px; border:1px solid #45475a; color:#a6e3a1;">GxtsenZKbCzeJrq2w19BSzyqEc48EjQABVWXQrfe7Ybm</code>
                     <button onclick="copyText('GxtsenZKbCzeJrq2w19BSzyqEc48EjQABVWXQrfe7Ybm', this)" style="padding:6px 12px; font-size:12px; cursor:pointer; border:1px solid #45475a; background:#313244; color:#cdd6f4; border-radius:4px;">Copy</button>
@@ -194,9 +188,7 @@
         </div>
     </div>
 
-    <!-- ==========================================
-         STEP 3: VERIFICATION SUBMISSION FORM
-         ========================================== -->
+    <!-- STEP 3: VERIFICATION SUBMISSION FORM -->
     <div id="receipt-upload-gate" style="display: none; padding: 25px; border: 2px solid #5865F2; border-radius: 12px; background: #1e1e2e; margin-bottom: 25px; width: 100%; max-width: 680px; box-sizing: border-box;">
         <h3 style="margin-top:0; color: #5865F2; border-bottom: 1px solid #313244; padding-bottom: 10px;">📋 STEP 3: Submit Payment Verification</h3>
         <p style="font-size: 14px; color: #a6adc8; line-height: 1.5;">Provide transaction details. Live confirmation sounds a notification chime directly on my dashboard monitor.</p>
@@ -214,10 +206,60 @@
         </button>
     </div>
 
+    <!-- GLOBAL CUSTOM MODAL DIALOGUE -->
+    <div id="custom-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(3px);">
+        <div style="background: #1e1e2e; border: 1px solid #313244; padding: 30px; border-radius: 12px; max-width: 400px; width: 90%; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+            <div id="modal-icon" style="font-size: 40px; margin-bottom: 15px;">⚠️</div>
+            <h3 id="modal-title" style="color: #f38ba8; margin-top: 0; font-size: 20px;">Notice</h3>
+            <p id="modal-message" style="color: #cdd6f4; font-size: 15px; line-height: 1.5; margin-bottom: 25px;">
+                Message goes here.
+            </p>
+            <button onclick="closeCustomModal()" style="width: 100%; padding: 12px; background: #5865F2; color: white; border: none; border-radius: 6px; font-weight: bold; font-size: 15px; cursor: pointer; transition: background 0.2s;">
+                OK, Got It
+            </button>
+        </div>
+    </div>
+
     <script>
         // --- CONFIGURATION ---
         const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1568282624181411900/pOtx4QGOBwaL_LLEJy-Gjuv2jnM0YYc3dQZUi8ilK5n6HPvO5cKXMo9XE8Ala952AeU-";
         const MAX_DOWNLOADS = 20;
+
+        // --- VALIDATION FUNCTIONS ---
+        function isValidMTCN(value) { return /^\d{10}$/.test(value.trim()); }
+        function isValidMoneyGram(value) { return /^\d{8}$/.test(value.trim()); }
+        function isValidRemitly(value) { return /^[a-zA-Z0-9]{10,}$/.test(value.trim()); }
+        function isValidUSDT_EVM(value) { return /^0x[a-fA-F0-9]{64}$/.test(value.trim()); }
+        function isValidUSDT_TRC20(value) { return /^[a-fA-F0-9]{64}$/.test(value.trim()); }
+        function isValidPYUSD_Solana(value) { return /^[1-9A-HJ-NP-Za-km-z]{80,90}$/.test(value.trim()); }
+
+        function detectReferenceFormat(reference) {
+            const ref = reference.trim();
+            if (!ref) return 'empty';
+            if (ref.length < 5) return 'unknown'; 
+            if (/^(.)\1+$/.test(ref)) return 'unknown'; 
+
+            if (isValidMTCN(ref)) return 'Western Union (MTCN)';
+            if (isValidMoneyGram(ref)) return 'MoneyGram';
+            if (isValidRemitly(ref)) return 'Remitly';
+            if (isValidUSDT_EVM(ref)) return 'Crypto (EVM)';
+            if (isValidUSDT_TRC20(ref)) return 'USDT (TRC-20)';
+            if (isValidPYUSD_Solana(ref)) return 'PYUSD (Solana)';
+            return 'unknown';
+        }
+
+        // --- MODAL FUNCTIONS ---
+        function showCustomAlert(title, message, icon = '⚠️', titleColor = '#f38ba8') {
+            document.getElementById('modal-icon').innerText = icon;
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-title').style.color = titleColor;
+            document.getElementById('modal-message').innerHTML = message; 
+            document.getElementById('custom-modal').style.display = 'flex';
+        }
+
+        function closeCustomModal() {
+            document.getElementById('custom-modal').style.display = 'none';
+        }
 
         function parseQueryToken() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -244,80 +286,41 @@
             }
         }
 
-                function alertPaymentViewed() {
-            const assetData = parseQueryToken();
-            if (!assetData) return;
-
-            // Prevent spam: Check if we already alerted in this browser session
-            const alertKey = 'payment_alerted_' + assetData.downloadId;
-            if (sessionStorage.getItem(alertKey)) return; 
-
-            // Set the flag so it doesn't alert again if they refresh
-            sessionStorage.setItem(alertKey, 'true');
-
-            const webhookPayload = {
-                username: "Portal Tracker",
-                embeds: [{
-                    title: "👀 User Reached Payment Step",
-                    description: "Someone has viewed the payment details but hasn't submitted verification yet.",
-                    color: 16776960, // Discord Yellow
-                    fields: [
-                        { name: "Book Title", value: assetData.title, inline: true },
-                        { name: "Price", value: "$" + assetData.price + " USD", inline: true },
-                        { name: "Download ID", value: assetData.downloadId || "No ID", inline: false }
-                    ],
-                    timestamp: new Date().toISOString()
-                }]
-            };
-
-            fetch(DISCORD_WEBHOOK_URL, {
-                method: "POST",
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(webhookPayload)
-            }).catch(err => console.error("Error sending view alert to Discord:", err));
-        }
-
         function submitReceiptToDiscord() {
             const txInput = document.getElementById('verify-tx-number').value.trim();
             const fileInput = document.getElementById('verify-screenshot').files;
             const gateContainer = document.getElementById('receipt-upload-gate');
 
-            // 1. Validate form fields
             if (!txInput && fileInput.length === 0) {
-                showCustomAlert("No Receipt Number","Please enter a reference string or upload a screenshot to proceed.");
+                showCustomAlert("Missing Details", "Please enter a reference string or upload a screenshot to proceed.");
                 return;
             }
 
-            // --- ADD THIS SCAMMER CHECK ---
-    const detectedFormat = detectReferenceFormat(txInput);
-    
-    if (detectedFormat === 'unknown') {
-        showCustomAlert("Invalid Reference", "Invalid Transaction Reference.");
-        return; // This stops the function. They don't get the file.
-    }
-
-            // 2. Get data
             const assetData = parseQueryToken(); 
-           if (!assetData) {
-            showCustomAlert("Data Error", "Could not read document data from the URL. Please check the link.");
-    return;
-}
-
-            const id = assetData.downloadId;
-            
-            // 3. Check Download Limit
-            let downloadCount = parseInt(localStorage.getItem('download_count_' + id)) || 0;
-            if (downloadCount >= MAX_DOWNLOADS) {
-             showCustomAlert("Limit Reached", `You have reached the maximum number of downloads (${MAX_DOWNLOADS}) for this file.<br><br>Please contact support if you need further assistance.`);                return;
+            if (!assetData) {
+                showCustomAlert("Data Error", "Could not read document data from the URL. Please check the link.");
+                return;
             }
 
-            // Save verification and increment download counter
+            const id = assetData.downloadId;
+            let downloadCount = parseInt(localStorage.getItem('download_count_' + id)) || 0;
+            
+            if (downloadCount >= MAX_DOWNLOADS) {
+                showCustomAlert("Limit Reached", `You have reached the maximum number of downloads (${MAX_DOWNLOADS}) for this file.<br><br>Please contact support if you need further assistance.`);
+                return;
+            }
+
+            const detectedFormat = detectReferenceFormat(txInput);
+            if (detectedFormat === 'unknown') {
+                showCustomAlert("Invalid Reference", "The reference number you entered does not match any recognized format.<br><br>Please enter a valid MTCN (10 digits), MoneyGram (8 digits), Remitly (10+ chars), or Crypto TxID.");
+                return; 
+            }
+
             localStorage.setItem('verified_book_' + id, 'true');
             localStorage.setItem('download_count_' + id, downloadCount + 1);
 
             const finalDownloadUrl = id ? `https://drive.google.com/file/d/${id}/view?usp=sharing` : '#';
             
-            // 4. Prepare Discord Message
             const webhookPayload = {
                 username: "Verification Bot",
                 embeds: [{
@@ -325,14 +328,14 @@
                     color: 5865474,
                     fields: [
                         { name: "Book Title", value: assetData.title, inline: true },
-                        { name: "Transaction Reference", value: txInput || "No reference provided", inline: true },
+                        { name: "Transaction Reference", value: txInput, inline: true },
+                        { name: "Detected Format", value: detectedFormat, inline: true },
                         { name: "Download ID", value: id || "No ID found", inline: false }
                     ],
                     timestamp: new Date().toISOString()
                 }]
             };
 
-            // 5. Send to Discord
             const formData = new FormData();
             formData.append("payload_json", JSON.stringify(webhookPayload));
             if (fileInput.length > 0) {
@@ -346,7 +349,6 @@
                 })
                 .catch(error => console.error("Error sending to Discord:", error));
 
-            // 6. Update UI to Success Screen
             gateContainer.style.background = '#1e1e2e';
             gateContainer.style.textAlign = 'center';
             gateContainer.style.padding = '50px 30px';
@@ -369,69 +371,42 @@
                 </p>
             `;
 
-            // 7. Trigger the download
             if (finalDownloadUrl !== '#') {
                 window.open(finalDownloadUrl, '_blank');
             }
         }
 
-        // 1. Western Union MTCN: Exactly 10 digits [reference:0]
-function isValidMTCN(value) {
-    return /^\d{10}$/.test(value.trim());
-}
+        function alertPaymentViewed() {
+            const assetData = parseQueryToken();
+            if (!assetData) return;
 
-// 2. MoneyGram: Exactly 8 digits [reference:1]
-function isValidMoneyGram(value) {
-    return /^\d{8}$/.test(value.trim());
-}
+            const alertKey = 'payment_alerted_' + assetData.downloadId;
+            if (sessionStorage.getItem(alertKey)) return; 
+            sessionStorage.setItem(alertKey, 'true');
 
-// 3. Remitly: Alphanumeric string (at least 10 characters)
-function isValidRemitly(value) {
-    return /^[a-zA-Z0-9]{10,}$/.test(value.trim());
-}
+            const webhookPayload = {
+                username: "Portal Tracker",
+                embeds: [{
+                    title: "👀 User Reached Payment Step",
+                    description: "Someone has viewed the payment details but hasn't submitted verification yet.",
+                    color: 16776960,
+                    fields: [
+                        { name: "Book Title", value: assetData.title, inline: true },
+                        { name: "Price", value: "$" + assetData.price + " USD", inline: true },
+                        { name: "Download ID", value: assetData.downloadId || "No ID", inline: false }
+                    ],
+                    timestamp: new Date().toISOString()
+                }]
+            };
 
-// 4. Crypto - EVM (Ethereum/BSC): 0x followed by 64 hex characters
-function isValidUSDT_EVM(value) {
-    return /^0x[a-fA-F0-9]{64}$/.test(value.trim());
-}
+            fetch(DISCORD_WEBHOOK_URL, {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(webhookPayload)
+            }).catch(err => console.error("Error sending view alert to Discord:", err));
+        }
 
-// 5. Crypto - TRON (USDT): 64 hex characters (no 0x prefix)
-function isValidUSDT_TRC20(value) {
-    return /^[a-fA-F0-9]{64}$/.test(value.trim());
-}
-
-// 6. Crypto - Solana (PYUSD): Base58 signature (approx 80-90 chars)
-function isValidPYUSD_Solana(value) {
-    return /^[1-9A-HJ-NP-Za-km-z]{80,90}$/.test(value.trim());
-}
-
-        function detectReferenceFormat(reference) {
-    const ref = reference.trim();
-    if (!ref) return 'empty';
-
-    // --- EASY SCAMMER CHECKS ---
-    if (ref.length < 5) return 'unknown'; // Too short to be real
-    if (/^(.)\1+$/.test(ref)) return 'unknown'; // Repeated characters like "zzzzzz" or "11111"
-    // ----------------------------
-
-    // Remittance services (Strict formats)
-    if (isValidMTCN(ref)) return 'Western Union (MTCN)';
-    if (isValidMoneyGram(ref)) return 'MoneyGram';
-    if (isValidRemitly(ref)) return 'Remitly';
-
-    // Crypto - EVM chains (ERC-20, BEP-20, etc.)
-    if (isValidUSDT_EVM(ref)) return 'Crypto (EVM)';
-    
-    // Crypto - TRON (USDT)
-    if (isValidUSDT_TRC20(ref)) return 'USDT (TRC-20)';
-    
-    // Crypto - Solana (PYUSD)
-    if (isValidPYUSD_Solana(ref)) return 'PYUSD (Solana)';
-
-    return 'unknown';
-}
-
-              function startPortalTimer(durationSeconds) {
+        function startPortalTimer(durationSeconds) {
             let timeRemaining = durationSeconds;
             const display = document.getElementById('countdown-timer');
             
@@ -451,14 +426,12 @@ function isValidPYUSD_Solana(value) {
                     
                     document.getElementById('secure-invoice-details').style.display = 'flex';
                     document.getElementById('receipt-upload-gate').style.display = 'block';
-                    
                     document.getElementById('secure-invoice-details').scrollIntoView({ behavior: 'smooth' });
-
-                    // ADD THIS LINE HERE:
                     alertPaymentViewed();
                 }
             }, 1000);
         }
+
         function copyText(textValue, buttonElement) {
             if (!textValue) return;
 
@@ -502,21 +475,17 @@ function isValidPYUSD_Solana(value) {
         }
 
         // --- INITIALIZATION ---
-                  window.addEventListener('DOMContentLoaded', () => {
+        window.addEventListener('DOMContentLoaded', () => {
             const assetData = parseQueryToken();
 
             if (assetData) {
-                // 1. Set Titles and Prices
                 document.getElementById('dynamic-book-title').innerText = assetData.title;
                 document.getElementById('dynamic-price-display').innerText = "$" + assetData.price + " USD";
 
-                // 2. Check if already verified
                 const isAlreadyVerified = localStorage.getItem('verified_book_' + assetData.downloadId);
                 let downloadCount = parseInt(localStorage.getItem('download_count_' + assetData.downloadId)) || 0;
 
                 if (isAlreadyVerified === 'true') {
-                    // --- VERIFIED USERS ---
-                    // Show Success Screen Immediately
                     const gateContainer = document.getElementById('receipt-upload-gate');
                     gateContainer.style.display = 'block';
                     gateContainer.style.background = '#1e1e2e';
@@ -539,27 +508,21 @@ function isValidPYUSD_Solana(value) {
                         </a>
                     `;
                     
-                    // Still load the preview for verified users
                     if (assetData.previewId) {
                         document.getElementById('inline-document-frame').src = `https://drive.google.com/file/d/${assetData.previewId}/preview`;
                     }
 
                 } else {
-                    // --- UNVERIFIED USERS ---
-                    
                     const iframe = document.getElementById('inline-document-frame');
-                    let timerStarted = false; // Prevents the timer from starting twice
+                    let timerStarted = false; 
 
-                    // Wait for the iframe to finish loading
                     iframe.addEventListener('load', () => {
                         if (!timerStarted) {
                             timerStarted = true;
-                            // Start the timer ONLY after the preview loads
                             startPortalTimer(60); 
                         }
                     });
 
-                    // Fallback: If there is no preview ID, start the timer immediately
                     if (assetData.previewId) {
                         iframe.src = `https://drive.google.com/file/d/${assetData.previewId}/preview`;
                     } else {
@@ -568,34 +531,6 @@ function isValidPYUSD_Solana(value) {
                 }
             }
         });
-
-                // Reusable Alert Function
-        // Usage: showCustomAlert(title, message, icon, titleColor)
-        function showCustomAlert(title, message, icon = '⚠️', titleColor = '#f38ba8') {
-            document.getElementById('modal-icon').innerText = icon;
-            document.getElementById('modal-title').innerText = title;
-            document.getElementById('modal-title').style.color = titleColor;
-            document.getElementById('modal-message').innerHTML = message; // Allows <br> and <b> tags
-            document.getElementById('custom-modal').style.display = 'flex';
-        }
-
-        function closeCustomModal() {
-            document.getElementById('custom-modal').style.display = 'none';
-        }
     </script>
-        <!-- GLOBAL CUSTOM MODAL DIALOGUE -->
-    <div id="custom-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(3px);">
-        <div style="background: #1e1e2e; border: 1px solid #313244; padding: 30px; border-radius: 12px; max-width: 400px; width: 90%; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-            <div id="modal-icon" style="font-size: 40px; margin-bottom: 15px;">⚠️</div>
-            <h3 id="modal-title" style="color: #f38ba8; margin-top: 0; font-size: 20px;">Notice</h3>
-            <p id="modal-message" style="color: #cdd6f4; font-size: 15px; line-height: 1.5; margin-bottom: 25px;">
-                Message goes here.
-            </p>
-            <button onclick="closeCustomModal()" style="width: 100%; padding: 12px; background: #5865F2; color: white; border: none; border-radius: 6px; font-weight: bold; font-size: 15px; cursor: pointer; transition: background 0.2s;">
-                OK, Got It
-            </button>
-        </div>
-    </div>
 </body>
 </html>
-
