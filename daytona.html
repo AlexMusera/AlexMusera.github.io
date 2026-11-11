@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daytona Appliances & Repairs</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        body { background-color: #121212; color: #ffffff; line-height: 1.6; }
+        
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; border-bottom: 1px solid #333; }
+        .logo-area { display: flex; align-items: center; gap: 10px; font-weight: bold; font-size: 1.2rem; }
+        .logo-icon { background: #ff6b00; width: 30px; height: 30px; border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+        .nav-links { display: flex; gap: 25px; font-size: 0.95rem; color: #ccc; }
+        .nav-links a { color: #ccc; text-decoration: none; transition: color 0.3s; }
+        .nav-links a:hover { color: #fff; }
+        .nav-call-btn { background: #ff6b00; color: #fff; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: bold; display: flex; align-items: center; gap: 8px; transition: background 0.3s; }
+        .nav-call-btn:hover { background: #e65c00; }
+
+        .hero { padding: 100px 20px; text-align: center; background: linear-gradient(rgba(18, 18, 18, 0.85), rgba(18, 18, 18, 0.95)), url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; }
+        
+        .rating-badge { display: inline-flex; align-items: center; gap: 8px; border: 1px solid #ff6b00; color: #ff6b00; padding: 8px 16px; border-radius: 50px; font-size: 0.9rem; font-weight: bold; margin-bottom: 25px; background: rgba(255, 107, 0, 0.1); }
+        
+        h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 10px; line-height: 1.1; }
+        h1 span { color: #ff6b00; }
+        .subheadline { font-size: 1.2rem; color: #ccc; max-width: 800px; margin: 0 auto 40px; }
+
+        .main-cta { display: inline-block; background: #ff6b00; color: #fff; padding: 20px 60px; font-size: 1.5rem; font-weight: bold; text-decoration: none; border-radius: 10px; box-shadow: 0 4px 15px rgba(255, 107, 0, 0.4); margin-bottom: 15px; transition: transform 0.2s, background 0.2s; }
+        .main-cta:hover { background: #e65c00; transform: translateY(-2px); }
+        .cta-subtext { color: #aaa; font-size: 1rem; }
+
+        .features { display: flex; justify-content: center; gap: 20px; padding: 60px 20px; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; }
+        .feature-box { background: #1e1e1e; border: 1px solid #333; padding: 30px; border-radius: 10px; width: 300px; text-align: left; transition: border-color 0.3s; }
+        .feature-box:hover { border-color: #ff6b00; }
+        .feature-box h3 { color: #fff; margin-bottom: 10px; font-size: 1.2rem; display: flex; align-items: center; gap: 10px; }
+        .feature-box p { color: #aaa; font-size: 0.95rem; }
+
+        footer { text-align: center; padding: 30px; border-top: 1px solid #333; color: #888; font-size: 0.9rem; }
+
+        @media (max-width: 768px) {
+            nav { flex-direction: column; gap: 20px; padding: 20px; }
+            .nav-links { display: none; }
+            h1 { font-size: 2.5rem; }
+            .main-cta { width: 100%; font-size: 1.3rem; padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo-area">
+            <div class="logo-icon">🔧</div>
+            Daytona Appliances & Repairs
+        </div>
+        <div class="nav-links">
+            <a href="#services">Services</a>
+            <a href="#why-us">Why Us</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <!-- CORRECT PHONE NUMBER -->
+        <a href="tel:+13863340615" class="nav-call-btn">
+            <span>📞</span> (386) 334-0615
+        </a>
+    </nav>
+
+    <section class="hero">
+        <div class="rating-badge">
+            ⭐⭐⭐⭐⭐ Trusted local appliance experts
+        </div>
+        
+        <h1>Appliances That Work.<br><span>Prices That Don't Hurt.</span></h1>
+        
+        <p class="subheadline">
+            Daytona Appliances & Repairs is Holly Hill's one-stop shop for quality used appliances, fast repairs, and the parts you need — backed by real people who answer the phone.
+        </p>
+
+        <!-- CORRECT PHONE NUMBER -->
+        <a href="tel:+13863340615" class="main-cta">
+            📞 Call Now
+        </a>
+        <div class="cta-subtext">
+            (386) 334-0615 · Free quotes over the phone
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="feature-box">
+            <h3>🔧 Same-Day Repairs</h3>
+            <p>Fast, reliable service when you need it most. We fix the appliances you rely on daily.</p>
+        </div>
+        <div class="feature-box">
+            <h3>🛡️ Tested & Warranted</h3>
+            <p>All used appliances are fully tested so you know exactly what you're getting.</p>
+        </div>
+        <div class="feature-box">
+            <h3>📍 Serving Volusia County</h3>
+            <p>Proudly serving Holly Hill, Daytona Beach, and surrounding areas for 20+ years.</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>1678 Ridgewood Avenue, Holly Hill, FL 32117</p>
+        <p style="margin-top: 10px;">&copy; 2026 Daytona Appliances & Repairs. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
