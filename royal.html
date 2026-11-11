@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal Electronics Appliance Repair | Port Orange, FL</title>
+    <style>
+        /* CSS Reset & Variables */
+        :root {
+            --primary-blue: #0c326f;
+            --primary-red: #d32f2f;
+            --text-dark: #333;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f4f4f4; color: var(--text-dark); }
+
+        /* Top Info Bar */
+        .top-bar { background: var(--primary-blue); color: white; text-align: center; padding: 10px; font-size: 14px; font-weight: 600; letter-spacing: 0.5px; }
+        .top-bar a { color: white; text-decoration: none; }
+        
+        /* Navigation */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; background: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: relative; z-index: 10; }
+        .logo { font-size: 24px; font-weight: 900; color: var(--primary-blue); font-style: italic; letter-spacing: -1px; }
+        .nav-links { display: flex; list-style: none; gap: 25px; }
+        .nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 600; text-transform: uppercase; font-size: 14px; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--primary-red); }
+        .cta-btn { background: var(--primary-red); color: white; padding: 14px 24px; text-decoration: none; font-weight: bold; border-radius: 4px; text-transform: uppercase; font-size: 13px; transition: background 0.3s; }
+        .cta-btn:hover { background: #b71c1c; }
+
+        /* Hero Section */
+        .hero { display: flex; height: 85vh; position: relative; overflow: hidden; background: #e0e0e0; }
+        
+        /* Left side: Image */
+        .hero-image { flex: 1; background: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') center/cover; }
+        
+        /* Right side: Angled Red Block */
+        .hero-content { 
+            flex: 1; 
+            background: var(--primary-red); 
+            color: white; 
+            padding: 80px 100px 80px 120px; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            /* This creates the angled cut on the left side */
+            clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%); 
+            margin-left: -8%; 
+        }
+
+        /* Certified Specialists Label */
+        .specialist-label { display: flex; align-items: center; gap: 15px; font-size: 14px; font-weight: bold; letter-spacing: 2px; margin-bottom: 25px; }
+        .specialist-label::before { content: ""; display: block; width: 40px; height: 3px; background: white; }
+
+        .hero-content h1 { font-size: 4.5rem; font-weight: 900; margin-bottom: 25px; line-height: 1.1; letter-spacing: -1px; }
+        .hero-content p { font-size: 1.2rem; line-height: 1.6; max-width: 550px; margin-bottom: 40px; font-weight: 400; }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 992px) {
+            .hero { flex-direction: column; height: auto; }
+            .hero-image { height: 300px; width: 100%; }
+            .hero-content { padding: 40px 20px; clip-path: none; margin-left: 0; text-align: center; align-items: center; }
+            .hero-content h1 { font-size: 3rem; }
+            nav { flex-direction: column; gap: 15px; padding: 15px; }
+            .nav-links { display: none; /* Hide links on mobile for simplicity */ }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        CALL US AT <a href="tel:+13867561775">386-756-1775</a> | Our Address: 705 Samms Ave Unit H Port Orange, FL 32129
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">ROYAL ELECTRONICS</div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Blogs</a></li>
+        </ul>
+        <a href="tel:+13867561775" class="cta-btn">Request An Appointment</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-image"></div>
+        <div class="hero-content">
+            <div class="specialist-label">CERTIFIED SPECIALISTS</div>
+            <h1>Appliance<br>Repair</h1>
+            <p>Royal Electronics, your trusted partner for appliance repair services. With our skilled technicians and commitment to excellence, we bring your appliances back to life.</p>
+            <a href="tel:+13867561775" style="display:inline-block; background:white; color:var(--primary-red); padding: 15px 30px; font-weight:bold; text-decoration:none; border-radius:4px; font-size: 1.1rem; align-self: flex-start;">Call (386) 756-1775</a>
+        </div>
+    </section>
+
+</body>
+</html>
