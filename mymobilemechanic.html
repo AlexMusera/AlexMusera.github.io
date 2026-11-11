@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Mobile Mechanic of Tallahassee | We Come To You</title>
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --primary-red: #dc2626;
+            --primary-red-hover: #b91c1c;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #f59e0b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        
+        body { background-color: var(--bg-dark); color: var(--text-light); line-height: 1.6; }
+
+        /* Navigation */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: rgba(15, 23, 42, 0.95); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #334155; }
+        .logo { font-size: 1.4rem; font-weight: 900; color: white; letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; }
+        .logo-icon { color: var(--primary-red); font-size: 1.8rem; }
+        .nav-call { background: var(--primary-red); color: white; padding: 12px 24px; text-decoration: none; font-weight: bold; border-radius: 6px; transition: background 0.3s; display: flex; align-items: center; gap: 8px; }
+        .nav-call:hover { background: var(--primary-red-hover); }
+
+        /* Hero Section */
+        .hero { padding: 100px 5%; text-align: center; background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95)), url('https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; }
+        .badge { display: inline-block; background: rgba(245, 158, 11, 0.2); color: var(--accent); padding: 8px 16px; border-radius: 50px; font-weight: bold; font-size: 0.9rem; margin-bottom: 20px; border: 1px solid var(--accent); }
+        .hero h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 20px; line-height: 1.1; }
+        .hero p { font-size: 1.25rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 40px; }
+
+        .cta-group { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .btn-main { background: var(--primary-red); color: white; padding: 18px 40px; font-size: 1.3rem; font-weight: bold; text-decoration: none; border-radius: 8px; box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4); transition: transform 0.2s; display: flex; align-items: center; gap: 10px; }
+        .btn-main:hover { background: var(--primary-red-hover); transform: translateY(-2px); }
+        .btn-secondary { background: #334155; color: white; padding: 18px 40px; font-size: 1.3rem; font-weight: bold; text-decoration: none; border-radius: 8px; transition: background 0.2s; }
+        .btn-secondary:hover { background: #475569; }
+
+        /* Services */
+        .services { padding: 80px 5%; background: var(--bg-dark); text-align: center; }
+        .services h2 { font-size: 2.5rem; margin-bottom: 50px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .card { background: var(--bg-card); padding: 40px 30px; border-radius: 12px; border: 1px solid #334155; text-align: left; transition: transform 0.3s, border-color 0.3s; }
+        .card:hover { transform: translateY(-5px); border-color: var(--primary-red); }
+        .card h3 { font-size: 1.3rem; color: white; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .card p { color: var(--text-muted); font-size: 1rem; }
+
+        /* Why Choose Us */
+        .why-us { padding: 80px 5%; background: var(--bg-card); text-align: center; }
+        .why-us h2 { font-size: 2.5rem; margin-bottom: 20px; }
+        .why-us p { font-size: 1.2rem; color: var(--text-muted); max-width: 800px; margin: 0 auto; }
+
+        /* Footer */
+        footer { background: #020617; padding: 40px 5%; text-align: center; border-top: 1px solid #1e293b; }
+        .footer-contact { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-bottom: 20px; }
+        .footer-contact a { color: var(--text-light); text-decoration: none; font-size: 1.1rem; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        .footer-contact a:hover { color: var(--primary-red); }
+        footer p { color: var(--text-muted); font-size: 0.9rem; margin-top: 20px; }
+
+        @media (max-width: 768px) {
+            nav { flex-direction: column; gap: 15px; padding: 15px; }
+            .hero h1 { font-size: 2.5rem; }
+            .btn-main, .btn-secondary { width: 100%; justify-content: center; }
+            .footer-contact { flex-direction: column; gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">
+            <span class="logo-icon">🔧</span> My Mobile Mechanic
+        </div>
+        <a href="tel:+18509995918" class="nav-call">
+            📞 (850) 999-5918
+        </a>
+    </nav>
+
+    <section class="hero">
+        <div class="badge">⭐ 5.0 Rated Auto Repair Shop</div>
+        <h1>We Fix Your Car.<br>Wherever You Are.</h1>
+        <p>Skip the tow truck and the shop wait times. My Mobile Mechanic of Tallahassee brings professional auto repair directly to your driveway or office.</p>
+        
+        <div class="cta-group">
+            <a href="tel:+18509995918" class="btn-main">
+                📞 Call Now
+            </a>
+            <a href="mailto:info@mymobilemechanic.org" class="btn-secondary">
+                ✉️ Request Service
+            </a>
+        </div>
+    </section>
+
+    <section class="services">
+        <h2>Our Mobile Services</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>🔍 Diagnostics</h3>
+                <p>Check engine light on? We bring advanced diagnostic tools to your location to find the exact issue fast.</p>
+            </div>
+            <div class="card">
+                <h3>🛑 Brake Repair</h3>
+                <p>Squealing brakes? We replace pads, rotors, and calipers right in your driveway.</p>
+            </div>
+            <div class="card">
+                <h3>🛢️ Oil Changes & Maintenance</h3>
+                <p>Routine maintenance without the hassle. We handle oil changes, fluids, and filters on-site.</p>
+            </div>
+            <div class="card">
+                <h3>🔋 Battery & Alternator</h3>
+                <p>Car won't start? We test and replace batteries and alternators so you can get back on the road.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="why-us">
+        <h2>Why Choose Us?</h2>
+        <p>Serving Tallahassee 7 days a week (7:00 AM - 8:00 PM). We save you the time and money of towing your vehicle to a shop. Honest mechanics, transparent pricing, and unbeatable convenience.</p>
+    </section>
+
+    <footer>
+        <div class="footer-contact">
+            <a href="tel:+18509995918">📞 (850) 999-5918</a>
+            <a href="mailto:info@mymobilemechanic.org">✉️ info@mymobilemechanic.org</a>
+        </div>
+        <p>Serving Tallahassee, FL and surrounding areas.</p>
+        <p style="margin-top: 10px;">&copy; 2026 My Mobile Mechanic of Tallahassee. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
