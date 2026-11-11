@@ -3,42 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tim's Auto Repair | Mobile Mechanic</title>
+    <title>Tim's Auto Repair | Tallahassee, FL</title>
     <style>
-        :root { --navy: #0f172a; --orange: #ea580c; --gray-bg: #f8fafc; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
-        body { background-color: var(--gray-bg); color: #334155; }
-        .top-bar { background: var(--navy); color: white; text-align: center; padding: 10px; font-size: 0.9rem; }
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: #fff; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-        .logo { font-size: 1.5rem; font-weight: 800; color: var(--navy); }
-        .nav-call { background: var(--orange); color: white; padding: 12px 25px; text-decoration: none; font-weight: bold; border-radius: 8px; font-size: 1.1rem; }
-        .hero { padding: 100px 5%; text-align: center; }
-        .hero h1 { font-size: 3.5rem; font-weight: 900; color: var(--navy); margin-bottom: 20px; }
-        .hero p { font-size: 1.25rem; max-width: 700px; margin: 0 auto 40px; }
-        .main-cta { display: inline-block; background: var(--orange); color: white; padding: 20px 50px; font-size: 1.5rem; font-weight: bold; text-decoration: none; border-radius: 10px; box-shadow: 0 10px 25px rgba(234, 88, 12, 0.4); }
-        .services { padding: 80px 5%; background: #fff; text-align: center; }
-        footer { background: #020617; color: #94a3b8; padding: 40px 5%; text-align: center; }
+        :root {
+            --bg-dark: #1a1a1a;
+            --bg-card: #2a2a2a;
+            --orange: #f97316;
+            --orange-hover: #ea580c;
+            --text-light: #f8fafc;
+            --text-muted: #a1a1aa;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        
+        body { background-color: var(--bg-dark); color: var(--text-light); line-height: 1.6; }
+
+        /* Navigation */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: #000000; position: sticky; top: 0; z-index: 100; border-bottom: 2px solid var(--orange); }
+        .logo { font-size: 1.5rem; font-weight: 900; color: white; letter-spacing: -0.5px; text-transform: uppercase; display: flex; align-items: center; gap: 10px;}
+        .logo span { color: var(--orange); }
+        .nav-call { background: var(--orange); color: white; padding: 12px 24px; text-decoration: none; font-weight: bold; border-radius: 4px; transition: background 0.3s; display: flex; align-items: center; gap: 8px; font-size: 1.1rem;}
+        .nav-call:hover { background: var(--orange-hover); }
+
+        /* Hero Section */
+        .hero { padding: 100px 5%; text-align: center; background: linear-gradient(rgba(26, 26, 26, 0.9), rgba(26, 26, 26, 0.95)), url('https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; }
+        
+        .rating-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(249, 115, 22, 0.15); color: var(--orange); padding: 8px 16px; border-radius: 50px; font-weight: bold; font-size: 0.95rem; margin-bottom: 25px; border: 1px solid var(--orange); }
+        .hero h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 20px; line-height: 1.1; }
+        .hero p { font-size: 1.25rem; color: var(--text-muted); max-width: 750px; margin: 0 auto 40px; }
+
+        .btn-main { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: var(--orange); color: white; padding: 18px 45px; font-size: 1.4rem; font-weight: bold; text-decoration: none; border-radius: 6px; box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4); transition: transform 0.2s, background 0.2s; }
+        .btn-main:hover { background: var(--orange-hover); transform: translateY(-2px); }
+
+        /* Features/Services */
+        .services { padding: 80px 5%; background: var(--bg-dark); text-align: center; }
+        .services h2 { font-size: 2.5rem; margin-bottom: 50px; text-transform: uppercase; font-weight: 900; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .card { background: var(--bg-card); padding: 40px 30px; border-radius: 8px; border-top: 4px solid var(--orange); text-align: left; transition: transform 0.3s; }
+        .card:hover { transform: translateY(-5px); }
+        .card h3 { font-size: 1.3rem; color: white; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; text-transform: uppercase; }
+        .card p { color: var(--text-muted); font-size: 1rem; }
+
+        /* Family Owned Section */
+        .about { padding: 80px 5%; background: #000000; text-align: center; }
+        .about h2 { font-size: 2rem; margin-bottom: 20px; }
+        .about p { font-size: 1.2rem; color: var(--text-muted); max-width: 800px; margin: 0 auto; }
+
+        /* Footer */
+        footer { background: #111; padding: 40px 5%; text-align: center; border-top: 1px solid #333; }
+        footer p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px; }
+        footer strong { color: white; font-size: 1.2rem; }
+
+        @media (max-width: 768px) {
+            nav { flex-direction: column; gap: 15px; padding: 15px; }
+            .hero h1 { font-size: 2.5rem; }
+            .btn-main { width: 100%; font-size: 1.2rem; padding: 15px; }
+        }
     </style>
 </head>
 <body>
-    <div class="top-bar">SERVING THE LOCAL COMMUNITY</div>
+
     <nav>
-        <div class="logo">Tim's Auto Repair</div>
-        <a href="tel:+18509011916" class="nav-call">📞 +1 850-901-1916</a>
+        <div class="logo">
+            <span>Tim's</span> Auto Repair
+        </div>
+        <a href="tel:+18509011916" class="nav-call">
+            📞 (850) 901-1916
+        </a>
     </nav>
+
     <section class="hero">
-        <h1>Your Trusted Mobile Mechanic Experts</h1>
-        <p>Fast, reliable, and professional service. Don't replace it—let us fix it right the first time.</p>
-        <a href="tel:+18509011916" class="main-cta">Call Now: +1 850-901-1916</a>
+        <div class="rating-badge">
+            ⭐⭐⭐⭐⭐ 4.7 Stars (45 Google Reviews)
+        </div>
+        <h1>Tallahassee's Trusted<br>Family-Owned Auto Shop</h1>
+        <p>We do our best to give you the best deal in town. From brakes and A/C to full engine replacements, our professional technicians keep your car, truck, or SUV running smoothly.</p>
+        
+        <a href="tel:+18509011916" class="btn-main">
+            📞 Call Now for a Quote
+        </a>
     </section>
+
     <section class="services">
-        <h2>Why Choose Us?</h2>
-        <p style="margin-top: 20px; font-size: 1.2rem;">We provide top-tier Mobile Mechanic with a focus on honesty and quality workmanship.</p>
+        <h2>Our Services</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>🛑 Brake Repair</h3>
+                <p>Complete brake inspections, pad replacements, and rotor resurfacing to keep you safe on the road.</p>
+            </div>
+            <div class="card">
+                <h3>❄️ Air Conditioning</h3>
+                <p>Stay cool in the Florida heat. We diagnose and repair A/C systems for cars, trucks, and SUVs.</p>
+            </div>
+            <div class="card">
+                <h3>⚙️ Transmissions</h3>
+                <p>Expert transmission repair and maintenance to ensure smooth shifting and long-term reliability.</p>
+            </div>
+            <div class="card">
+                <h3>🔧 Engine Replacement</h3>
+                <p>Major engine issues? We provide professional engine replacement services with honest pricing.</p>
+            </div>
+        </div>
     </section>
+
+    <section class="about">
+        <h2>Small Shop. Big Heart.</h2>
+        <p>We are a small, family-owned and operated auto shop. We look forward to serving you and your family with the best deals and honest, reliable service in Tallahassee.</p>
+    </section>
+
     <footer>
         <strong>Tim's Auto Repair</strong>
-        <p>Phone: +1 850-901-1916</p>
+        <p style="margin-top: 10px;">1322 N Lake Bradford Rd, Tallahassee, FL 32304</p>
+        <p>Phone: <a href="tel:+18509011916" style="color: var(--orange); text-decoration: none; font-weight: bold;">(850) 901-1916</a></p>
         <p style="margin-top: 20px;">&copy; 2026 Tim's Auto Repair. All rights reserved.</p>
     </footer>
+
 </body>
 </html>
