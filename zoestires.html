@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoe's Mobile Tire Services | Tallahassee, FL</title>
+    <style>
+        :root {
+            --bg-dark: #111827;
+            --bg-card: #1f2937;
+            --yellow: #eab308;
+            --yellow-hover: #ca8a04;
+            --text-light: #f3f4f6;
+            --text-muted: #9ca3af;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        
+        body { background-color: var(--bg-dark); color: var(--text-light); line-height: 1.6; }
+
+        /* Navigation */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: #000000; position: sticky; top: 0; z-index: 100; border-bottom: 3px solid var(--yellow); }
+        .logo { font-size: 1.4rem; font-weight: 900; color: white; display: flex; align-items: center; gap: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .logo-icon { color: var(--yellow); font-size: 1.6rem; }
+        .nav-call { background: var(--yellow); color: #000; padding: 12px 24px; text-decoration: none; font-weight: 900; border-radius: 4px; transition: background 0.3s; display: flex; align-items: center; gap: 8px; font-size: 1.1rem; }
+        .nav-call:hover { background: var(--yellow-hover); }
+
+        /* Hero Section */
+        .hero { padding: 120px 5%; text-align: center; background: linear-gradient(rgba(17, 24, 39, 0.9), rgba(17, 24, 39, 0.95)), url('https://images.unsplash.com/photo-1578844251758-2f71da64c96f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; }
+        
+        .hero h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 15px; line-height: 1.1; text-transform: uppercase; }
+        .hero h1 span { color: var(--yellow); }
+        .hero p { font-size: 1.3rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 40px; font-weight: 500; }
+        
+        .tagline { display: inline-block; background: rgba(234, 179, 8, 0.15); color: var(--yellow); padding: 10px 20px; border-radius: 4px; font-weight: bold; font-size: 1rem; margin-bottom: 25px; border: 1px solid var(--yellow); text-transform: uppercase; letter-spacing: 1px; }
+
+        .btn-main { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: var(--yellow); color: #000; padding: 20px 50px; font-size: 1.5rem; font-weight: 900; text-decoration: none; border-radius: 6px; box-shadow: 0 4px 15px rgba(234, 179, 8, 0.3); transition: transform 0.2s, background 0.2s; }
+        .btn-main:hover { background: var(--yellow-hover); transform: translateY(-2px); }
+
+        /* Services */
+        .services { padding: 80px 5%; background: var(--bg-dark); text-align: center; }
+        .services h2 { font-size: 2.5rem; margin-bottom: 50px; text-transform: uppercase; font-weight: 900; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .card { background: var(--bg-card); padding: 40px 30px; border-radius: 8px; border-left: 4px solid var(--yellow); text-align: left; transition: transform 0.3s; }
+        .card:hover { transform: translateY(-5px); }
+        .card h3 { font-size: 1.3rem; color: white; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; text-transform: uppercase; }
+        .card p { color: var(--text-muted); font-size: 1rem; }
+
+        /* Footer */
+        footer { background: #000000; padding: 40px 5%; text-align: center; border-top: 1px solid #333; }
+        footer p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px; }
+        footer strong { color: white; font-size: 1.2rem; }
+
+        @media (max-width: 768px) {
+            nav { flex-direction: column; gap: 15px; padding: 15px; }
+            .hero h1 { font-size: 2.5rem; }
+            .btn-main { width: 100%; font-size: 1.2rem; padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">
+            <span class="logo-icon">🛞</span> Zoe's Mobile Tire
+        </div>
+        <a href="tel:+19046991350" class="nav-call">
+            📞 904-699-1350
+        </a>
+    </nav>
+
+    <section class="hero">
+        <div class="tagline">"Power is NOTHING without CONTROL"</div>
+        <h1>Tallahassee's Best<br><span>Mobile Tire Service</span></h1>
+        <p>Stranded on the side of the road or need new tires at home? We bring the BEST SELLING quality new and used tires directly to you.</p>
+        
+        <a href="tel:+19046991350" class="btn-main">
+            📞 Call Now For Service
+        </a>
+    </section>
+
+    <section class="services">
+        <h2>What We Bring To You</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>✨ New Tires</h3>
+                <p>Top-tier, brand-new tires delivered and installed right at your location. Quality you can trust.</p>
+            </div>
+            <div class="card">
+                <h3>🔧 Used Tires</h3>
+                <p>High-quality used tires for budget-conscious drivers. Inspected for safety and reliability.</p>
+            </div>
+            <div class="card">
+                <h3>🚨 Roadside Tire Changes</h3>
+                <p>Flat tire? Don't wait hours for a tow truck. We come to you, change the tire, and get you moving.</p>
+            </div>
+            <div class="card">
+                <h3>🛠️ Tire Repair</h3>
+                <p>Punctures and leaks fixed on the spot. Fast, professional, and convenient mobile repair.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <strong>Zoe's Mobile Tire Services</strong>
+        <p style="margin-top: 10px;">Serving Tallahassee, FL and surrounding areas.</p>
+        <p>Call or Text: <a href="tel:+19046991350" style="color: var(--yellow); text-decoration: none; font-weight: bold;">+1 904-699-1350</a></p>
+        <p style="margin-top: 20px;">&copy; 2026 Zoe's Mobile Tire Services. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
