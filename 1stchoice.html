@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1st Choice Appliance Repair | Daytona Beach, FL</title>
+    <style>
+        :root {
+            --navy: #0f172a;
+            --orange: #ea580c;
+            --orange-hover: #c2410c;
+            --gray-bg: #f8fafc;
+            --text-dark: #334155;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        
+        body { background-color: var(--gray-bg); color: var(--text-dark); line-height: 1.6; }
+
+        /* Top Trust Bar */
+        .top-bar { background: var(--navy); color: white; text-align: center; padding: 10px; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.5px; }
+        
+        /* Navigation */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: #ffffff; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--navy); display: flex; align-items: center; gap: 10px; }
+        .logo span { color: var(--orange); }
+        .nav-call { background: var(--orange); color: white; padding: 12px 25px; text-decoration: none; font-weight: bold; border-radius: 8px; font-size: 1.1rem; transition: background 0.3s; box-shadow: 0 4px 14px rgba(234, 88, 12, 0.3); }
+        .nav-call:hover { background: var(--orange-hover); transform: translateY(-2px); }
+
+        /* Hero Section */
+        .hero { padding: 100px 5%; text-align: center; background: linear-gradient(to bottom, #ffffff, var(--gray-bg)); }
+        .hero-badge { display: inline-block; background: #e0e7ff; color: #3730a3; padding: 8px 16px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
+        .hero h1 { font-size: 3.5rem; font-weight: 900; color: var(--navy); margin-bottom: 20px; line-height: 1.1; max-width: 900px; margin-left: auto; margin-right: auto; }
+        .hero p { font-size: 1.25rem; max-width: 700px; margin: 0 auto 40px; color: #64748b; }
+        
+        .main-cta { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: var(--orange); color: white; padding: 20px 50px; font-size: 1.5rem; font-weight: bold; text-decoration: none; border-radius: 10px; box-shadow: 0 10px 25px rgba(234, 88, 12, 0.4); transition: all 0.3s; }
+        .main-cta:hover { background: var(--orange-hover); transform: translateY(-3px); box-shadow: 0 15px 30px rgba(234, 88, 12, 0.5); }
+
+        /* Services Section */
+        .services { padding: 80px 5%; background: #ffffff; text-align: center; }
+        .services h2 { font-size: 2.5rem; color: var(--navy); margin-bottom: 50px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .card { background: var(--gray-bg); padding: 40px 20px; border-radius: 12px; border: 1px solid #e2e8f0; transition: transform 0.3s; }
+        .card:hover { transform: translateY(-5px); border-color: var(--orange); }
+        .card h3 { font-size: 1.3rem; color: var(--navy); margin-bottom: 15px; }
+        .card p { color: #64748b; font-size: 0.95rem; }
+
+        /* Mid-page CTA */
+        .mid-cta { background: var(--navy); color: white; padding: 60px 5%; text-align: center; }
+        .mid-cta h2 { font-size: 2rem; margin-bottom: 20px; }
+        .mid-cta p { font-size: 1.1rem; color: #cbd5e1; margin-bottom: 30px; }
+
+        /* Footer */
+        footer { background: #020617; color: #94a3b8; padding: 40px 5%; text-align: center; font-size: 0.9rem; }
+        footer strong { color: white; display: block; margin-bottom: 5px; font-size: 1.2rem; }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            nav { flex-direction: column; gap: 15px; padding: 15px; }
+            .hero h1 { font-size: 2.5rem; }
+            .main-cta { width: 100%; font-size: 1.2rem; padding: 15px; }
+            .top-bar { font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        SERVING DAYTONA BEACH, PORT ORANGE & SURROUNDING AREAS
+    </div>
+
+    <nav>
+        <div class="logo">
+            <span>1st</span> Choice Appliance Repair
+        </div>
+        <a href="tel:+13863811207" class="nav-call">
+            📞 (386) 381-1207
+        </a>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-badge">Fast, Reliable, Local</div>
+        <h1>Your 1st Choice for Appliance Repair</h1>
+        <p>We specialize in fixing refrigerators, washers, dryers, ranges, ovens, ice makers, and HVAC units. Don't replace it—let us repair it!</p>
+        
+        <a href="tel:+13863811207" class="main-cta">
+            Call Now: (386) 381-1207
+        </a>
+    </section>
+
+    <section class="services">
+        <h2>What We Fix</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>🧊 Refrigerators & Ice Makers</h3>
+                <p>Keeping your food cold and your ice flowing. We service all major brands and high-end models.</p>
+            </div>
+            <div class="card">
+                <h3>🧺 Washers & Dryers</h3>
+                <p>From leaking washers to dryers that won't heat up, we get your laundry routine back on track.</p>
+            </div>
+            <div class="card">
+                <h3>🍳 Ranges, Ovens & Cooktops</h3>
+                <p>Whether it's electric or gas, we diagnose and fix heating elements, igniters, and control boards.</p>
+            </div>
+            <div class="card">
+                <h3>❄️ HVAC & Air Conditioning</h3>
+                <p>Expertise in heating and cooling units to keep your home comfortable year-round.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="mid-cta">
+        <h2>Appliance Broken? We Can Help.</h2>
+        <p>Skip the hassle of buying a new machine. Call us for fast, local service in Daytona Beach.</p>
+        <a href="tel:+13863811207" class="main-cta" style="font-size: 1.2rem; padding: 15px 40px;">
+            Call (386) 381-1207
+        </a>
+    </section>
+
+    <footer>
+        <strong>1st Choice Appliance Repair</strong>
+        <p>Serving Daytona Beach, Port Orange, and surrounding communities.</p>
+        <p style="margin-top: 20px;">&copy; 2026 1st Choice Appliance Repair. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
