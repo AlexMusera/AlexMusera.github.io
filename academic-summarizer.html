@@ -380,7 +380,10 @@
 
       if (notesRes.result && !notesRes.result.startsWith('Error')) {
         notesEl.innerHTML = `<div class="note-item"><span class="page-tag">AI Strict-Source Summary</span><div style="white-space:pre-wrap;">${notesRes.result}</div></div>`;
-      }
+      }  else {
+          // THIS WILL FORCE THE ERROR TO SHOW UP
+          alert("AI FAILED: " + notesRes.result); 
+	  }
       if (quizRes.result && !quizRes.result.startsWith('Error')) {
         quizEl.innerHTML = `<div class="qa-item"><span class="page-tag">AI Exam Practice Quiz</span><div style="white-space:pre-wrap;">${quizRes.result}</div></div>`;
       }
