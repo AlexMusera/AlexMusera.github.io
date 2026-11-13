@@ -370,31 +370,39 @@
     statusEl.textContent = 'Generating AI study guide strictly from your PDF...';
     const fullTextWithPages = extractedPages.map(p => `[Page ${p.pageNum}] ${p.text}`).join('\n\n');
 
-    try {
-      const [notesRes, quizRes] = await Promise.all([
-        fetch(WORKER_API_URL, {
+           // 1. Fetch Notes First
+        statusEl.textContent = 'Generating AI Study Notes...';
+        const notesRes = await fetch(WORKER_API_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ pdfText: fullTextWithPages, mode: 'notes' })
-        }).then(r => r.json()),
-        fetch(WORKER_API_URL, {
+        }).then(r => r.json());
+
+        // Update Notes UI immediately
+        if (notesRes.result && !notesRes.result.startsWith('Error')) {
+          notesEl.innerHTML = `<div class="note-item" style="border-left-color: var(--green);"><span class="page-tag" style="color:var(--green);">AI Study Notes</span><div class="ai-markdown">${marked.parse(notesRes.result)}</div></div>`;
+        } else {
+          notesEl.innerHTML = `<div class="note-item" style="border-left-color: #ef4444;"><span class="page-tag" style="color:#ef4444;">AI Error</span><p>${notesRes.result}</p></div>` + notesEl.innerHTML;
+        }
+
+        // 2. Wait 2 seconds (to avoid Groq free tier rate limits), then fetch Quiz
+        statusEl.textContent = 'Generating AI Quiz (Please wait)...';
+        await new Promise(resolve => setTimeout(resolve, 2000)); 
+
+        const quizRes = await fetch(WORKER_API_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ pdfText: fullTextWithPages, mode: 'quiz' })
-        }).then(r => r.json())
-      ]);
+        }).then(r => r.json());
 
-             if (notesRes.result && !notesRes.result.startsWith('Error')) {
-          notesEl.innerHTML = `<div class="note-item" style="border-left-color: var(--green);"><span class="page-tag" style="color:var(--green);">AI Study Notes</span><div class="ai-markdown">${marked.parse(notesRes.result)}</div></div>`;
-        } else {
-          notesEl.innerHTML = `<div class="note-item" style="border-left-color: #ef4444;"><span class="page-tag" style="color:#ef4444;">AI Error</span><p>${notesRes.result}</p><p style="font-size:0.8rem; margin-top:0.5rem; color:var(--muted);">Showing local extraction instead.</p></div>` + notesEl.innerHTML;
-        }
-
+        // Update Quiz UI immediately
         if (quizRes.result && !quizRes.result.startsWith('Error')) {
           quizEl.innerHTML = `<div class="qa-item" style="border-left-color: var(--green);"><span class="page-tag" style="color:var(--green);">AI Self-Test Quiz</span><div class="ai-markdown">${marked.parse(quizRes.result)}</div></div>`;
-        }
-      statusEl.textContent = `AI Study Guide ready (${extractedPages.length} pages from "${selectedFile.name}").`;
-    } catch (err) {
+        } else {
+          quizEl.innerHTML = `<div class="qa-item" style="border-left-color: #ef4444;"><span class="page-tag" style="color:#ef4444;">AI Quiz Error</span><p>${quizRes.result}</p></div>` + quizEl.innerHTML;
+        } try {
+		
+      catch (err) {
       console.error("Worker error:", err);
       statusEl.textContent = `Loaded ${extractedPages.length} pages (Local Strict Mode active - Worker offline).`;
     }
