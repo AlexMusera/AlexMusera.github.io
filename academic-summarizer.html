@@ -418,7 +418,38 @@
       });
 
       defEl.innerHTML = defs.length ? defs.slice(0, 15).map(d => `<div class="note-item"><span class="page-tag">Definition • Page ${d.pageNum}</span><p>${d.s}</p></div>`).join('') : '<p style="color:var(--muted);">No explicit definitions detected in this PDF.</p>';
-    }
+         // 2. AI Upgrade via Cloudflare Worker
+      if (!WORKER_API_URL || WORKER_API_URL.includes('YOUR-WORKER-NAME')) return;
+
+      statusEl.textContent = 'Generating AI study guide strictly from your PDF...';
+      const fullTextWithPages = extractedPages.map(p => `[Page ${p.pageNum}] ${p.text}`).join('\n\n');
+
+      try {
+        const [notesRes, quizRes] = await Promise.all([
+          fetch(WORKER_API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ pdfText: fullTextWithPages, mode: 'notes' })
+          }).then(r => r.json()),
+          fetch(WORKER_API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ pdfText: fullTextWithPages, mode: 'quiz' })
+          }).then(r => r.json())
+        ]);
+
+        if (notesRes.result && !notesRes.result.startsWith('Error')) {
+          notesEl.innerHTML = `<div class="note-item"><span class="page-tag">AI Strict-Source Summary</span><div style="white-space:pre-wrap;">${notesRes.result}</div></div>`;
+        }
+        if (quizRes.result && !quizRes.result.startsWith('Error')) {
+          quizEl.innerHTML = `<div class="qa-item"><span class="page-tag">AI Exam Practice Quiz</span><div style="white-space:pre-wrap;">${quizRes.result}</div></div>`;
+        }
+        statusEl.textContent = `AI Study Guide ready (${extractedPages.length} pages from "${selectedFile.name}").`;
+      } catch (err) {
+        console.error("Worker error:", err);
+        statusEl.textContent = `Loaded ${extractedPages.length} pages (Local Strict Mode active - Worker offline).`;
+      }
+	   }
 
     function runSearch() {
       const q = document.getElementById('searchInput').value.trim();
