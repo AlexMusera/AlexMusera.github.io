@@ -8,6 +8,7 @@
   <title>Strict-Source Academic Summarizer</title>
  <!-- Load the main PDF.js library -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 	<!-- Set the path to the worker script (this is crucial for performance) -->
 	<script>
 	  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
@@ -90,6 +91,11 @@
       .status-bar, .search-row { flex-direction: row; align-items: center; }
       .status-bar .btn, .search-row .btn { width: auto; white-space: nowrap; }
     }
+	      /* Markdown Styling for AI Output */
+    .ai-markdown h1, .ai-markdown h2, .ai-markdown h3 { margin-top: 0.8rem; margin-bottom: 0.4rem; font-size: 1.05rem; color: var(--text); }
+    .ai-markdown ul, .ai-markdown ol { margin-left: 1.2rem; margin-bottom: 0.8rem; }
+    .ai-markdown li { margin-bottom: 0.25rem; }
+    .ai-markdown strong { color: var(--accent); }
   </style>
 </head>
 <body>
@@ -378,15 +384,15 @@
         }).then(r => r.json())
       ]);
 
-      if (notesRes.result && !notesRes.result.startsWith('Error')) {
-        notesEl.innerHTML = `<div class="note-item"><span class="page-tag">AI Strict-Source Summary</span><div style="white-space:pre-wrap;">${notesRes.result}</div></div>`;
-      }  else {
-          // THIS WILL FORCE THE ERROR TO SHOW UP
-          alert("AI FAILED: " + notesRes.result); 
-	  }
-      if (quizRes.result && !quizRes.result.startsWith('Error')) {
-        quizEl.innerHTML = `<div class="qa-item"><span class="page-tag">AI Exam Practice Quiz</span><div style="white-space:pre-wrap;">${quizRes.result}</div></div>`;
-      }
+             if (notesRes.result && !notesRes.result.startsWith('Error')) {
+          notesEl.innerHTML = `<div class="note-item" style="border-left-color: var(--green);"><span class="page-tag" style="color:var(--green);">AI Study Notes</span><div class="ai-markdown">${marked.parse(notesRes.result)}</div></div>`;
+        } else {
+          notesEl.innerHTML = `<div class="note-item" style="border-left-color: #ef4444;"><span class="page-tag" style="color:#ef4444;">AI Error</span><p>${notesRes.result}</p><p style="font-size:0.8rem; margin-top:0.5rem; color:var(--muted);">Showing local extraction instead.</p></div>` + notesEl.innerHTML;
+        }
+
+        if (quizRes.result && !quizRes.result.startsWith('Error')) {
+          quizEl.innerHTML = `<div class="qa-item" style="border-left-color: var(--green);"><span class="page-tag" style="color:var(--green);">AI Self-Test Quiz</span><div class="ai-markdown">${marked.parse(quizRes.result)}</div></div>`;
+        }
       statusEl.textContent = `AI Study Guide ready (${extractedPages.length} pages from "${selectedFile.name}").`;
     } catch (err) {
       console.error("Worker error:", err);
