@@ -211,320 +211,239 @@
  
 
 
-   <script>
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cloudflare.com';
+  <script>
+  // FIXED: Point to the correct Worker file
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-    const MAX_FREE_PDFS = 5;
-    let pdfsUsed = parseInt(localStorage.getItem('pdfsUsed') || '0', 10);
-    let isPro = localStorage.getItem('isProUser') === 'true';
-    let extractedPages = [];
-    let selectedFile = null;
+  const MAX_FREE_PDFS = 5;
+  let pdfsUsed = parseInt(localStorage.getItem('pdfsUsed') || '0', 10);
+  let isPro = localStorage.getItem('isProUser') === 'true';
+  let extractedPages = [];
+  let selectedFile = null;
 
-    function updateUsageUI() {
-      const pill = document.getElementById('usagePill');
-      if (isPro) {
-        pill.innerHTML = 'Plan: <span>Unlimited Pro ★</span>';
-      } else {
-        const left = Math.max(0, MAX_FREE_PDFS - pdfsUsed);
-        pill.innerHTML = `Free Plan: <span>${left}</span>/${MAX_FREE_PDFS} PDFs left`;
-      }
+  function updateUsageUI() {
+    const pill = document.getElementById('usagePill');
+    if (isPro) {
+      pill.innerHTML = 'Plan: <span>Unlimited Pro ★</span>';
+    } else {
+      const left = Math.max(0, MAX_FREE_PDFS - pdfsUsed);
+      pill.innerHTML = `Free Plan: <span>${left}</span>/${MAX_FREE_PDFS} PDFs left`;
     }
-    updateUsageUI();
+  }
+  updateUsageUI();
 
-    function openPricingModal(limitHit = false) {
-      document.getElementById('modalTitle').textContent = limitHit
-        ? "You've Used All 5 Free PDFs!"
-        : "Study Smarter All Semester";
-      document.getElementById('pricingModal').classList.remove('hidden');
+  function openPricingModal(limitHit = false) {
+    document.getElementById('modalTitle').textContent = limitHit
+      ? "You've Used All 5 Free PDFs!"
+      : "Study Smarter All Semester";
+    document.getElementById('pricingModal').classList.remove('hidden');
+  }
+
+  function closePricingModal() {
+    document.getElementById('pricingModal').classList.add('hidden');
+  }
+
+  function selectPlan(plan) {
+    const isSem = plan === 'semester';
+    document.getElementById('optSemester').style.border = isSem ? '2px solid var(--accent)' : '1px solid var(--border)';
+    document.getElementById('optMonthly').style.border = !isSem ? '2px solid var(--accent)' : '1px solid var(--border)';
+
+    const price = isSem ? '$16.99' : '$5.99';
+    const crypto = isSem ? '16.99 USDT/USDC' : '5.99 USDT/USDC';
+
+    document.getElementById('selectedAmountLabel').textContent = price;
+    document.getElementById('selectedAmountText').textContent = price + ' USD';
+    document.getElementById('portalBtnPrice').textContent = price;
+    document.getElementById('cryptoAmountText').textContent = crypto;
+  }
+
+  // FIXED: Correctly grabbing the File object, not the FileList
+  document.getElementById('pdfUpload').addEventListener('change', (e) => {
+    if (e.target.files.length > 0) {
+      selectedFile = e.target.files[0]; // Get the actual file
+      document.getElementById('fileStatus').textContent = `Ready: ${selectedFile.name}`;
+      document.getElementById('processBtn').disabled = false;
     }
+  });
 
-    function closePricingModal() {
-      document.getElementById('pricingModal').classList.add('hidden');
-    }
-
-    function toggleBilling() {
-      const isSemester = document.getElementById('billingToggle').checked;
-      document.getElementById('labelSemester').style.color = isSemester ? 'var(--text)' : 'var(--muted)';
-      document.getElementById('labelMonthly').style.color = isSemester ? 'var(--muted)' : 'var(--text)';
-      document.getElementById('planBadge').textContent = isSemester ? 'Semester Pass' : 'Monthly Flex';
-      document.getElementById('planPrice').innerHTML = isSemester ? '$16.99 <span>/ 4 months</span>' : '$5.99 <span>/ month</span>';
-      document.getElementById('planSubtext').textContent = isSemester
-        ? 'One-time payment through finals week. No recurring charge.'
-        : 'Less than one iced coffee. Cancel anytime in two taps.';
-      document.getElementById('checkoutBtn').textContent = isSemester
-        ? 'Unlock Semester Pass — $16.99'
-        : 'Unlock Monthly Pro — $5.99/mo';
-    }
-
-    function handleCheckout() {
-      const isSemester = document.getElementById('billingToggle').checked;
-      alert(`Redirecting to Apple Pay / Stripe Checkout (${isSemester ? '$16.99 Semester Pass' : '$5.99/mo Pro'})...`);
-    }
-
-    document.getElementById('pdfUpload').addEventListener('change', (e) => {
-      if (e.target.files.length > 0) {
-        selectedFile = e.target.files;
-        document.getElementById('fileStatus').textContent = `Ready: ${selectedFile.name}`;
-        document.getElementById('processBtn').disabled = false;
-      }
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
     });
+  });
 
-    document.querySelectorAll('.tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-        tab.classList.add('active');
-        document.getElementById(tab.dataset.tab).classList.add('active');
-      });
-    });
-
-    document.getElementById('processBtn').addEventListener('click', async () => {
-      if (!selectedFile) return;
-      if (!isPro && pdfsUsed >= MAX_FREE_PDFS) {
-        openPricingModal(true);
-        return;
-      }
-
-      const btn = document.getElementById('processBtn');
-      const status = document.getElementById('fileStatus');
-      btn.disabled = true;
-      status.textContent = 'Extracting text strictly from PDF...';
-      extractedPages = [];
-
-      try {
-        const buf = await selectedFile.arrayBuffer();
-        const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
-        for (let i = 1; i <= pdf.numPages; i++) {
-          const page = await pdf.getPage(i);
-          const tc = await page.getTextContent();
-          const clean = tc.items.map(it => it.str).join(' ').replace(/\s+/g, ' ').trim();
-          const sentences = clean.split(/(?<=[.?!])\s+/).map(s => s.trim()).filter(s => s.length > 35 && s.length < 400);
-          extractedPages.push({ pageNum: i, text: clean, sentences });
-        }
-
-        if (!isPro) {
-          pdfsUsed++;
-          localStorage.setItem('pdfsUsed', pdfsUsed);
-          updateUsageUI();
-        }
-
-        status.textContent = `Loaded ${pdf.numPages} pages from "${selectedFile.name}".`;
-        buildStudyGuide();
-        document.getElementById('searchCard').classList.remove('hidden');
-        document.getElementById('outputCard').classList.remove('hidden');
-      } catch (err) {
-        status.textContent = 'Error reading PDF: ' + err.message;
-      } finally {
-        btn.disabled = false;
-      }
-    });
-
-		const WORKER_API_URL = 'https://delicate-river-7a0a.anderkoller.workers.dev';
-       
-
-    async function buildStudyGuide() {
-      const notesEl = document.getElementById('notesTab');
-      const quizEl = document.getElementById('questionsTab');
-      const defEl = document.getElementById('definitionsTab');
-      const statusEl = document.getElementById('fileStatus');
-      notesEl.innerHTML = quizEl.innerHTML = defEl.innerHTML = '';
-
-      // 1. Instant local extraction (runs immediately + acts as offline/rate-limit fallback)
-      const stop = new Set(['the','and','that','have','for','not','with','you','this','but','from','they','will','one','all','would','there','their','what','about','which','when','make','can','like','time','just','know','take','into','year','your','good','some','could','them','other','than','then','now','only','come','its','over','also','after','use','two','how','our','work','first','well','way','even','new','because','any','these','most','are','was','were','been','being','has','had','does','did']);
-      const freq = {};
-      extractedPages.forEach(p => (p.text.toLowerCase().match(/\b[a-z]{4,}\b/g) || []).forEach(w => { if (!stop.has(w)) freq[w] = (freq[w] || 0) + 1; }));
-
-      let scored = [], defs = [];
-      extractedPages.forEach(p => p.sentences.forEach(s => {
-        const words = s.toLowerCase().match(/\b[a-z]{4,}\b/g) || [];
-        let score = words.reduce((acc, w) => acc + (freq[w] || 0), 0) / (words.length || 1);
-        scored.push({ pageNum: p.pageNum, s, score });
-        if (/\b(is defined as|refers to|means that|is a process|is the study of|is known as)\b/i.test(s)) defs.push({ pageNum: p.pageNum, s });
-      }));
-
-      const top = scored.sort((a, b) => b.score - a.score).slice(0, 15).sort((a, b) => a.pageNum - b.pageNum);
-      notesEl.innerHTML = top.length ? top.map(it => `<div class="note-item"><span class="page-tag">Page ${it.pageNum}</span><p>${it.s}</p></div>`).join('') : '<p style="color:var(--muted);">No selectable text found in PDF.</p>';
-
-      top.slice(0, 10).forEach((it, idx) => {
-        const words = it.s.match(/\b[A-Za-z]{6,}\b/g) || [];
-        if (words.length) {
-          const target = words.sort((a, b) => b.length - a.length)[0];
-          const masked = it.s.replace(new RegExp(`\\b${target}\\b`), '________');
-          quizEl.innerHTML += `<div class="qa-item"><span class="page-tag">Question ${idx + 1} • Page ${it.pageNum}</span><div class="qa-question">${masked}</div><button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('visible')">Tap to Reveal Answer</button><div class="qa-answer"><strong>From PDF:</strong> ${target}</div></div>`;
-        }
-      });
-
-      defEl.innerHTML = defs.length ? defs.slice(0, 15).map(d => `<div class="note-item"><span class="page-tag">Definition • Page ${d.pageNum}</span><p>${d.s}</p></div>`).join('') : '<p style="color:var(--muted);">No explicit definitions detected in this PDF.</p>';
-
-      // 2. Strict-Source AI Upgrade via your Cloudflare Worker
-      if (!WORKER_API_URL || WORKER_API_URL.includes('YOUR-WORKER-NAME')) return;
-
-      statusEl.textContent = 'Generating study guide strictly from your PDF...';
-      const fullTextWithPages = extractedPages.map(p => `[Page ${p.pageNum}] ${p.text}`).join('\n\n');
-
-      try {
-        const [notesRes, quizRes] = await Promise.all([
-          fetch(WORKER_API_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ pdfText: fullTextWithPages, mode: 'notes' })
-          }).then(r => r.json()),
-          fetch(WORKER_API_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ pdfText: fullTextWithPages, mode: 'quiz' })
-          }).then(r => r.json())
-        ]);
-
-        if (notesRes.result && !notesRes.result.startsWith('Error')) {
-          notesEl.innerHTML = `<div class="note-item"><span class="page-tag">AI Strict-Source Summary</span><div style="white-space:pre-wrap;">${notesRes.result}</div></div>`;
-        }
-        if (quizRes.result && !quizRes.result.startsWith('Error')) {
-          quizEl.innerHTML = `<div class="qa-item"><span class="page-tag">AI Exam Practice Quiz</span><div style="white-space:pre-wrap;">${quizRes.result}</div></div>`;
-        }
-        statusEl.textContent = `AI Study Guide ready (${extractedPages.length} pages from "${selectedFile.name}").`;
-      } catch (err) {
-        statusEl.textContent = `Loaded ${extractedPages.length} pages (Local Strict Mode active).`;
-      }
+  document.getElementById('processBtn').addEventListener('click', async () => {
+    if (!selectedFile) return;
+    if (!isPro && pdfsUsed >= MAX_FREE_PDFS) {
+      openPricingModal(true);
+      return;
     }
 
-      const notesEl = document.getElementById('notesTab');
-      const quizEl = document.getElementById('questionsTab');
-      const defEl = document.getElementById('definitionsTab');
-      notesEl.innerHTML = quizEl.innerHTML = defEl.innerHTML = '';
+    const btn = document.getElementById('processBtn');
+    const status = document.getElementById('fileStatus');
+    btn.disabled = true;
+    status.textContent = 'Extracting text strictly from PDF...';
+    extractedPages = [];
 
-      const stop = new Set(['the','and','that','have','for','not','with','you','this','but','from','they','will','one','all','would','there','their','what','about','which','when','make','can','like','time','just','know','take','into','year','your','good','some','could','them','other','than','then','now','only','come','its','over','also','after','use','two','how','our','work','first','well','way','even','new','because','any','these','most','are','was','were','been','being','has','had','does','did']);
-      const freq = {};
-      extractedPages.forEach(p => (p.text.toLowerCase().match(/\b[a-z]{4,}\b/g) || []).forEach(w => { if (!stop.has(w)) freq[w] = (freq[w] || 0) + 1; }));
-
-      let scored = [], defs = [];
-      extractedPages.forEach(p => p.sentences.forEach(s => {
-        const words = s.toLowerCase().match(/\b[a-z]{4,}\b/g) || [];
-        let score = words.reduce((acc, w) => acc + (freq[w] || 0), 0) / (words.length || 1);
-        scored.push({ pageNum: p.pageNum, s, score });
-        if (/\b(is defined as|refers to|means that|is a process|is the study of|is known as)\b/i.test(s)) defs.push({ pageNum: p.pageNum, s });
-      }));
-
-      const top = scored.sort((a, b) => b.score - a.score).slice(0, 15).sort((a, b) => a.pageNum - b.pageNum);
-      notesEl.innerHTML = top.length ? top.map(it => `<div class="note-item"><span class="page-tag">Page ${it.pageNum}</span><p>${it.s}</p></div>`).join('') : '<p style="color:var(--muted);">No selectable text found in PDF.</p>';
-
-      top.slice(0, 10).forEach((it, idx) => {
-        const words = it.s.match(/\b[A-Za-z]{6,}\b/g) || [];
-        if (words.length) {
-          const target = words.sort((a, b) => b.length - a.length);
-          const masked = it.s.replace(new RegExp(`\\b${target}\\b`), '________');
-          quizEl.innerHTML += `<div class="qa-item"><span class="page-tag">Question ${idx + 1} • Page ${it.pageNum}</span><div class="qa-question">${masked}</div><button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('visible')">Tap to Reveal Answer</button><div class="qa-answer"><strong>From PDF:</strong> ${target}</div></div>`;
-        }
-      });
-
-      defEl.innerHTML = defs.length ? defs.slice(0, 15).map(d => `<div class="note-item"><span class="page-tag">Definition • Page ${d.pageNum}</span><p>${d.s}</p></div>`).join('') : '<p style="color:var(--muted);">No explicit definitions detected in this PDF.</p>';
-         // 2. AI Upgrade via Cloudflare Worker
-      if (!WORKER_API_URL || WORKER_API_URL.includes('YOUR-WORKER-NAME')) return;
-
-      statusEl.textContent = 'Generating AI study guide strictly from your PDF...';
-      const fullTextWithPages = extractedPages.map(p => `[Page ${p.pageNum}] ${p.text}`).join('\n\n');
-
-      try {
-        const [notesRes, quizRes] = await Promise.all([
-          fetch(WORKER_API_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ pdfText: fullTextWithPages, mode: 'notes' })
-          }).then(r => r.json()),
-          fetch(WORKER_API_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ pdfText: fullTextWithPages, mode: 'quiz' })
-          }).then(r => r.json())
-        ]);
-
-        if (notesRes.result && !notesRes.result.startsWith('Error')) {
-          notesEl.innerHTML = `<div class="note-item"><span class="page-tag">AI Strict-Source Summary</span><div style="white-space:pre-wrap;">${notesRes.result}</div></div>`;
-        }
-        if (quizRes.result && !quizRes.result.startsWith('Error')) {
-          quizEl.innerHTML = `<div class="qa-item"><span class="page-tag">AI Exam Practice Quiz</span><div style="white-space:pre-wrap;">${quizRes.result}</div></div>`;
-        }
-        statusEl.textContent = `AI Study Guide ready (${extractedPages.length} pages from "${selectedFile.name}").`;
-      } catch (err) {
-        console.error("Worker error:", err);
-        statusEl.textContent = `Loaded ${extractedPages.length} pages (Local Strict Mode active - Worker offline).`;
+    try {
+      const buf = await selectedFile.arrayBuffer();
+      const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const tc = await page.getTextContent();
+        const clean = tc.items.map(it => it.str).join(' ').replace(/\s+/g, ' ').trim();
+        const sentences = clean.split(/(?<=[.?!])\s+/).map(s => s.trim()).filter(s => s.length > 35 && s.length < 400);
+        extractedPages.push({ pageNum: i, text: clean, sentences });
       }
-	   }
 
-    function runSearch() {
-      const q = document.getElementById('searchInput').value.trim();
-      const res = document.getElementById('searchResults');
-      res.innerHTML = '';
-      if (!q) return;
-      const rx = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-      let hits = 0;
-      extractedPages.forEach(p => p.sentences.forEach(s => {
-        if (rx.test(s)) {
-          hits++;
-          res.innerHTML += `<div class="search-hit"><span class="page-tag">Page ${p.pageNum}</span><p>${s.replace(rx, '<mark>$1</mark>')}</p></div>`;
-        }
-      }));
-      if (!hits) res.innerHTML = `<p style="color:var(--muted);font-size:0.88rem;">No matches for "${q}" in this PDF.</p>`;
-    }
-
-    document.getElementById('searchBtn').addEventListener('click', runSearch);
-    document.getElementById('searchInput').addEventListener('keypress', e => { if (e.key === 'Enter') runSearch(); });
-
-    document.getElementById('copyBtn').addEventListener('click', async () => {
-      const txt = Array.from(document.querySelectorAll('#notesTab .note-item')).map(el => el.innerText.replace('\n', ': ')).join('\n\n');
-      await navigator.clipboard.writeText(txt);
-      const b = document.getElementById('copyBtn');
-      b.textContent = 'Copied!';
-      setTimeout(() => b.textContent = 'Copy Notes', 2000);
-    });
-
-    document.getElementById('exportBtn').addEventListener('click', () => {
-      const txt = Array.from(document.querySelectorAll('#notesTab .note-item')).map(el => el.innerText.replace('\n', ': ')).join('\n\n');
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(new Blob([`STUDY NOTES: ${selectedFile.name}\n\n${txt}`], { type: 'text/plain' }));
-      a.download = `${selectedFile.name.replace('.pdf', '')}_Notes.txt`;
-      a.click();
-    });
-	    // Set your secret unlock code(s) that you share with paying users
-    const VALID_PRO_CODES = ['STUDYPRO2026', 'VIPSTUDENT'];
-
-    function copyWallet() {
-      const addr = document.getElementById('walletAddr').value;
-      navigator.clipboard.writeText(addr);
-      alert('Wallet address copied to clipboard!');
-    }
-
-    function verifyProCode() {
-      const entered = document.getElementById('proCodeInput').value.trim().toUpperCase();
-      const status = document.getElementById('codeStatus');
-      if (VALID_PRO_CODES.includes(entered)) {
-        localStorage.setItem('isProUser', 'true');
-        isPro = true;
+      if (!isPro) {
+        pdfsUsed++;
+        localStorage.setItem('pdfsUsed', pdfsUsed);
         updateUsageUI();
-        status.style.color = 'var(--green)';
-        status.textContent = 'Pro Unlocked! Enjoy unlimited PDFs.';
-        setTimeout(() => closePricingModal(), 1200);
-      } else {
-        status.style.color = '#f87171';
-        status.textContent = 'Invalid code. Check your receipt or contact support.';
       }
+
+      status.textContent = `Loaded ${pdf.numPages} pages from "${selectedFile.name}".`;
+      buildStudyGuide();
+      document.getElementById('searchCard').classList.remove('hidden');
+      document.getElementById('outputCard').classList.remove('hidden');
+    } catch (err) {
+      status.textContent = 'Error reading PDF: ' + err.message;
+      console.error(err);
+    } finally {
+      btn.disabled = false;
     }
-	
-	    function selectPlan(plan) {
-      const isSem = plan === 'semester';
-      document.getElementById('optSemester').style.border = isSem ? '2px solid var(--accent)' : '1px solid var(--border)';
-      document.getElementById('optMonthly').style.border = !isSem ? '2px solid var(--accent)' : '1px solid var(--border)';
+  });
 
-      const price = isSem ? '$16.99' : '$5.99';
-      const crypto = isSem ? '16.99 USDT/USDC' : '5.99 USDT/USDC';
+  const WORKER_API_URL = 'https://delicate-river-7a0a.anderkoller.workers.dev';
 
-      document.getElementById('selectedAmountLabel').textContent = price;
-      document.getElementById('selectedAmountText').textContent = price + ' USD';
-      document.getElementById('portalBtnPrice').textContent = price;
-      document.getElementById('cryptoAmountText').textContent = crypto;
+  async function buildStudyGuide() {
+    const notesEl = document.getElementById('notesTab');
+    const quizEl = document.getElementById('questionsTab');
+    const defEl = document.getElementById('definitionsTab');
+    const statusEl = document.getElementById('fileStatus');
+    notesEl.innerHTML = quizEl.innerHTML = defEl.innerHTML = '';
+
+    // 1. Instant local extraction 
+    const stop = new Set(['the','and','that','have','for','not','with','you','this','but','from','they','will','one','all','would','there','their','what','about','which','when','make','can','like','time','just','know','take','into','year','your','good','some','could','them','other','than','then','now','only','come','its','over','also','after','use','two','how','our','work','first','well','way','even','new','because','any','these','most','are','was','were','been','being','has','had','does','did']);
+    const freq = {};
+    extractedPages.forEach(p => (p.text.toLowerCase().match(/\b[a-z]{4,}\b/g) || []).forEach(w => { if (!stop.has(w)) freq[w] = (freq[w] || 0) + 1; }));
+
+    let scored = [], defs = [];
+    extractedPages.forEach(p => p.sentences.forEach(s => {
+      const words = s.toLowerCase().match(/\b[a-z]{4,}\b/g) || [];
+      let score = words.reduce((acc, w) => acc + (freq[w] || 0), 0) / (words.length || 1);
+      scored.push({ pageNum: p.pageNum, s, score });
+      if (/\b(is defined as|refers to|means that|is a process|is the study of|is known as)\b/i.test(s)) defs.push({ pageNum: p.pageNum, s });
+    }));
+
+    const top = scored.sort((a, b) => b.score - a.score).slice(0, 15).sort((a, b) => a.pageNum - b.pageNum);
+    notesEl.innerHTML = top.length ? top.map(it => `<div class="note-item"><span class="page-tag">Page ${it.pageNum}</span><p>${it.s}</p></div>`).join('') : '<p style="color:var(--muted);">No selectable text found in PDF.</p>';
+
+    top.slice(0, 10).forEach((it, idx) => {
+      const words = it.s.match(/\b[A-Za-z]{6,}\b/g) || [];
+      if (words.length) {
+        const target = words.sort((a, b) => b.length - a.length)[0];
+        const masked = it.s.replace(new RegExp(`\\b${target}\\b`), '________');
+        quizEl.innerHTML += `<div class="qa-item"><span class="page-tag">Question ${idx + 1} • Page ${it.pageNum}</span><div class="qa-question">${masked}</div><button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('visible')">Tap to Reveal Answer</button><div class="qa-answer"><strong>From PDF:</strong> ${target}</div></div>`;
+      }
+    });
+
+    defEl.innerHTML = defs.length ? defs.slice(0, 15).map(d => `<div class="note-item"><span class="page-tag">Definition • Page ${d.pageNum}</span><p>${d.s}</p></div>`).join('') : '<p style="color:var(--muted);">No explicit definitions detected in this PDF.</p>';
+
+    // 2. AI Upgrade via Cloudflare Worker
+    if (!WORKER_API_URL || WORKER_API_URL.includes('YOUR-WORKER-NAME')) return;
+
+    statusEl.textContent = 'Generating AI study guide strictly from your PDF...';
+    const fullTextWithPages = extractedPages.map(p => `[Page ${p.pageNum}] ${p.text}`).join('\n\n');
+
+    try {
+      const [notesRes, quizRes] = await Promise.all([
+        fetch(WORKER_API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ pdfText: fullTextWithPages, mode: 'notes' })
+        }).then(r => r.json()),
+        fetch(WORKER_API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ pdfText: fullTextWithPages, mode: 'quiz' })
+        }).then(r => r.json())
+      ]);
+
+      if (notesRes.result && !notesRes.result.startsWith('Error')) {
+        notesEl.innerHTML = `<div class="note-item"><span class="page-tag">AI Strict-Source Summary</span><div style="white-space:pre-wrap;">${notesRes.result}</div></div>`;
+      }
+      if (quizRes.result && !quizRes.result.startsWith('Error')) {
+        quizEl.innerHTML = `<div class="qa-item"><span class="page-tag">AI Exam Practice Quiz</span><div style="white-space:pre-wrap;">${quizRes.result}</div></div>`;
+      }
+      statusEl.textContent = `AI Study Guide ready (${extractedPages.length} pages from "${selectedFile.name}").`;
+    } catch (err) {
+      console.error("Worker error:", err);
+      statusEl.textContent = `Loaded ${extractedPages.length} pages (Local Strict Mode active - Worker offline).`;
     }
+  }
 
+  function runSearch() {
+    const q = document.getElementById('searchInput').value.trim();
+    const res = document.getElementById('searchResults');
+    res.innerHTML = '';
+    if (!q) return;
+    const rx = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    let hits = 0;
+    extractedPages.forEach(p => p.sentences.forEach(s => {
+      if (rx.test(s)) {
+        hits++;
+        res.innerHTML += `<div class="search-hit"><span class="page-tag">Page ${p.pageNum}</span><p>${s.replace(rx, '<mark>$1</mark>')}</p></div>`;
+      }
+    }));
+    if (!hits) res.innerHTML = `<p style="color:var(--muted);font-size:0.88rem;">No matches for "${q}" in this PDF.</p>`;
+  }
 
-  </script>
+  document.getElementById('searchBtn').addEventListener('click', runSearch);
+  document.getElementById('searchInput').addEventListener('keypress', e => { if (e.key === 'Enter') runSearch(); });
+
+  document.getElementById('copyBtn').addEventListener('click', async () => {
+    const txt = Array.from(document.querySelectorAll('#notesTab .note-item')).map(el => el.innerText.replace('\n', ': ')).join('\n\n');
+    await navigator.clipboard.writeText(txt);
+    const b = document.getElementById('copyBtn');
+    b.textContent = 'Copied!';
+    setTimeout(() => b.textContent = 'Copy Notes', 2000);
+  });
+
+  document.getElementById('exportBtn').addEventListener('click', () => {
+    const txt = Array.from(document.querySelectorAll('#notesTab .note-item')).map(el => el.innerText.replace('\n', ': ')).join('\n\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([`STUDY NOTES: ${selectedFile.name}\n\n${txt}`], { type: 'text/plain' }));
+    a.download = `${selectedFile.name.replace('.pdf', '')}_Notes.txt`;
+    a.click();
+  });
+
+  const VALID_PRO_CODES = ['STUDYPRO2026', 'VIPSTUDENT'];
+
+  function copyWallet() {
+    const addr = document.getElementById('walletAddr').value;
+    navigator.clipboard.writeText(addr);
+    alert('Wallet address copied to clipboard!');
+  }
+
+  function verifyProCode() {
+    const entered = document.getElementById('proCodeInput').value.trim().toUpperCase();
+    const status = document.getElementById('codeStatus');
+    if (VALID_PRO_CODES.includes(entered)) {
+      localStorage.setItem('isProUser', 'true');
+      isPro = true;
+      updateUsageUI();
+      status.style.color = 'var(--green)';
+      status.textContent = 'Pro Unlocked! Enjoy unlimited PDFs.';
+      setTimeout(() => closePricingModal(), 1200);
+    } else {
+      status.style.color = '#f87171';
+      status.textContent = 'Invalid code. Check your receipt or contact support.';
+    }
+  }
+</script>
 </body>
 </html>
