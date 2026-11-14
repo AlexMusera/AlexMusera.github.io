@@ -69,42 +69,63 @@
     .close-modal { position: absolute; top: 1rem; right: 1rem; background: var(--input); border: 1px solid var(--border); color: var(--muted); width: 34px; height: 34px; border-radius: 50%; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
     .close-modal:hover { color: var(--text); }
 
-    .plan-box { background: var(--input); border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem; margin-bottom: 0.85rem; }
-    .plan-box.featured { border: 2px solid var(--accent); position: relative; }
-    .pop-pill { position: absolute; top: -11px; right: 14px; background: var(--accent); color: #fff; font-size: 0.68rem; font-weight: 700; padding: 0.15rem 0.6rem; border-radius: 999px; text-transform: uppercase; }
+    /* Modal Header */
+    .modal-header { text-align: center; margin-bottom: 1rem; }
+    .modal-header h2 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .modal-header p { font-size: 0.84rem; color: var(--muted); }
+    .modal-header span { color: var(--green); font-weight: 600; }
 
-    /* Novice Helper Box */
-    .novice-helper { background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.25); border-radius: 10px; padding: 0.8rem; margin-bottom: 1rem; }
-    .novice-helper p { font-size: 0.78rem; color: var(--text); margin-bottom: 0.25rem; line-height: 1.4; }
-    .novice-helper p:last-child { margin-bottom: 0; color: var(--muted); }
-    .novice-helper strong { color: #a5b4fc; }
+    /* Plan Selection */
+    .plans-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 1.25rem; }
+    .plan-opt { background: var(--input); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 0.8rem; cursor: pointer; text-align: center; transition: 0.2s; }
+    .plan-opt.active { border: 2px solid var(--accent); }
+    .plan-opt .plan-name { font-size: 0.85rem; color: var(--muted); font-weight: 500; margin-bottom: 0.2rem; }
+    .plan-opt.active .plan-name { color: var(--text); }
+    .plan-opt .plan-price { font-size: 1.5rem; font-weight: 800; }
+    .plan-opt .plan-price span { font-size: 0.8rem; font-weight: 500; color: var(--muted); }
+    .plan-pill { position: absolute; top: -10px; right: 12px; background: var(--accent); color: #fff; font-size: 0.65rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 999px; text-transform: uppercase; }
 
-    /* Payment Tabs Inside Modal */
-    .pay-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 1rem; }
-    .pay-tab { background: var(--input); border: 1px solid var(--border); color: var(--muted); padding: 0.75rem 0.5rem; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 0.85rem; transition: 0.2s; text-align: center; }
-    .pay-tab.active { background: #2a3042; color: #fff; border-color: #4f46e5; }
+    /* Payment Tabs */
+    .pay-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 1.25rem; }
+    .pay-tab { background: var(--card); border: 1px solid var(--border); color: var(--muted); padding: 0.8rem 0.5rem; border-radius: 10px; font-weight: 600; cursor: pointer; text-align: center; transition: 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.2rem; }
+    .pay-tab.active { background: var(--input); border-color: var(--accent); color: #fff; }
+    .pay-tab .tab-title { font-size: 0.9rem; }
+    .pay-tab .tab-sub { font-size: 0.7rem; font-weight: 400; color: var(--muted); }
+    .pay-tab.active .tab-sub { color: var(--accent); }
 
-    /* Remittance Apps Buttons (EXACT COLORS) */
-    .remit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 1rem; }
-    .remit-btn { padding: 0.65rem; border-radius: 8px; font-weight: 700; font-size: 0.85rem; border: none; cursor: pointer; text-align: center; transition: transform 0.1s; }
+    /* Step Cards */
+    .step-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; margin-bottom: 1rem; }
+    .step-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff; }
+    .step-card p { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.8rem; line-height: 1.4; }
+    
+    /* Remittance App Buttons */
+    .remit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+    .remit-btn { padding: 0.75rem; border-radius: 8px; font-weight: 700; font-size: 0.85rem; border: none; cursor: pointer; text-align: center; transition: transform 0.1s; }
     .remit-btn:active { transform: scale(0.96); }
     .btn-wise { background-color: #9FE870; color: #000; }
     .btn-wu { background-color: #FFDD00; color: #000; }
-    .btn-remitly { background-color: #1F3460; color: #fff; }
-    .btn-worldremit { background-color: #5C2D91; color: #fff; }
+    .btn-remitly { background-color: #3b82f6; color: #fff; }
+    .btn-worldremit { background-color: #7c3aed; color: #fff; }
 
-    .critical-banner { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); color: var(--green); padding: 0.75rem; border-radius: 8px; font-size: 0.82rem; margin-bottom: 1rem; line-height: 1.4; }
-    .critical-banner strong { color: #34d399; }
+    /* Green Banner */
+    .green-banner { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 8px; padding: 0.8rem; font-size: 0.82rem; line-height: 1.5; color: #d1fae5; }
+    .green-banner strong { color: var(--green); font-weight: 600; }
 
-    .copy-group { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.5rem; }
+    /* Copy Rows */
+    .copy-group { display: flex; flex-direction: column; gap: 0.6rem; }
     .copy-row { display: flex; gap: 0.5rem; align-items: center; }
-    .copy-row input { min-height: 38px; font-size: 0.85rem; background: transparent; border: 1px solid var(--border); }
-    .copy-row button { background: var(--input); border: 1px solid var(--border); color: var(--muted); padding: 0 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.75rem; font-weight: 600; height: 38px; }
-    .copy-row button:hover { background: var(--border); color: #fff; }
+    .copy-row .input-wrapper { flex: 1; position: relative; }
+    .copy-row label { position: absolute; top: 4px; left: 10px; font-size: 0.6rem; color: var(--muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; }
+    .copy-row input { min-height: 44px; font-size: 0.85rem; background: var(--input); border: 1px solid var(--border); padding: 1rem 0.75rem 0.3rem; width: 100%; border-radius: 8px; color: #fff; }
+    .copy-row button { background: var(--input); border: 1px solid var(--border); color: var(--text); padding: 0 0.9rem; border-radius: 8px; cursor: pointer; font-size: 0.75rem; font-weight: 600; height: 44px; display: flex; align-items: center; justify-content: center; }
+    .copy-row button:hover { background: var(--border); }
 
-    .step-title { font-size: 0.85rem; font-weight: 700; color: #fff; margin-bottom: 0.4rem; display: block; }
+    /* Unlock Input */
+    .unlock-row { display: flex; gap: 0.5rem; }
+    .unlock-row input { flex: 1; min-height: 44px; font-size: 0.85rem; background: var(--input); border: 1px solid var(--border); padding: 0 0.75rem; border-radius: 8px; }
+    .unlock-row button { min-height: 44px; padding: 0 1.2rem; border-radius: 8px; font-weight: 600; background: #10b981; color: #fff; border: none; cursor: pointer; }
 
-    /* Markdown Styling for AI Output */
+    /* Markdown Styling */
     .ai-markdown h1, .ai-markdown h2, .ai-markdown h3 { margin-top: 0.8rem; margin-bottom: 0.4rem; font-size: 1.05rem; color: var(--text); }
     .ai-markdown ul, .ai-markdown ol { margin-left: 1.2rem; margin-bottom: 0.8rem; }
     .ai-markdown li { margin-bottom: 0.25rem; }
@@ -175,43 +196,43 @@
     <div class="modal-sheet">
       <button class="close-modal" onclick="closePricingModal()">✕</button>
       
-      <h2 style="font-size:1.3rem;text-align:center;margin-bottom:0.2rem;" id="modalTitle">Unlock Pro Access</h2>
-      <p style="font-size:0.84rem;color:var(--muted);text-align:center;margin-bottom:1rem;">
-        Complete your <span id="headerAmount">$16.99 USD</span> transfer below — no redirects required.
-      </p>
+      <div class="modal-header">
+        <h2 id="modalTitle">Unlock Pro Access</h2>
+        <p>Complete your <span id="headerAmount">$16.99 USD</span> payment below — no redirects required.</p>
+      </div>
 
       <!-- Plan Selection -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:1rem;">
-        <div id="optMonthly" onclick="selectPlan('monthly')" style="background:var(--input);border:1px solid var(--border);border-radius:12px;padding:0.8rem;cursor:pointer;text-align:center;">
-          <div style="font-size:0.78rem;color:var(--muted);font-weight:600;">Monthly Pro</div>
-          <div style="font-size:1.35rem;font-weight:800;margin:0.15rem 0;">$5.99<span style="font-size:0.75rem;font-weight:500;color:var(--muted);">/mo</span></div>
+      <div class="plans-grid">
+        <div id="optMonthly" onclick="selectPlan('monthly')" class="plan-opt">
+          <div class="plan-name">Monthly Pro</div>
+          <div class="plan-price">$6.99<span>/mo</span></div>
         </div>
 
-        <div id="optSemester" onclick="selectPlan('semester')" style="background:var(--input);border:2px solid var(--accent);border-radius:12px;padding:0.8rem;cursor:pointer;text-align:center;position:relative;">
-          <span style="position:absolute;top:-9px;right:8px;background:var(--accent);color:#fff;font-size:0.65rem;font-weight:700;padding:0.1rem 0.45rem;border-radius:999px;">SAVE 30%</span>
-          <div style="font-size:0.78rem;color:var(--text);font-weight:600;">Semester Pass</div>
-          <div style="font-size:1.35rem;font-weight:800;margin:0.15rem 0;">$16.99<span style="font-size:0.75rem;font-weight:500;color:var(--muted);">/4 mo</span></div>
+        <div id="optSemester" onclick="selectPlan('semester')" class="plan-opt active" style="position:relative;">
+          <span class="plan-pill">SAVE 30%</span>
+          <div class="plan-name">Semester Pass</div>
+          <div class="plan-price">$16.99<span>/4 mo</span></div>
         </div>
       </div>
 
-      <!-- Novice Helper Text -->
-      <div class="novice-helper">
-        <p><strong>New to international payments?</strong></p>
-        <p>Don't worry! You don't need crypto. The easiest way is to use a standard app like <b>Wise</b> or <b>Remitly</b>. It works just like sending money to a friend. Pick one below to get started.</p>
-      </div>
-
-      <!-- Payment Method Tabs -->
+      <!-- Payment Tabs -->
       <div class="pay-tabs">
-        <button class="pay-tab active" id="tabRemit" onclick="switchPayTab('remit')">Remittance Apps<br><span style="font-size:0.7rem;font-weight:400;color:var(--green);">(Easiest)</span></button>
-        <button class="pay-tab" id="tabCrypto" onclick="switchPayTab('crypto')">Crypto Assets<br><span style="font-size:0.7rem;font-weight:400;color:var(--muted);">(Advanced)</span></button>
+        <button class="pay-tab active" id="tabRemit" onclick="switchPayTab('remit')">
+          <span class="tab-title">Card / Apple Pay</span>
+          <span class="tab-sub">Wise • Remitly • Western Union</span>
+        </button>
+        <button class="pay-tab" id="tabCrypto" onclick="switchPayTab('crypto')">
+          <span class="tab-title">Crypto (USDT / USDC)</span>
+          <span class="tab-sub">Instant • Zero Bank Fees</span>
+        </button>
       </div>
 
       <!-- Remittance Content -->
       <div id="remitContent">
         <!-- Step 1 -->
-        <div style="margin-bottom: 1rem;">
-          <span class="step-title">Step 1: Choose Your Remittance App</span>
-          <p style="font-size:0.75rem; color:var(--muted); margin-bottom:0.5rem;">Open any trusted app below to send funds.</p>
+        <div class="step-card">
+          <h3>1. Open a Payment App</h3>
+          <p>Tap any trusted app below to pay <span style="color:var(--green); font-weight:bold;">$16.99 USD</span> using your Debit Card, Apple Pay, or Interac.</p>
           <div class="remit-grid">
             <button class="remit-btn btn-wise">Wise</button>
             <button class="remit-btn btn-wu">Western Union</button>
@@ -221,95 +242,94 @@
         </div>
 
         <!-- Step 2 -->
-        <div class="critical-banner">
-          <strong>Step 2: Set the Correct Delivery Method</strong><br>
-          CRITICAL SETTING: Set destination country to Kenya, choose Mobile Wallet as the delivery method, and select M-PESA.
+        <div class="step-card">
+          <h3>2. Select Delivery Method</h3>
+          <div class="green-banner">
+            <strong>IMPORTANT:</strong> Set destination country to <strong>Kenya</strong>, select <strong>Mobile Wallet</strong> as delivery method, and choose <strong>M-PESA</strong>.
+          </div>
         </div>
 
         <!-- Step 3 -->
-      <div class="step-card">
-        <div class="step-title">3. Copy Receiver Details</div>
-        <div class="step-desc">Tap <strong>Copy</strong> on each field and paste directly into your app:</div>
-        <div style="display: flex; flex-direction: column; gap: 8px;">
-
-          <div class="detail-item">
-            <div>
-              <span class="detail-label">First Name</span>
-              <span class="detail-value" id="valFirst">Alex</span>
+        <div class="step-card">
+          <h3>3. Copy Receiver Details</h3>
+          <div class="copy-group">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem;">
+              <div class="copy-row">
+                <div class="input-wrapper">
+                  <label>First Name</label>
+                  <input type="text" value="Alex" readonly>
+                </div>
+                <button onclick="copyText('Alex', this)">Copy</button>
+              </div>
+              <div class="copy-row">
+                <div class="input-wrapper">
+                  <label>Last Name</label>
+                  <input type="text" value="Musera" readonly>
+                </div>
+                <button onclick="copyText('Musera', this)">Copy</button>
+              </div>
             </div>
-            <button class="copy-mini-btn" onclick="copyField('valFirst', this)">Copy</button>
-          </div>
 
-          <div class="detail-item">
-            <div>
-              <span class="detail-label">Last Name</span>
-              <span class="detail-value" id="valLast">Musera</span>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem;">
+              <div class="copy-row">
+                <div class="input-wrapper">
+                  <label>Country</label>
+                  <input type="text" value="Kenya" readonly>
+                </div>
+                <button onclick="copyText('Kenya', this)">Copy</button>
+              </div>
+              <div class="copy-row">
+                <div class="input-wrapper">
+                  <label>City / Postal Code</label>
+                  <input type="text" value="Vihiga, 50300" readonly>
+                </div>
+                <button onclick="copyText('Vihiga, 50300', this)">Copy</button>
+              </div>
             </div>
-            <button class="copy-mini-btn" onclick="copyField('valLast', this)">Copy</button>
-          </div>
 
-          <div class="detail-item">
-            <div>
-              <span class="detail-label">Country</span>
-              <span class="detail-value" id="valCountry">Kenya</span>
+            <div class="copy-row">
+              <div class="input-wrapper">
+                <label>Address / Street</label>
+                <input type="text" value="Majengo, Vihiga 50300" readonly>
+              </div>
+              <button onclick="copyText('Majengo, Vihiga 50300', this)">Copy</button>
             </div>
-            <button class="copy-mini-btn" onclick="copyField('valCountry', this)">Copy</button>
-          </div>
 
-          <div class="detail-item">
-            <div>
-              <span class="detail-label">City / Postal Code</span>
-              <span class="detail-value" id="valCity">Vihiga, 50300</span>
+            <div class="copy-row">
+              <div class="input-wrapper">
+                <label>Mobile Wallet Number (M-PESA)</label>
+                <input type="text" value="+254 718233558" readonly>
+              </div>
+              <button onclick="copyText('+254 718233558', this)">Copy</button>
             </div>
-            <button class="copy-mini-btn" onclick="copyField('valCity', this)">Copy</button>
           </div>
-
-          <div class="detail-item">
-            <div>
-              <span class="detail-label">Address / Street</span>
-              <span class="detail-value" id="valAddress">Majengo, Vihiga 50300</span>
-            </div>
-            <button class="copy-mini-btn" onclick="copyField('valAddress', this)">Copy</button>
-          </div>
-
-          <div class="detail-item">
-            <div>
-              <span class="detail-label">Mobile Wallet Number (M-PESA)</span>
-              <span class="detail-value" id="valPhone">+254 718233558</span>
-            </div>
-            <button class="copy-mini-btn" onclick="copyField('valPhone', this)">Copy</button>
-          </div>
-
         </div>
-      </div>
-
       </div>
 
       <!-- Crypto Content -->
       <div id="cryptoContent" class="hidden">
-        <div class="plan-box" style="margin-bottom: 1rem;">
-          <div style="font-weight:700;font-size:0.95rem;margin-bottom:0.2rem;">
-            Send <span id="cryptoAmountText" style="color:var(--green);">16.99 USDT / USDC</span>
-          </div>
-          <p style="font-size:0.8rem;color:var(--muted);margin-bottom:0.65rem;">
-            Copy the wallet address below and send the exact amount via BEP20 (BNB Smart Chain) or Polygon.
-          </p>
-          <div style="display:flex;gap:0.5rem;">
-            <input type="text" id="walletAddr" value="0xYOUR_ACTUAL_TRUST_WALLET_ADDRESS" readonly style="font-size:0.82rem;min-height:42px;" />
-            <button class="btn btn-sec" style="width:auto;min-height:42px;padding:0 0.9rem;" onclick="copyText('0xYOUR_ACTUAL_TRUST_WALLET_ADDRESS', this)">Copy</button>
+        <div class="step-card">
+          <h3>Send Crypto Assets</h3>
+          <p style="margin-bottom:0.5rem;">Send <span id="cryptoAmountText" style="color:var(--green); font-weight:bold;">16.99 USDT / USDC</span> via BEP20 (BNB Smart Chain) or Polygon.</p>
+          <div class="copy-row">
+            <div class="input-wrapper">
+              <label>Wallet Address</label>
+              <input type="text" id="walletAddr" value="0xYOUR_ACTUAL_TRUST_WALLET_ADDRESS" readonly>
+            </div>
+            <button onclick="copyText('0xYOUR_ACTUAL_TRUST_WALLET_ADDRESS', this)">Copy</button>
           </div>
         </div>
       </div>
 
       <!-- Shared Step 4 -->
-      <div class="plan-box" style="margin-bottom:0;">
-        <div style="font-weight:700;font-size:0.92rem;margin-bottom:0.4rem;">Step 4: Submit Verification or Unlock Code</div>
-        <p style="font-size:0.78rem; color:var(--muted); margin-bottom:0.5rem;">Paste your transfer reference number (MTCN / Reference ID / TxID) or Pro unlock code below:</p>
-        <div style="display:flex;gap:0.5rem;">
-          <input type="text" id="proCodeInput" placeholder="e.g. MTCN, Reference ID, or Unlock Code..." autocomplete="off" style="min-height:42px;" />
-          <button class="btn" style="width:auto;min-height:42px;padding:0 1rem; background: var(--green);" onclick="verifyProCode()">Unlock</button>
+      <div class="step-card" style="margin-bottom:0;">
+        <h3>4. Submit Verification or Unlock Code</h3>
+        <p>Paste your transfer reference number (MTCN / Reference ID / TxID) or Pro unlock code below:</p>
+        <div class="unlock-row">
+          <input type="text" id="proCodeInput" placeholder="e.g. MTCN, Reference ID, or Unlock Code..." autocomplete="off">
+          <button onclick="verifyProCode()">Unlock</button>
         </div>
-        <p id="codeStatus" style="font-size:0.78rem;color:var(--green);margin-top:0.4rem;"></p>
+        <p id="codeStatus" style="font-size:0.78rem;color:var(--green);margin-top:0.5rem;"></p>
       </div>
 
     </div>
@@ -368,14 +388,20 @@
 
     function selectPlan(plan) {
       const isSem = plan === 'semester';
-      document.getElementById('optSemester').style.border = isSem ? '2px solid var(--accent)' : '1px solid var(--border)';
-      document.getElementById('optMonthly').style.border = !isSem ? '2px solid var(--accent)' : '1px solid var(--border)';
+      document.getElementById('optSemester').classList.toggle('active', isSem);
+      document.getElementById('optMonthly').classList.toggle('active', !isSem);
 
-      const price = isSem ? '$16.99' : '$5.99';
-      const crypto = isSem ? '16.99 USDT / USDC' : '5.99 USDT / USDC';
+      const price = isSem ? '$16.99' : '$6.99';
+      const crypto = isSem ? '16.99 USDT / USDC' : '6.99 USDT / USDC';
 
       document.getElementById('headerAmount').textContent = price + ' USD';
       document.getElementById('cryptoAmountText').textContent = crypto;
+      
+      // Update the specific text in step 1
+      const step1Text = document.querySelector('#remitContent .step-card p');
+      if(step1Text) {
+         step1Text.innerHTML = `Tap any trusted app below to pay <span style="color:var(--green); font-weight:bold;">${price} USD</span> using your Debit Card, Apple Pay, or Interac.`;
+      }
     }
 
     // Universal Copy Function
