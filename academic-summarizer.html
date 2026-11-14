@@ -227,60 +227,62 @@
         </div>
 
         <!-- Step 3 -->
-        <div style="margin-bottom: 1rem;">
-          <span class="step-title">Step 3: Copy Receiver Details</span>
-          <p style="font-size:0.75rem; color:var(--muted); margin-bottom:0.5rem;">Tap "Copy" on each field and paste directly into your transfer app.</p>
-          
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; margin-bottom:0.5rem;">
-            <div class="copy-row">
-              <div style="flex:1;">
-                <span style="font-size:0.65rem; color:var(--muted);">First Name</span>
-                <input type="text" value="Alex" readonly>
-              </div>
-              <button onclick="copyText('Alex', this)">Copy</button>
+      <div class="step-card">
+        <div class="step-title">3. Copy Receiver Details</div>
+        <div class="step-desc">Tap <strong>Copy</strong> on each field and paste directly into your app:</div>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+
+          <div class="detail-item">
+            <div>
+              <span class="detail-label">First Name</span>
+              <span class="detail-value" id="valFirst">Alex</span>
             </div>
-            <div class="copy-row">
-              <div style="flex:1;">
-                <span style="font-size:0.65rem; color:var(--muted);">Last Name</span>
-                <input type="text" value="Musera" readonly>
-              </div>
-              <button onclick="copyText('Musera', this)">Copy</button>
-            </div>
+            <button class="copy-mini-btn" onclick="copyField('valFirst', this)">Copy</button>
           </div>
 
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; margin-bottom:0.5rem;">
-            <div class="copy-row">
-              <div style="flex:1;">
-                <span style="font-size:0.65rem; color:var(--muted);">Country</span>
-                <input type="text" value="Kenya" readonly>
-              </div>
-              <button onclick="copyText('Kenya', this)">Copy</button>
+          <div class="detail-item">
+            <div>
+              <span class="detail-label">Last Name</span>
+              <span class="detail-value" id="valLast">Musera</span>
             </div>
-            <div class="copy-row">
-              <div style="flex:1;">
-                <span style="font-size:0.65rem; color:var(--muted);">City / Postal Code</span>
-                <input type="text" value="Vihiga, 50300" readonly>
-              </div>
-              <button onclick="copyText('Vihiga, 50300', this)">Copy</button>
-            </div>
+            <button class="copy-mini-btn" onclick="copyField('valLast', this)">Copy</button>
           </div>
 
-          <div class="copy-row" style="margin-bottom:0.5rem;">
-            <div style="flex:1;">
-              <span style="font-size:0.65rem; color:var(--muted);">Address / Street</span>
-              <input type="text" value="Majengo, Vihiga 50300" readonly>
+          <div class="detail-item">
+            <div>
+              <span class="detail-label">Country</span>
+              <span class="detail-value" id="valCountry">Kenya</span>
             </div>
-            <button onclick="copyText('Majengo, Vihiga 50300', this)">Copy</button>
+            <button class="copy-mini-btn" onclick="copyField('valCountry', this)">Copy</button>
           </div>
 
-          <div class="copy-row">
-            <div style="flex:1;">
-              <span style="font-size:0.65rem; color:var(--muted);">Mobile Wallet Number (M-PESA)</span>
-              <input type="text" value="+254 718233558" readonly>
+          <div class="detail-item">
+            <div>
+              <span class="detail-label">City / Postal Code</span>
+              <span class="detail-value" id="valCity">Vihiga, 50300</span>
             </div>
-            <button onclick="copyText('+254 718233558', this)">Copy</button>
+            <button class="copy-mini-btn" onclick="copyField('valCity', this)">Copy</button>
           </div>
+
+          <div class="detail-item">
+            <div>
+              <span class="detail-label">Address / Street</span>
+              <span class="detail-value" id="valAddress">Majengo, Vihiga 50300</span>
+            </div>
+            <button class="copy-mini-btn" onclick="copyField('valAddress', this)">Copy</button>
+          </div>
+
+          <div class="detail-item">
+            <div>
+              <span class="detail-label">Mobile Wallet Number (M-PESA)</span>
+              <span class="detail-value" id="valPhone">+254 718233558</span>
+            </div>
+            <button class="copy-mini-btn" onclick="copyField('valPhone', this)">Copy</button>
+          </div>
+
         </div>
+      </div>
+
       </div>
 
       <!-- Crypto Content -->
