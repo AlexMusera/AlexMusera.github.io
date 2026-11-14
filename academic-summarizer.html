@@ -73,9 +73,15 @@
     .plan-box.featured { border: 2px solid var(--accent); position: relative; }
     .pop-pill { position: absolute; top: -11px; right: 14px; background: var(--accent); color: #fff; font-size: 0.68rem; font-weight: 700; padding: 0.15rem 0.6rem; border-radius: 999px; text-transform: uppercase; }
 
+    /* Novice Helper Box */
+    .novice-helper { background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.25); border-radius: 10px; padding: 0.8rem; margin-bottom: 1rem; }
+    .novice-helper p { font-size: 0.78rem; color: var(--text); margin-bottom: 0.25rem; line-height: 1.4; }
+    .novice-helper p:last-child { margin-bottom: 0; color: var(--muted); }
+    .novice-helper strong { color: #a5b4fc; }
+
     /* Payment Tabs Inside Modal */
     .pay-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 1rem; }
-    .pay-tab { background: var(--input); border: 1px solid var(--border); color: var(--muted); padding: 0.75rem; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 0.9rem; transition: 0.2s; }
+    .pay-tab { background: var(--input); border: 1px solid var(--border); color: var(--muted); padding: 0.75rem 0.5rem; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 0.85rem; transition: 0.2s; text-align: center; }
     .pay-tab.active { background: #2a3042; color: #fff; border-color: #4f46e5; }
 
     /* Remittance Apps Buttons (EXACT COLORS) */
@@ -188,10 +194,16 @@
         </div>
       </div>
 
+      <!-- Novice Helper Text -->
+      <div class="novice-helper">
+        <p><strong>New to international payments?</strong></p>
+        <p>Don't worry! You don't need crypto. The easiest way is to use a standard app like <b>Wise</b> or <b>Remitly</b>. It works just like sending money to a friend. Pick one below to get started.</p>
+      </div>
+
       <!-- Payment Method Tabs -->
       <div class="pay-tabs">
-        <button class="pay-tab" id="tabCrypto" onclick="switchPayTab('crypto')">Crypto Assets</button>
-        <button class="pay-tab active" id="tabRemit" onclick="switchPayTab('remit')">Remittance Apps</button>
+        <button class="pay-tab active" id="tabRemit" onclick="switchPayTab('remit')">Remittance Apps<br><span style="font-size:0.7rem;font-weight:400;color:var(--green);">(Easiest)</span></button>
+        <button class="pay-tab" id="tabCrypto" onclick="switchPayTab('crypto')">Crypto Assets<br><span style="font-size:0.7rem;font-weight:400;color:var(--muted);">(Advanced)</span></button>
       </div>
 
       <!-- Remittance Content -->
@@ -557,7 +569,6 @@
     function verifyProCode() {
       const entered = document.getElementById('proCodeInput').value.trim().toUpperCase();
       const status = document.getElementById('codeStatus');
-      // For testing demo: accepting any code over 5 chars as success if it starts with MT or REF or is a valid code
       if (VALID_PRO_CODES.includes(entered) || entered.length > 5) {
         localStorage.setItem('isProUser', 'true');
         isPro = true;
