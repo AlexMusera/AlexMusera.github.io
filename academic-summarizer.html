@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>Strict-Source Academic Summarizer</title>
+  <title>Exam Predictor - AI Study Engine</title>
   
   <!-- Load PDF.js and Markdown Parser -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -41,6 +41,7 @@
     .btn-sec { background: var(--input); border: 1px solid var(--border); color: var(--text); }
     .btn-sec:hover:not(:disabled) { background: var(--border); }
     .status-bar { display: flex; flex-direction: column; gap: 0.7rem; margin-top: 0.85rem; font-size: 0.85rem; color: var(--muted); }
+    #fileStatus.error { color: #f87171; font-weight: bold; }
 
     input[type="text"] { width: 100%; min-height: 46px; background: var(--input); border: 1px solid var(--border); color: var(--text); padding: 0.65rem 0.9rem; border-radius: 10px; font-size: 16px; }
     input[type="text"]:focus { outline: none; border-color: var(--accent); }
@@ -140,31 +141,28 @@
 </head>
 <body>
   <div class="container">
-    <!-- Top Bar with Free Limit Counter -->
     <div class="topbar">
       <div class="usage-pill" id="usagePill">Free Plan: <span id="freeLeft">5</span>/5 PDFs left</div>
       <button class="upgrade-nav-btn" onclick="openPricingModal()">Upgrade Pro ⚡</button>
     </div>
 
     <header>
-      <h1>Academic PDF Study Engine</h1>
-      <span class="badge">Strict Source Mode • Uploaded PDF Only</span>
+      <h1>Academic Exam Predictor</h1>
+      <span class="badge">Strict Document Mode • Max 50 Pages</span>
     </header>
 
-    <!-- Upload Card -->
     <div class="card">
       <label for="pdfUpload" class="upload-area">
-        <p style="font-size:1rem;font-weight:600;margin-bottom:0.2rem;">Tap to Upload Lecture or Textbook PDF</p>
-        <p style="font-size:0.82rem;color:var(--muted);">Works with Canvas, Files & iCloud. Zero outside hallucinations.</p>
+        <p style="font-size:1rem;font-weight:600;margin-bottom:0.2rem;">Tap to Upload Lecture or Chapter PDF</p>
+        <p style="font-size:0.82rem;color:var(--muted);">Max 50 pages. Works with Canvas, Files & iCloud.</p>
         <input type="file" id="pdfUpload" accept="application/pdf" />
       </label>
       <div class="status-bar">
         <span id="fileStatus">No PDF selected yet.</span>
-        <button class="btn" id="processBtn" disabled>Generate Study Guide</button>
+        <button class="btn" id="processBtn" disabled>Generate Exam Prep</button>
       </div>
     </div>
 
-    <!-- Search Card -->
     <div class="card hidden" id="searchCard">
       <h3 style="font-size:1rem;margin-bottom:0.2rem;">Search Inside PDF Notes</h3>
       <div class="search-row">
@@ -174,15 +172,14 @@
       <div id="searchResults" style="margin-top:0.85rem;"></div>
     </div>
 
-    <!-- Output Card -->
     <div class="card hidden" id="outputCard">
       <div class="tabs">
-        <button class="tab active" data-tab="notesTab">Study Notes</button>
-        <button class="tab" data-tab="questionsTab">Self-Test Quiz</button>
-        <button class="tab" data-tab="definitionsTab">Key Definitions</button>
+        <button class="tab active" data-tab="notesTab">Exam Cheat Sheet</button>
+        <button class="tab" data-tab="questionsTab">Predict Exam Questions</button>
+        <button class="tab" data-tab="definitionsTab">Must-Know Definitions</button>
       </div>
       <div class="action-row">
-        <button class="btn btn-sec" id="copyBtn">Copy Notes</button>
+        <button class="btn btn-sec" id="copyBtn">Copy Sheet</button>
         <button class="btn btn-sec" id="exportBtn">Save .txt File</button>
       </div>
       <div id="notesTab" class="tab-content active"></div>
@@ -201,7 +198,6 @@
         <p>Complete your <span id="headerAmount">$16.99 USD</span> payment below — no redirects required.</p>
       </div>
 
-      <!-- Plan Selection -->
       <div class="plans-grid">
         <div id="optMonthly" onclick="selectPlan('monthly')" class="plan-opt">
           <div class="plan-name">Monthly Pro</div>
@@ -215,7 +211,6 @@
         </div>
       </div>
 
-      <!-- Payment Tabs -->
       <div class="pay-tabs">
         <button class="pay-tab active" id="tabRemit" onclick="switchPayTab('remit')">
           <span class="tab-title">Card / Apple Pay</span>
@@ -229,10 +224,9 @@
 
       <!-- Remittance Content -->
       <div id="remitContent">
-        <!-- Step 1 -->
         <div class="step-card">
           <h3>1. Open a Payment App</h3>
-          <p>Tap any trusted app below to pay <span style="color:var(--green); font-weight:bold;">$16.99 USD</span> using your Debit Card, Apple Pay, or Interac.</p>
+          <p>Tap any trusted app below to pay <span style="color:var(--green); font-weight:bold;" id="remitPriceDisplay">$16.99 USD</span> using your Debit Card, Apple Pay, or Interac.</p>
           <div class="remit-grid">
             <button class="remit-btn btn-wise">Wise</button>
             <button class="remit-btn btn-wu">Western Union</button>
@@ -241,7 +235,6 @@
           </div>
         </div>
 
-        <!-- Step 2 -->
         <div class="step-card">
           <h3>2. Select Delivery Method</h3>
           <div class="green-banner">
@@ -249,7 +242,6 @@
           </div>
         </div>
 
-        <!-- Step 3 -->
         <div class="step-card">
           <h3>3. Copy Receiver Details</h3>
           <div class="copy-group">
@@ -321,7 +313,6 @@
         </div>
       </div>
 
-      <!-- Shared Step 4 -->
       <div class="step-card" style="margin-bottom:0;">
         <h3>4. Submit Verification or Unlock Code</h3>
         <p>Paste your transfer reference number (MTCN / Reference ID / TxID) or Pro unlock code below:</p>
@@ -396,12 +387,7 @@
 
       document.getElementById('headerAmount').textContent = price + ' USD';
       document.getElementById('cryptoAmountText').textContent = crypto;
-      
-      // Update the specific text in step 1
-      const step1Text = document.querySelector('#remitContent .step-card p');
-      if(step1Text) {
-         step1Text.innerHTML = `Tap any trusted app below to pay <span style="color:var(--green); font-weight:bold;">${price} USD</span> using your Debit Card, Apple Pay, or Interac.`;
-      }
+      document.getElementById('remitPriceDisplay').textContent = price + ' USD';
     }
 
     // Universal Copy Function
@@ -421,6 +407,7 @@
       if (e.target.files.length > 0) {
         selectedFile = e.target.files[0];
         document.getElementById('fileStatus').textContent = `Ready: ${selectedFile.name}`;
+        document.getElementById('fileStatus').classList.remove('error');
         document.getElementById('processBtn').disabled = false;
       }
     });
@@ -445,11 +432,21 @@
       const status = document.getElementById('fileStatus');
       btn.disabled = true;
       status.textContent = 'Extracting text strictly from PDF...';
+      status.classList.remove('error');
       extractedPages = [];
 
       try {
         const buf = await selectedFile.arrayBuffer();
         const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
+        
+        // BUDGET PROTECTION: Hard limit to 50 pages
+        if (pdf.numPages > 50) {
+           status.textContent = 'Error: PDF exceeds 50 pages. Please upload specific chapters to save API costs.';
+           status.classList.add('error');
+           btn.disabled = false;
+           return;
+        }
+
         for (let i = 1; i <= pdf.numPages; i++) {
           const page = await pdf.getPage(i);
           const tc = await page.getTextContent();
@@ -470,6 +467,7 @@
         document.getElementById('outputCard').classList.remove('hidden');
       } catch (err) {
         status.textContent = 'Error reading PDF: ' + err.message;
+        status.classList.add('error');
         console.error(err);
       } finally {
         btn.disabled = false;
@@ -519,37 +517,37 @@
       const fullTextWithPages = extractedPages.map(p => `[Page ${p.pageNum}] ${p.text}`).join('\n\n');
 
       try {
-        // Fetch AI Notes
-        statusEl.textContent = 'Generating AI Study Notes...';
+        // Fetch AI Cheat Sheet (Updated Mode)
+        statusEl.textContent = 'Generating AI Exam Cheat Sheet...';
         const notesRes = await fetch(WORKER_API_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ pdfText: fullTextWithPages, mode: 'notes' })
+          body: JSON.stringify({ pdfText: fullTextWithPages, mode: 'cheatsheet' }) // Changed mode
         }).then(r => r.json());
 
         if (notesRes.result && !notesRes.result.startsWith('Error')) {
-          notesEl.innerHTML = `<div class="note-item" style="border-left-color: var(--green);"><span class="page-tag" style="color:var(--green);">AI Study Notes</span><div class="ai-markdown">${marked.parse(notesRes.result)}</div></div>`;
+          notesEl.innerHTML = `<div class="note-item" style="border-left-color: var(--green);"><span class="page-tag" style="color:var(--green);">AI Exam Cheat Sheet</span><div class="ai-markdown">${marked.parse(notesRes.result)}</div></div>`;
         } else {
           notesEl.innerHTML = `<div class="note-item" style="border-left-color: #ef4444;"><span class="page-tag" style="color:#ef4444;">AI Error</span><p>${notesRes.result}</p></div>` + notesEl.innerHTML;
         }
 
-        // Wait 2 seconds to avoid Groq Rate Limits, then Fetch AI Quiz
-        statusEl.textContent = 'Generating AI Quiz (Please wait)...';
+        // Wait 2 seconds to avoid Rate Limits
+        statusEl.textContent = 'Predicting Exam Questions (Please wait)...';
         await new Promise(resolve => setTimeout(resolve, 2000)); 
 
         const quizRes = await fetch(WORKER_API_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ pdfText: fullTextWithPages, mode: 'quiz' })
+          body: JSON.stringify({ pdfText: fullTextWithPages, mode: 'exam_predict' }) // Changed mode
         }).then(r => r.json());
 
         if (quizRes.result && !quizRes.result.startsWith('Error')) {
-          quizEl.innerHTML = `<div class="qa-item" style="border-left-color: var(--green);"><span class="page-tag" style="color:var(--green);">AI Self-Test Quiz</span><div class="ai-markdown">${marked.parse(quizRes.result)}</div></div>`;
+          quizEl.innerHTML = `<div class="qa-item" style="border-left-color: var(--green);"><span class="page-tag" style="color:var(--green);">AI Predicted Questions</span><div class="ai-markdown">${marked.parse(quizRes.result)}</div></div>`;
         } else {
           quizEl.innerHTML = `<div class="qa-item" style="border-left-color: #ef4444;"><span class="page-tag" style="color:#ef4444;">AI Quiz Error</span><p>${quizRes.result}</p></div>` + quizEl.innerHTML;
         }
 
-        statusEl.textContent = `AI Study Guide ready!`;
+        statusEl.textContent = `Exam prep ready!`;
 
       } catch (err) {
         console.error("Worker error:", err);
@@ -581,14 +579,14 @@
       await navigator.clipboard.writeText(txt);
       const b = document.getElementById('copyBtn');
       b.textContent = 'Copied!';
-      setTimeout(() => b.textContent = 'Copy Notes', 2000);
+      setTimeout(() => b.textContent = 'Copy Sheet', 2000);
     });
 
     document.getElementById('exportBtn').addEventListener('click', () => {
       const txt = Array.from(document.querySelectorAll('#notesTab .note-item')).map(el => el.innerText.replace('\n', ': ')).join('\n\n');
       const a = document.createElement('a');
-      a.href = URL.createObjectURL(new Blob([`STUDY NOTES: ${selectedFile.name}\n\n${txt}`], { type: 'text/plain' }));
-      a.download = `${selectedFile.name.replace('.pdf', '')}_Notes.txt`;
+      a.href = URL.createObjectURL(new Blob([`EXAM CHEAT SHEET: ${selectedFile.name}\n\n${txt}`], { type: 'text/plain' }));
+      a.download = `${selectedFile.name.replace('.pdf', '')}_CheatSheet.txt`;
       a.click();
     });
 
