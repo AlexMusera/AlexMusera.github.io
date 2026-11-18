@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CAL STATE TREE SERVICE · Tree Service in Bakersfield, CA</title>
+<meta name="description" content="CAL STATE TREE SERVICE — top-rated Tree Service in Bakersfield, CA. Call +1 661-809-3754 for a free estimate.">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: #1f2937; line-height: 1.55; background: #f8fafc; }
+  a { text-decoration: none; }
+  .preview-banner { background: #0f172a; color: #e2e8f0; text-align: center; padding: 0.55rem 1rem; font-size: 0.85rem; }
+  .preview-banner strong { color: #fff; }
+  header { background: #fff; border-bottom: 1px solid #e5e7eb; position: sticky; top: 0; z-index: 20; }
+  .nav-inner { max-width: 1120px; margin: 0 auto; padding: 0.9rem 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .brand { font-size: 1.15rem; font-weight: 800; color: #0f172a; display: flex; flex-direction: column; line-height: 1.2; }
+  .brand small { font-size: 0.72rem; font-weight: 500; color: #64748b; }
+  .nav-cta { background: #16a34a; color: #fff; padding: 0.6rem 1.05rem; border-radius: 8px; font-weight: 700; font-size: 0.92rem; white-space: nowrap; }
+  .hero { background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%); color: #fff; padding: 3.5rem 1.25rem 3rem; }
+  .hero-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 2.5rem; align-items: start; }
+  .trust-pill { display: inline-block; background: rgba(255,255,255,0.12); color: #fde047; padding: 0.35rem 0.8rem; border-radius: 999px; font-size: 0.82rem; font-weight: 600; margin-bottom: 1rem; }
+  .hero h1 { font-size: clamp(1.8rem, 4vw, 2.7rem); line-height: 1.15; margin-bottom: 1rem; }
+  .hero p { color: #cbd5e1; margin-bottom: 1.5rem; max-width: 36ch; }
+  .btn-call { display: inline-block; background: #16a34a; color: #fff; padding: 0.9rem 1.5rem; border-radius: 10px; font-weight: 800; font-size: 1.05rem; box-shadow: 0 6px 18px rgba(22,163,74,0.35); }
+  .quote-card { background: #fff; color: #1f2937; border-radius: 14px; padding: 1.6rem; box-shadow: 0 20px 40px rgba(0,0,0,0.25); }
+  .quote-card h2 { font-size: 1.3rem; margin-bottom: 0.35rem; }
+  .quote-card > p { font-size: 0.88rem; color: #64748b; margin-bottom: 1.1rem; }
+  .form-group { margin-bottom: 0.85rem; }
+  .form-group label { display: block; font-size: 0.8rem; font-weight: 600; color: #334155; margin-bottom: 0.3rem; }
+  .form-group input, .form-group textarea { width: 100%; padding: 0.65rem 0.8rem; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.92rem; font-family: inherit; }
+  .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #16a34a; box-shadow: 0 0 0 3px rgba(22,163,74,0.15); }
+  .btn-submit { width: 100%; background: #0f172a; color: #fff; padding: 0.8rem; border: none; border-radius: 8px; font-weight: 700; font-size: 0.98rem; cursor: pointer; }
+  .trust-strip { background: #fff; border-bottom: 1px solid #e5e7eb; }
+  .trust-items { max-width: 1120px; margin: 0 auto; padding: 1rem 1.25rem; display: flex; flex-wrap: wrap; gap: 1rem 2rem; justify-content: center; font-size: 0.88rem; font-weight: 600; color: #16a34a; }
+  .section { max-width: 1120px; margin: 0 auto; padding: 3rem 1.25rem; }
+  .section-header { text-align: center; margin-bottom: 2rem; }
+  .section-header h2 { font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 0.45rem; color: #0f172a; }
+  .section-header p { color: #64748b; }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .service-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 1.5rem; }
+  .service-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; color: #0f172a; }
+  .service-card p { font-size: 0.9rem; color: #475569; }
+  .reviews-wrap { background: #eef2f7; }
+  .review-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 1.4rem; }
+  .review-card .stars { color: #f59e0b; font-size: 1.05rem; margin-bottom: 0.5rem; }
+  .review-card p { font-size: 0.92rem; color: #334155; margin-bottom: 0.85rem; font-style: italic; }
+  .review-card strong { font-size: 0.82rem; color: #64748b; }
+  .cta-band { background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); color: #fff; text-align: center; padding: 3rem 1.25rem; }
+  .cta-band h2 { font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 0.6rem; }
+  .cta-band p { color: #dcfce7; margin-bottom: 1.4rem; }
+  .cta-band .btn-call { background: #fff; color: #15803d; box-shadow: 0 6px 18px rgba(0,0,0,0.2); }
+  footer { background: #0f172a; color: #94a3b8; text-align: center; padding: 1.3rem 1.25rem; font-size: 0.82rem; }
+  .mobile-call-bar { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: #16a34a; color: #fff; text-align: center; padding: 0.95rem; font-weight: 800; z-index: 30; }
+  @media (max-width: 860px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 700px) {
+    .mobile-call-bar { display: block; }
+    footer { padding-bottom: 4.5rem; }
+  }
+</style>
+</head>
+<body>
+  <div class="preview-banner">
+    Live Website Preview prepared for <strong>CAL STATE TREE SERVICE</strong> · Ready to launch on your own .com domain
+  </div>
+  <header>
+    <div class="nav-inner">
+      <div class="brand">CAL STATE TREE SERVICE<small>Bakersfield, CA · Licensed &amp; Insured</small></div>
+      <a href="tel:+16618093754" class="nav-cta">Call +1 661-809-3754</a>
+    </div>
+  </header>
+  <section class="hero" style="background-image: linear-gradient(rgba(15,23,42,0.85), rgba(15,23,42,0.85)), url('https://picsum.photos/seed/treeservice/1600/900'); background-size: cover; background-position: center;">
+    <div class="hero-grid">
+      <div>
+        <div class="trust-pill">★★★★★ 4.9 Rating (306 Verified Google Reviews)</div>
+        <h1>Top-Rated Tree Service in Bakersfield, CA</h1>
+        <p>Backed by 306+ five-star customer reviews across Bakersfield, CA. Fast response, honest upfront pricing, and guaranteed cleanup on every job.</p>
+        <a href="tel:+16618093754" class="btn-call">Call Now: +1 661-809-3754</a>
+      </div>
+      <div class="quote-card">
+        <h2>Request a Free Estimate</h2>
+        <p>Fill this out in 30 seconds and our local crew will call you right back.</p>
+        <form onsubmit="event.preventDefault(); document.getElementById('ok').style.display='block';">
+          <div class="form-group"><label>Your Name</label><input type="text" placeholder="John Miller" required /></div>
+          <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="(555) 234-5678" required /></div>
+          <div class="form-group"><label>Project Details</label><textarea rows="2" placeholder="Tell us about your project or address..."></textarea></div>
+          <button type="submit" class="btn-submit">Get My Free Quote</button>
+          <div id="ok" style="display:none;margin-top:0.8rem;background:#dcfce7;color:#14532d;padding:0.7rem;border-radius:8px;font-weight:600;text-align:center;">
+            Request received! For immediate help, call +1 661-809-3754.
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+  <div class="trust-strip">
+    <div class="trust-items">
+      <div>✓ Licensed &amp; Insured</div>
+      <div>✓ Free Written Estimates</div>
+      <div>✓ 100% Cleanup Guarantee</div>
+      <div>✓ 306+ 5-Star Reviews</div>
+    </div>
+  </div>
+  <section class="section">
+    <div class="section-header">
+      <h2>Professional Services in Bakersfield, CA</h2>
+      <p>Trusted by 306+ local homeowners and property managers.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card"><h3>Tree Removal</h3><p>Safe, insured removal of hazardous, dead, or unwanted trees — including tight-access and storm-damaged jobs.</p></div>
+      <div class="service-card"><h3>Stump Grinding</h3><p>Complete stump and root removal below grade so you can replant, pave, or sod without obstacles.</p></div>
+      <div class="service-card"><h3>Land Clearing</h3><p>Full lot and brush clearing for new builds, fences, and driveways — with debris haul-away included.</p></div>
+    </div>
+  </section>
+  <section class="reviews-wrap">
+    <div class="section">
+      <div class="section-header">
+        <h2>Why Customers Trust CAL STATE TREE SERVICE</h2>
+        <p>Rated 4.9 out of 5 stars from 306 verified Google reviews.</p>
+      </div>
+      <div class="services-grid">
+        <div class="review-card"><div class="stars">★★★★★</div><p>"Showed up on time, gave a very fair written price, and left our property spotless. Best local crew around."</p><strong>— Verified Homeowner · Bakersfield, CA</strong></div>
+        <div class="review-card"><div class="stars">★★★★★</div><p>"Fast communication and top-notch workmanship from start to finish. Would hire CAL STATE TREE SERVICE again without hesitation."</p><strong>— Local Property Owner · Bakersfield, CA</strong></div>
+        <div class="review-card"><div class="stars">★★★★★</div><p>"Honest pricing, great equipment, and hardworking crew. Easy 5-star recommendation."</p><strong>— Verified Google Reviewer · Bakersfield, CA</strong></div>
+      </div>
+    </div>
+  </section>
+  <section class="cta-band">
+    <h2>Need a Fast, Honest Quote in Bakersfield, CA?</h2>
+    <p>Speak directly with CAL STATE TREE SERVICE today. No obligation, no hidden fees.</p>
+    <a href="tel:+16618093754" class="btn-call">Call +1 661-809-3754 Now</a>
+  </section>
+  <footer>&copy; 2026 CAL STATE TREE SERVICE · Serving Bakersfield, CA · +1 661-809-3754</footer>
+  <a href="tel:+16618093754" class="mobile-call-bar">Tap to Call Now: +1 661-809-3754</a>
+</body>
+</html>
