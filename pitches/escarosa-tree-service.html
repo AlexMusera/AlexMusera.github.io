@@ -137,13 +137,11 @@
  <script>
   (function() {
     if (!navigator.webdriver && !/bot|crawl|spider|preview/i.test(navigator.userAgent)) {
-      fetch("https://discord.com/api/webhooks/1568282624181411900/pOtx4QGOBwaL_LLEJy-Gjuv2jnM0YYc3dQZUi8ilK5n6HPvO5cKXMo9XE8Ala952AeU-", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          content: "🔥 **LIVE PREVIEW OPENED!**\n**Client:** EscaRosa Tree Service\n**Page:** " + window.location.href + "\n**Device:** " + (/Mobi|Android|iPhone/i.test(navigator.userAgent) ? "Mobile Phone 📱" : "Desktop 💻")
-        })
-      }).catch(() => {});
+      const fd = new FormData();
+      fd.append("payload_json", JSON.stringify({
+        content: "🔥 **LIVE PREVIEW OPENED!**\n**Client:** EscaRosa Tree Service\n**Page:** " + window.location.href + "\n**Device:** " + (/Mobi|Android|iPhone/i.test(navigator.userAgent) ? "Mobile Phone 📱" : "Desktop 💻")
+      }));
+      fetch("https://discord.com/api/webhooks/1568282624181411900/pOtx4QGOBwaL_LLEJy-Gjuv2jnM0YYc3dQZUi8ilK5n6HPvO5cKXMo9XE8Ala952AeU-", { method: "POST", body: fd, mode: "no-cors" });
     }
   })();
 </script>
