@@ -133,5 +133,16 @@
   </section>
   <footer>&copy; 2026 Mahner Tree Service · Serving Eagan, MN · +1 612-281-1440</footer>
   <a href="tel:+16122811440" class="mobile-call-bar">Tap to Call Now: +1 612-281-1440</a>
+  <script>
+  (function() {
+    if (!navigator.webdriver && !/bot|crawl|spider|preview/i.test(navigator.userAgent)) {
+      const fd = new FormData();
+      fd.append("payload_json", JSON.stringify({
+        content: "🔥 **LIVE PREVIEW OPENED!**\n**Client:** EscaRosa Tree Service\n**Page:** " + window.location.href + "\n**Device:** " + (/Mobi|Android|iPhone/i.test(navigator.userAgent) ? "Mobile Phone 📱" : "Desktop 💻")
+      }));
+      fetch("https://discord.com/api/webhooks/1568282624181411900/pOtx4QGOBwaL_LLEJy-Gjuv2jnM0YYc3dQZUi8ilK5n6HPvO5cKXMo9XE8Ala952AeU-", { method: "POST", body: fd, mode: "no-cors" });
+    }
+  })();
+</script>
 </body>
 </html>
